@@ -11,8 +11,8 @@ module.exports = router
 function authenticate(req, res, next) {
   userService
     .authenticate(req.body)
-    .then((user) => {
-      res.json(user)
+    .then((token) => {
+      res.json(token)
     })
     .catch(next)
 }
