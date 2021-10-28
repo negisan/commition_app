@@ -8,7 +8,7 @@ import {
   Home,
   UserArtwork,
   UserPage,
-  Request,
+  Requests,
   Login,
   Signup,
 } from './pages'
@@ -25,7 +25,7 @@ function App() {
         <Route exact path='/:user/artwork/:id' component={UserArtwork} />
       </Switch>
       <Account />
-      <Request />
+      <Requests />
     </div>
   )
 }
