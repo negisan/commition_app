@@ -1,4 +1,5 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
 import { Navbar } from './components'
 
@@ -8,11 +9,13 @@ function App() {
   return (
     <div>
       <Navbar />
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/:user' component={UserPage} />
+        <Route exact path='/:user/artwork/:id' component={UserArtwork} />
+      </Switch>
       <Account />
       <Request />
-      <UserPage />
-      <UserArtwork />
-      <Home />
     </div>
   )
 }
