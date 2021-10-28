@@ -5,8 +5,31 @@ Variables
 */
 
 :root {
+  --clr-primary-1: hsl(160, 30%, 20%);
+  --clr-primary-2: hsl(160, 30%, 29%);
+  --clr-primary-3: hsl(160, 30%, 37%);
+  --clr-primary-4: hsl(160, 30%, 45%);
+  --clr-primary-5: hsl(160, 30%, 50%);
+  --clr-primary-6: hsl(160, 30%, 60%);
+  --clr-primary-7: hsl(160, 30%, 67%);
+  --clr-primary-8: hsl(160, 30%, 74%);
+  --clr-primary-9: hsl(160, 30%, 81%);
+  --clr-primary-10: hsl(160, 14%, 96%);
+
+  --clr-grey-1: hsl(251, 6%, 16%);
+  --clr-grey-2: hsl(251, 6%, 23%);
+  --clr-grey-3: hsl(251, 6%, 30%);
+  --clr-grey-4: hsl(251, 6%, 39%);
+  --clr-grey-5: hsl(251, 6%, 49%);
+  --clr-grey-6: hsl(251, 6%, 60%);
+  --clr-grey-7: hsl(251, 6%, 70%);
+  --clr-grey-8: hsl(251, 6%, 80%);
+  --clr-grey-9: hsl(251, 6%, 89%);
+  --clr-grey-10: hsl(251, 6%, 96%);
+
   --clr-white: #fff;
   --clr-black: #222;
+  --clr-red: #ff5959;
   --transition: all 0.3s linear;
   --spacing: 0.1rem;
   --radius: 0.25rem;
@@ -35,7 +58,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--clr-white);
+  background: var(--clr-primary-10);
   line-height: 1.5;
   font-size: 0.875rem;
 }
