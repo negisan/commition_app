@@ -21,7 +21,7 @@ function App() {
     <div>
       <ToastContainer
         position='top-center'
-        autoClose={4000}
+        autoClose={5000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
