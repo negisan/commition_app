@@ -24,7 +24,7 @@ async function create(params) {
   if (await db.User.findOne({ where: { email: params.email } })) {
     throw params.email + 'は既に使われています。'
   }
-  if (await db.User.findOne({ where: { email: params.name } })) {
+  if (await db.User.findOne({ where: { name: params.name } })) {
     throw params.name + 'は既に使われています。'
   }
 
