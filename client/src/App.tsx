@@ -1,5 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Navbar } from './components'
 
@@ -17,6 +19,17 @@ import {
 function App() {
   return (
     <div>
+      <ToastContainer
+        position='top-center'
+        autoClose={4000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
