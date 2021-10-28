@@ -26,8 +26,8 @@ function App() {
         <Route exact path='/:user/artwork/:id' component={UserArtwork} />
         <Route path='*' component={ErrorPage} />
       </Switch>
-      <Account />
-      <Requests />
+      {/* <Account /> */}
+      {/* <Requests /> */}
     </div>
   )
 }
