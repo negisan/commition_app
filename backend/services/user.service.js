@@ -52,3 +52,8 @@ async function getUser(id) {
   if (!user) throw 'ユーザーが見つかりません'
   return user
 }
+
+function omitHash(user) {
+  const { hash, ...userWithoutHash } = user
+  return userWithoutHash
+}
