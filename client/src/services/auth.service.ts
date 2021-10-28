@@ -41,7 +41,28 @@ const fetchUser = async () => {
     })
 }
 
+interface LoginCredentials {
+  email: string
+  password: string
+}
+
+const login = async (credentials: LoginCredentials) => {
+  return await axios({
+    method: 'post',
+    url: BASE_API_URL + '/signin',
+    data: credentials,
+  })
+    .then((res) => {
+      localStorage.setItem('user', JSON.stringify(res.data))
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 export default {
   register,
   fetchUser,
+  login,
 }

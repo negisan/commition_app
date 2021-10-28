@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form'
 import styled from 'styled-components'
 import { IoPersonCircleOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import { useAuthDispatchContext } from '../context/auth.context'
 
 interface FormData {
   email: string
@@ -10,8 +11,10 @@ interface FormData {
 }
 
 const Login: React.FC = () => {
+  const { login } = useAuthDispatchContext()
+
   const onSubmit = async (values: FormData) => {
-    console.log(values)
+    await login(values)
   }
 
   const handleValidate = (values: FormData) => {
