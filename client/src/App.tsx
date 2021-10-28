@@ -3,7 +3,15 @@ import { Switch, Route } from 'react-router-dom'
 
 import { Navbar } from './components'
 
-import { Account, Home, UserArtwork, UserPage, Request } from './pages'
+import {
+  Account,
+  Home,
+  UserArtwork,
+  UserPage,
+  Request,
+  Login,
+  Signup,
+} from './pages'
 
 function App() {
   return (
@@ -11,6 +19,8 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/signup' component={Signup} />
         <Route exact path='/:user' component={UserPage} />
         <Route exact path='/:user/artwork/:id' component={UserArtwork} />
       </Switch>
