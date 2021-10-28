@@ -16,7 +16,7 @@ const errorMessage = (err: any): string => {
   return (
     err.response?.data?.ErrorMessageJP ||
     err.response?.data?.ErrorMessageEN ||
-    err.message ||
+    err.response?.data?.message ||
     err.toString()
   )
 }
@@ -27,13 +27,13 @@ export const AuthProvider = ({ children }: any) => {
   const { toastSuccess, toastError } = useUIContext()
   const history = useHistory()
 
-  interface registerCredentials {
+  interface RegisterCredentials {
     name: string
     email: string
     password: string
   }
 
-  const register = async (credentials: registerCredentials) => {
+  const register = async (credentials: RegisterCredentials) => {
     setIsLoading(true)
     await AuthService.register(credentials)
       .then(() => {
@@ -55,9 +55,36 @@ export const AuthProvider = ({ children }: any) => {
       })
   }
 
+  interface LoginCredentials {
+    email: string
+    password: string
+  }
+
+  const login = async (Credentials: LoginCredentials) => {
+    setIsLoading(true)
+    await AuthService.login(Credentials)
+      .then(() => {
+        AuthService.fetchUser()
+          .then((user_info) => {
+            dispatch({ type: FETCH_USER_SUCCESS, payload: user_info })
+            toastSuccess('ログインしました')
+            history.push('/')
+            setIsLoading(false)
+          })
+          .catch((err) => {
+            toastError(errorMessage(err))
+            setIsLoading(false)
+          })
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
+
   return (
     <AuthStateContext.Provider value={{ ...state, isLoading }}>
-      <AuthDispatchContext.Provider value={{ register }}>
+      <AuthDispatchContext.Provider value={{ register, login }}>
         {children}
       </AuthDispatchContext.Provider>
     </AuthStateContext.Provider>
