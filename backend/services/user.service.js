@@ -6,6 +6,7 @@ const db = require('models')
 module.exports = {
   authenticate,
   create,
+  show,
 }
 
 async function authenticate({ email, password }) {
@@ -38,4 +39,16 @@ async function create(params) {
   const user = await db.User.findOne({ where: { email: params.email } })
   const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
   return { token }
+}
+
+async function show(req) {
+  return await omitHash(req.user)
+}
+
+// helper function
+
+async function getUser(id) {
+  const user = await db.User.findByPk(id)
+  if (!user) throw 'ユーザーが見つかりません'
+  return user
 }
