@@ -1,9 +1,18 @@
 import React from 'react'
 
+import { Navbar } from './components'
+
+import { Account, Home, UserArtwork, UserPage, Request } from './pages'
+
 function App() {
   return (
     <div>
-      <h1>App</h1>
+      <Navbar />
+      <Account />
+      <Request />
+      <UserPage />
+      <UserArtwork />
+      <Home />
     </div>
   )
 }
