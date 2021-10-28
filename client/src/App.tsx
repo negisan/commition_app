@@ -11,6 +11,7 @@ import {
   Requests,
   Login,
   Signup,
+  ErrorPage,
 } from './pages'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/:user' component={UserPage} />
         <Route exact path='/:user/artwork/:id' component={UserArtwork} />
+        <Route path='*' component={ErrorPage} />
       </Switch>
       <Account />
       <Requests />

@@ -5,4 +5,14 @@ import Account from './Account.page'
 import Requests from './Requests.page'
 import Login from './Login.page'
 import Signup from './Signup.page'
-export { Home, UserPage, UserArtwork, Account, Requests, Login, Signup }
+import ErrorPage from './Error.page'
+export {
+  Home,
+  UserPage,
+  UserArtwork,
+  Account,
+  Requests,
+  Login,
+  Signup,
+  ErrorPage,
+}
