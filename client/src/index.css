@@ -1,0 +1,49 @@
+/*
+==============
+Variables
+==============
+*/
+
+:root {
+  --clr-white: #fff;
+  --clr-black: #222;
+  --transition: all 0.3s linear;
+  --spacing: 0.1rem;
+  --radius: 0.25rem;
+  --light-shadow: 0 5rex 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5rex 15px rgba(0, 0, 0, 0.2);
+}
+
+/*
+==============
+Global Styles
+==============
+*/
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: '游ゴシック体', 'YuGothic', '游ゴシック', 'Yu Gothic',
+    'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--clr-white);
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
