@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { IoPersonCircleOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 
+import { useAuthDispatchContext } from '../context/auth.context'
+
 interface FormData {
   name: string
   email: string
@@ -12,8 +14,14 @@ interface FormData {
 }
 
 const Signup: React.FC = () => {
+  const { register } = useAuthDispatchContext()
+
   const onSubmit = async (values: FormData) => {
-    console.log(values)
+    await register({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    })
   }
 
   const handleValidate = (values: FormData) => {
