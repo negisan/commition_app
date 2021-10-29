@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Navbar } from './components'
+import { Navbar, PrivateRoute } from './components'
 
 import {
   Account,
@@ -37,10 +37,10 @@ function App() {
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/users/:user' component={UserPage} />
         <Route exact path='/users/:user/artwork/:id' component={UserArtwork} />
+        <PrivateRoute exact path='/account' component={Account} />
+        <PrivateRoute exact path='/requests' component={Requests} />
         <Route path='*' component={ErrorPage} />
       </Switch>
-      {/* <Account /> */}
-      {/* <Requests /> */}
     </div>
   )
 }
