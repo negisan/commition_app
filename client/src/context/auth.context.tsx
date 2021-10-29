@@ -82,6 +82,24 @@ export const AuthProvider = ({ children }: any) => {
       })
   }
 
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setIsLoading(true)
+      AuthService.fetchUser().then(
+        (user_info) => {
+          dispatch({ type: FETCH_USER_SUCCESS, payload: user_info })
+          setIsLoading(false)
+          return Promise.resolve()
+        },
+        (err) => {
+          toastError(errorMessage(err))
+          setIsLoading(false)
+          return Promise.reject()
+        }
+      )
+    }
+  }, [])
+
   return (
     <AuthStateContext.Provider value={{ ...state, isLoading }}>
       <AuthDispatchContext.Provider value={{ register, login }}>
