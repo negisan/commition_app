@@ -14,14 +14,24 @@ const Navbar = () => {
         <Link to={'/'}>Commition</Link>
       </Logo>
       <NavItemsRight>
-        <RequestLinkContainer>
-          <Link to={'/requests'}>
-            <HiPaperAirplane />
-            リクエスト
-          </Link>
-        </RequestLinkContainer>
-        <Link to={'/account'}>account</Link>
-        <p>{user?.name}</p>
+        {user ? (
+          <>
+            <RequestLinkContainer>
+              <Link to={'/requests'}>
+                <HiPaperAirplane />
+                リクエスト
+              </Link>
+            </RequestLinkContainer>
+            <Link to={'/account'}>account</Link>
+            <p>{user?.name}</p>
+          </>
+        ) : (
+          <LoginLinkContainer>
+            <Link to={'/login'}>
+              <p>ログイン</p>
+            </Link>
+          </LoginLinkContainer>
+        )}
       </NavItemsRight>
     </Wrapper>
   )
@@ -39,6 +49,18 @@ const Logo = styled.div`
   svg {
     align-self: center;
     margin-right: 0.5rem;
+  }
+`
+const LoginLinkContainer = styled.div`
+  cursor: pointer;
+  background: var(--clr-primary-5);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  p {
+    color: var(--clr-white);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -2px;
   }
 `
 
