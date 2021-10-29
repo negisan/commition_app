@@ -5,13 +5,16 @@ import './index.css'
 import App from './App'
 import { AuthProvider } from './context/auth.context'
 import { UIProvider } from './context/UI.context'
+import { UsersProvider } from './context/users.context'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <UIProvider>
         <AuthProvider>
-          <App />
+          <UsersProvider>
+            <App />
+          </UsersProvider>
         </AuthProvider>
       </UIProvider>
     </Router>
