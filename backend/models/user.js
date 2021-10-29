@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(Request)
+      this.hasMany(Artwork)
     }
 
     toJSON() {
@@ -29,10 +31,24 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-
       hash: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      icon: {
+        type: DataTypes.BLOB,
+      },
+      default_order_price: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      accepting_order: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      cash: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
       },
     },
     {
