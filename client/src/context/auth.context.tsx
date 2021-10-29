@@ -82,6 +82,12 @@ export const AuthProvider = ({ children }: any) => {
       })
   }
 
+  const logout = () => {
+    localStorage.removeItem('user')
+    dispatch({ type: LOGOUT })
+    history.push('/')
+  }
+
   useEffect(() => {
     if (localStorage.getItem('user')) {
       setIsLoading(true)
@@ -102,7 +108,7 @@ export const AuthProvider = ({ children }: any) => {
 
   return (
     <AuthStateContext.Provider value={{ ...state, isLoading }}>
-      <AuthDispatchContext.Provider value={{ register, login }}>
+      <AuthDispatchContext.Provider value={{ register, login, logout }}>
         {children}
       </AuthDispatchContext.Provider>
     </AuthStateContext.Provider>
