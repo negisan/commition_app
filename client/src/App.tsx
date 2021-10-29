@@ -35,8 +35,8 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
-        <Route exact path='/users/:user' component={UserPage} />
-        <Route exact path='/users/:user/artwork/:id' component={UserArtwork} />
+        <Route exact path='/user/:user' component={UserPage} />
+        <Route exact path='/user/:user/artwork/:id' component={UserArtwork} />
         <PrivateRoute exact path='/account' component={Account} />
         <PrivateRoute exact path='/requests' component={Requests} />
         <Route path='*' component={ErrorPage} />
