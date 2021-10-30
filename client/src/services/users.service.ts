@@ -1,4 +1,5 @@
 import axios from 'axios'
+import authHeader from './auth-header'
 
 const BASE_API_URL = 'http://localhost:4000'
 
@@ -15,6 +16,25 @@ const fetchUser = async (user_name: string) => {
     })
 }
 
+const updateUserIcon = async (new_user_icon: any) => {
+  const data = new FormData()
+  data.append('file', new_user_icon)
+  // @ts-ignore
+  return await axios({
+    headers: authHeader(),
+    method: 'put',
+    url: BASE_API_URL + '/users/icon',
+    data: data,
+  })
+    .then((res) => {
+      return Promise.resolve(res.data)
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 export default {
   fetchUser,
+  updateUserIcon,
 }

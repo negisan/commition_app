@@ -1,5 +1,8 @@
+const fs = require('fs')
+
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+
 const db = require('src/models')
 const config = require('src/config/config.json')
 
@@ -7,6 +10,7 @@ module.exports = {
   authenticate,
   create,
   show,
+  updateUserIcon,
 }
 
 async function authenticate({ email, password }) {
@@ -43,6 +47,29 @@ async function create(params) {
 
 async function show(req) {
   return await omitHash(req.user)
+}
+
+async function updateUserIcon(req) {
+  try {
+    if (req.file == undefined) {
+      throw 'ファイルを選択してください'
+    }
+    const new_user_icon = {
+      icon: fs
+        .readFileSync(
+          __basedir +
+            '/resources/static/assets/uploads_user_icon/' +
+            req.file.filename
+        )
+        .toString('base64'),
+    }
+    const updated_data = Object.assign(req.user, new_user_icon)
+    await db.User.update(updated_data, { where: { id: req.user.id } })
+
+    return updated_data
+  } catch (err) {
+    throw err
+  }
 }
 
 // helper function
