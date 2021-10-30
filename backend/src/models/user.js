@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       icon: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING(65535),
       },
       default_order_price: {
         type: DataTypes.INTEGER,

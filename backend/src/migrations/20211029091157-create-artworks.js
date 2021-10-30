@@ -20,7 +20,7 @@ module.exports = {
         },
       },
       content: {
-        type: Sequelize.BLOB,
+        type: Sequelize.STRING(65535),
         allowNull: false,
       },
       createdAt: {

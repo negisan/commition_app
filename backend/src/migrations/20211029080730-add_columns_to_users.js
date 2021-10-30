@@ -10,7 +10,7 @@ module.exports = {
      */
     return Promise.all([
       queryInterface.addColumn('Users', 'icon', {
-        type: Sequelize.BLOB,
+        type: Sequelize.STRING(65535),
         defaultValue: null,
       }),
       queryInterface.addColumn('Users', 'default_order_price', {

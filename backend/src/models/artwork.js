@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       content: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING(65535),
         allowNull: false,
       },
     },
