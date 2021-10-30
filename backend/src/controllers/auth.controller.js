@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
-const userService = require('services/user.service')
+const userService = require('src/services/user.service')
 
 // route
 router.post('/signin', authenticate)

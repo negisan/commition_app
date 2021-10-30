@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const publicService = require('services/public.service')
+const publicService = require('src/services/public.service')
 
 // route
 router.get('/user/:name', getUser)

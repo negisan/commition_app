@@ -3,15 +3,15 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const errorHandler = require('_middleware/error-handler')
+const errorHandler = require('src/_middleware/error-handler')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.use('/public', require('./controllers/public.controller'))
-app.use('/users', require('./controllers/users.controller'))
-app.use('/', require('./controllers/auth.controller'))
+app.use('/public', require('./src/controllers/public.controller'))
+app.use('/users', require('./src/controllers/users.controller'))
+app.use('/', require('./src/controllers/auth.controller'))
 
 app.use(errorHandler)
 

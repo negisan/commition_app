@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const userService = require('services/user.service')
-const authorize = require('_middleware/authorize')
+const userService = require('src/services/user.service')
+const authorize = require('src/_middleware/authorize')
 
 // route
 router.post('/', create)
