@@ -53,6 +53,9 @@ module.exports = {
           key: 'id',
         },
       },
+      order_price: {
+        type: Sequelize.INTEGER
+      },
       order_content: {
         type: Sequelize.TEXT,
       },
