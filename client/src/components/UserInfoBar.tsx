@@ -1,9 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { HiPaperAirplane } from 'react-icons/hi'
+import { Link } from 'react-router-dom'
 
 const UserInfoBar: React.FC<any> = ({ user }) => {
-  console.log(user)
+  const onClickNewOrder = () => {
+    if (user.accepting_order) {
+      return <Link to={`/user/${user.name}/order`} />
+    }
+  }
 
   return (
     <Wrapper>
@@ -12,7 +17,7 @@ const UserInfoBar: React.FC<any> = ({ user }) => {
           className={
             user.accepting_order ? 'request_button' : 'request_button forbidden'
           }
-          onClick={() => window.alert('Clicked!')}
+          onClick={onClickNewOrder}
         >
           <HiPaperAirplane size={16} />
           新規リクエスト

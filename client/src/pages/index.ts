@@ -6,7 +6,9 @@ import Requests from './Requests.page'
 import Login from './Login.page'
 import Signup from './Signup.page'
 import ErrorPage from './Error.page'
+import Order from './Order.page'
 export {
+  Order,
   Home,
   UserPage,
   ArtworkDetails,

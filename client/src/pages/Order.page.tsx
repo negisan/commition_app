@@ -2,29 +2,26 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import styled from 'styled-components'
 
-import { PageHeader, UserArtworks, UserInfoBar } from '../components'
+import { PageHeader, UserInfoBar, OrderForm } from '../components'
 import { useAuthStateContext } from '../context/auth.context'
-import {
-  useUsersDispatchContext,
-  useUsersStateContext,
-} from '../context/users.context'
+import { useUsersDispatchContext, useUsersStateContext } from '../context/users.context'
 
-const User: React.FC = () => {
-  const { user } = useAuthStateContext()
-  const { user: ownerUser } = useUsersStateContext()
-  const { fetchUser } = useUsersDispatchContext()
-  const { user: params_user_name }: any = useParams()
+const Order:React.FC = () => {
+  const {user} = useAuthStateContext()
+  const {user: params_user_name}:any = useParams()
+  const {fetchUser} = useUsersDispatchContext()
+  const {user: ownerUser} = useUsersStateContext()
 
-  useEffect(() => {
+  useEffect(()=> {
     fetchUser(params_user_name)
   }, [])
-
   return (
     <>
       <PageHeader user={ownerUser} />
       <SectionWrapper>
-        <UserInfoBar user={ownerUser}/>
-        <UserArtworks/>
+        <UserInfoBar user={ownerUser} />
+        {/* orderForm */}
+        <OrderForm client={user} creator={ownerUser} />
       </SectionWrapper>
     </>
   )
@@ -44,4 +41,4 @@ const SectionWrapper = styled.section`
 }
 `
 
-export default User
+export default Order

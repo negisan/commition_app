@@ -3,4 +3,5 @@ import PrivateRoute from './PrivateRoute'
 import PageHeader from './PageHeader'
 import UserInfoBar from './UserInfoBar'
 import UserArtworks from './UserArtworks'
-export { UserInfoBar, UserArtworks, PageHeader, Navbar, PrivateRoute }
+import OrderForm from './OrderForm'
+export { OrderForm, UserInfoBar, UserArtworks, PageHeader, Navbar, PrivateRoute }
