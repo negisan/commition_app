@@ -39,8 +39,7 @@ const UserIcon = styled.div`
   @media(min-width: 768px) {
     margin: 0;
     margin-right: auto;
-    padding-left: 1.5rem;
-
+    padding-left: 4.5rem;
     img {
       top: -6rem;
     }
@@ -53,9 +52,10 @@ const InfoBar = styled.div`
   padding: 2rem;
   h3 {
     text-align: center;
+    color: var(--clr-grey-4);
   }
   @media(min-width: 768px) {
-    padding-left: 15rem;
+    padding-left: 17rem;
     h3 {
       text-align: left;
     }
