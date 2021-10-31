@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
+import styled from 'styled-components'
+import { PageHeader } from '../components'
+
 import { useAuthStateContext } from '../context/auth.context'
 import {
   useUsersDispatchContext,
@@ -9,8 +12,7 @@ import {
 const User: React.FC = () => {
   const { user } = useAuthStateContext()
   const { user: ownerUser } = useUsersStateContext()
-  const { fetchUser, getNewUserIcon, submitNewUserIcon } =
-    useUsersDispatchContext()
+  const { fetchUser } = useUsersDispatchContext()
   const { user: params_user_name }: any = useParams()
 
   console.log(ownerUser)
@@ -20,28 +22,23 @@ const User: React.FC = () => {
   }, [])
 
   return (
-    <div>
-      <h1>userpage</h1>
-      <p>{ownerUser?.name}</p>
-      {ownerUser?.icon ? (
-        <img src={'data:image/jpeg;base64,' + ownerUser.icon} />
-      ) : (
-        ''
-      )}
-      <form>
-        　
-        <input
-          id='img'
-          type='file'
-          accept='image/*,.png,.jpg,.jpeg,.gif'
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            getNewUserIcon(e)
-          }
-        />
-        　<input type='button' value='保存' onClick={submitNewUserIcon} />
-      </form>
-    </div>
+    <>
+      {/* header */}
+      {/* @ts-ignore */}
+      <PageHeader user={ownerUser} />
+      {/* section */}
+      <SectionWrapper>
+        {/* user_info */}
+        <div></div>
+        {/* artwork */}
+        <div></div>
+      </SectionWrapper>
+    </>
   )
 }
+
+const SectionWrapper = styled.div`
+  height: 100vh;
+`
 
 export default User

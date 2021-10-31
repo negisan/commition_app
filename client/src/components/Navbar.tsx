@@ -23,7 +23,7 @@ const Navbar = () => {
               </Link>
             </RequestLinkContainer>
             <Link to={'/account'}>account</Link>
-            <p>{user?.name}</p>
+            <Link to={`/user/${user.name}`}>{user?.name}</Link>
           </>
         ) : (
           <LoginLinkContainer>

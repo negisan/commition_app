@@ -1,3 +1,5 @@
 import Navbar from './Navbar'
 import PrivateRoute from './PrivateRoute'
-export { Navbar, PrivateRoute }
+import PageHeader from './PageHeader'
+import UserInfoBar from './UserInfoBar'
+export { UserInfoBar, PageHeader, Navbar, PrivateRoute }
