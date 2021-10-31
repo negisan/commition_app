@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserArtwork: React.FC = () => {
+const ArtworkDetails: React.FC = () => {
   return (
     <div>
       <h1>user/works/:id</h1>
@@ -8,4 +8,4 @@ const UserArtwork: React.FC = () => {
   )
 }
 
-export default UserArtwork
+export default ArtworkDetails

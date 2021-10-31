@@ -8,7 +8,7 @@ import { Navbar, PrivateRoute } from './components'
 import {
   Account,
   Home,
-  UserArtwork,
+  ArtworkDetails,
   UserPage,
   Requests,
   Login,
@@ -36,7 +36,7 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/user/:user' component={UserPage} />
-        <Route exact path='/user/:user/artwork/:id' component={UserArtwork} />
+        <Route exact path='/user/:user/artwork/:id' component={ArtworkDetails} />
         <PrivateRoute exact path='/account' component={Account} />
         <PrivateRoute exact path='/requests' component={Requests} />
         <Route path='*' component={ErrorPage} />
