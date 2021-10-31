@@ -15,7 +15,7 @@ module.exports = {
       }),
       queryInterface.addColumn('Users', 'default_order_price', {
         type: Sequelize.INTEGER,
-        defaultValue: 0,
+        defaultValue: 1000,
       }),
       queryInterface.addColumn('Users', 'accepting_order', {
         type: Sequelize.BOOLEAN,

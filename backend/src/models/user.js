@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       default_order_price: {
         type: DataTypes.INTEGER,
-        defaultValue: 0,
+        defaultValue: 1000,
       },
       accepting_order: {
         type: DataTypes.BOOLEAN,
