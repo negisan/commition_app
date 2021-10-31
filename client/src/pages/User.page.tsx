@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import styled from 'styled-components'
-import { PageHeader } from '../components'
+import { PageHeader, UserArtworks, UserInfoBar } from '../components'
 
 import { useAuthStateContext } from '../context/auth.context'
 import {
@@ -29,16 +29,26 @@ const User: React.FC = () => {
       {/* section */}
       <SectionWrapper>
         {/* user_info */}
-        <div></div>
+        <UserInfoBar user={ownerUser}/>
         {/* artwork */}
-        <div></div>
+        <UserArtworks/>
       </SectionWrapper>
     </>
   )
 }
 
 const SectionWrapper = styled.div`
-  height: 100vh;
+  padding: 3rem 0;
+  display: grid;
+  gap: 3rem;
+@media (min-width: 768px) {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  gap: 1.5rem;
+  grid-template-columns: 16rem auto;
+  grid-auto-flow: row;
+}
 `
 
 export default User
