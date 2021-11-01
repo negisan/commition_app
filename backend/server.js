@@ -1,4 +1,5 @@
 require('rootpath')()
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
+app.use('/checkout',require('./src/controllers/checkout.controller'))
 app.use('/public', require('./src/controllers/public.controller'))
 app.use('/users', require('./src/controllers/users.controller'))
 app.use('/', require('./src/controllers/auth.controller'))
