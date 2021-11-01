@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { HiPaperAirplane } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router'
 
 const UserInfoBar: React.FC<any> = ({ user }) => {
+  const history = useHistory()
   const onClickNewOrder = () => {
     if (user.accepting_order) {
-      return <Link to={`/user/${user.name}/order`} />
+      return history.push(`/user/${user.name}/order`)
     }
   }
 
