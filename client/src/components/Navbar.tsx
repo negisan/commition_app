@@ -65,11 +65,13 @@ const Logo = styled.div`
   }
 `
 const LoginLinkContainer = styled.div`
-  cursor: pointer;
-  background: var(--clr-primary-5);
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
   p {
+    cursor: pointer;
+    background: var(--clr-primary-5);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
     color: var(--clr-white);
     font-weight: 600;
     font-size: 1.1rem;
