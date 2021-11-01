@@ -40,18 +40,22 @@ module.exports = (sequelize, DataTypes) => {
       progressing: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       submitted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false
       },
       done: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false
       },
       cancel: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false
       },
       artwork_id: DataTypes.INTEGER,
       order_price: DataTypes.INTEGER,
