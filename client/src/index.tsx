@@ -6,6 +6,7 @@ import App from './App'
 import { AuthProvider } from './context/auth.context'
 import { UIProvider } from './context/UI.context'
 import { UsersProvider } from './context/users.context'
+import { OrderProvider } from './context/order.context'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.render(
       <UIProvider>
         <AuthProvider>
           <UsersProvider>
-            <App />
+            <OrderProvider>
+              <App />
+            </OrderProvider>
           </UsersProvider>
         </AuthProvider>
       </UIProvider>

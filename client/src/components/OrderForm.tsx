@@ -1,10 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Form, Field } from 'react-final-form'
+import { useHistory } from 'react-router'
+
+import { useOrderDispatchContext, useOrderStateContext } from '../context/order.context'
+
+interface OrderState {
+  order_price: number,
+  order_content: string,
+}
 
 const OrderForm: React.FC<any> = ({ client, creator }) => {
-  const onSubmit = (values: any) => {
+  const {orderState } = useOrderStateContext()
+  const {setOrderState} = useOrderDispatchContext()
+  const history = useHistory()
+
+  const onSubmit = (values: OrderState) => {
     console.log(values)
+    setOrderState({
+      order_price: values.order_price,
+      order_content: values.order_content,
+      creator_id: creator.id,
+      client_id: client.id
+    })
+    history.push('/')
   }
 
   const handleValidate = (values: any) => {
@@ -18,7 +37,10 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
     return errors
   }
 
-  const formData = {}
+  const formData= {
+    order_price: orderState.order_price || creator.default_order_price,
+    order_content: orderState.order_content || '',
+  }
 
   return (
     <Wrapper>
