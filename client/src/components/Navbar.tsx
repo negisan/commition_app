@@ -2,8 +2,11 @@ import React from 'react'
 import { useAuthStateContext } from '../context/auth.context'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+
 import { SiCheckio } from 'react-icons/si'
 import { HiPaperAirplane } from 'react-icons/hi'
+import { GrConfigure } from 'react-icons/gr'
+import { FiUser } from 'react-icons/fi'
 
 const Navbar = () => {
   const { user } = useAuthStateContext()
@@ -16,14 +19,24 @@ const Navbar = () => {
       <NavItemsRight>
         {user ? (
           <>
-            <RequestLinkContainer>
+            <LinkContainer>
               <Link to={'/requests'}>
                 <HiPaperAirplane />
                 リクエスト
               </Link>
-            </RequestLinkContainer>
-            <Link to={'/account'}>account</Link>
-            <Link to={`/user/${user.name}`}>{user?.name}</Link>
+            </LinkContainer>
+            <LinkContainer>
+              <Link to={'/account'}>
+                <GrConfigure size={13} />
+                設定
+              </Link>
+            </LinkContainer>
+            <LinkContainer>
+              <Link to={`/user/${user.name}`}>
+                <FiUser size={15} />
+                {user?.name}
+              </Link>
+            </LinkContainer>
           </>
         ) : (
           <LoginLinkContainer>
@@ -64,8 +77,15 @@ const LoginLinkContainer = styled.div`
   }
 `
 
-const RequestLinkContainer = styled.div`
+const LinkContainer = styled.div`
+  :hover {
+    background: var(--clr-grey-10);
+  }
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   a {
+    padding: 0.5rem 1rem;
     display: flex;
     font-weight: 600;
     letter-spacing: -1px;
@@ -78,9 +98,9 @@ const RequestLinkContainer = styled.div`
 
 const NavItemsRight = styled.div`
   display: flex;
-  gap: 1rem;
+  height: 100%;
   a {
-    color: var(--clr-grey-1);
+    color: var(--clr-grey-5);
   }
 `
 
