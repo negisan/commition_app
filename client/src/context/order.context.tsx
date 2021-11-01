@@ -8,6 +8,8 @@ import { useStripe, useElements } from '@stripe/react-stripe-js'
 import { useAuthStateContext } from './auth.context'
 import { BASE_API_URL } from '../helper/constants'
 import { useUIContext } from './UI.context'
+import RequestsService from '../services/requestsService'
+
 
 const OrderStateContext = React.createContext<any | null>({})
 const OrderDispatchContext = React.createContext<any | null>({})
@@ -62,13 +64,18 @@ export const OrderProvider = ({ children }: any) => {
         return
       } else {
         // 支払い成功後、注文内容をデータベースに保存
-
-        // リクエストサービスでデータを作成
-        setIsProcessing(false)
-        toastSuccess('リクエストを正常に送信しました')
-        history.push('/requests')
+        await RequestsService.createRequest(order_data)
+          .then(() => {
+            setIsProcessing(false)
+            toastSuccess('リクエストを正常に送信しました')
+            history.push('/requests')
+          })
+          .catch((err) => {
+            return Promise.reject(err)
+          })
       }
     } catch (err) {
+      setIsProcessing(false)
       toastError(err)
     }
   }

@@ -53,7 +53,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
         onSubmit={onSubmit}
         validate={(values) => handleValidate(values)}
         initialValues={formData}
-        render={({ handleSubmit, pristine }) => (
+        render={({ handleSubmit, submitting, pristine }) => (
           <FormWrapper onSubmit={handleSubmit}>
             <FieldContainer>
               <span className='required'>必須</span>
@@ -132,7 +132,10 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
               </div>
             </CardElementContainer>
             <ButtonWrapper>
-              <button type='submit' disabled={pristine || isProcessing}>
+              <button
+                type='submit'
+                disabled={submitting || pristine || isProcessing}
+              >
                 発注する
               </button>
             </ButtonWrapper>
