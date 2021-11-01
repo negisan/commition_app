@@ -3,7 +3,10 @@ import styled from 'styled-components'
 import { HiPaperAirplane } from 'react-icons/hi'
 import { useHistory } from 'react-router'
 
+import { useAuthStateContext } from '../context/auth.context'
+
 const UserInfoBar: React.FC<any> = ({ user }) => {
+  const { user: logedinUser } = useAuthStateContext()
   const history = useHistory()
   const onClickNewOrder = () => {
     if (user.accepting_order) {
@@ -13,18 +16,26 @@ const UserInfoBar: React.FC<any> = ({ user }) => {
 
   return (
     <Wrapper>
-      <ButtonContainer>
-        <button
-          className={
-            user.accepting_order ? 'request_button' : 'request_button forbidden'
-          }
-          onClick={onClickNewOrder}
-        >
-          <HiPaperAirplane size={16} />
-          新規リクエスト
-        </button>
-      </ButtonContainer>
-      <div className='divider' />
+      {user.id === logedinUser.id ? (
+        <></>
+      ) : (
+        <>
+          <ButtonContainer>
+            <button
+              className={
+                user.accepting_order
+                  ? 'request_button'
+                  : 'request_button forbidden'
+              }
+              onClick={onClickNewOrder}
+            >
+              <HiPaperAirplane size={16} />
+              新規リクエスト
+            </button>
+          </ButtonContainer>
+          <div className='divider' />
+        </>
+      )}
       <UserInfoTableContainer>
         <table>
           <tbody>

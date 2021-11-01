@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import styled from 'styled-components'
 
 import { PageHeader, UserInfoBar, OrderForm } from '../components'
@@ -15,15 +15,21 @@ const Order: React.FC = () => {
   const { fetchUser } = useUsersDispatchContext()
   const { user: ownerUser } = useUsersStateContext()
 
+  const history = useHistory()
+
   useEffect(() => {
     fetchUser(params_user_name)
   }, [])
+
+  if (ownerUser.id === user.id) {
+    history.replace('/')
+  }
+
   return (
     <>
       <PageHeader user={ownerUser} />
       <SectionWrapper>
         <UserInfoBar user={ownerUser} />
-        {/* orderForm */}
         <OrderForm client={user} creator={ownerUser} />
       </SectionWrapper>
     </>
