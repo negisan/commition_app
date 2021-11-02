@@ -95,3 +95,16 @@ global variables
     width: 100%;
   }
 }
+
+.account_config-submit_btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: .5rem .75rem;
+  background: var(--clr-primary-4);
+  color: var(--clr-white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.account_config-submit_btn:hover {
+  background: var(--clr-primary-5);
+}
