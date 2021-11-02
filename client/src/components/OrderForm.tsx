@@ -44,7 +44,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
   }
 
   return (
-    <Wrapper>
+    <div className="section-wrapper">
       <SectionTitle>
         <h1>新規リクエスト</h1>
         <div className='divider'></div>
@@ -142,7 +142,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
           </FormWrapper>
         )}
       />
-    </Wrapper>
+    </div>
   )
 }
 
@@ -277,15 +277,6 @@ const FormWrapper = styled.form`
   margin: 0 auto;
   padding: 5rem 3rem;
   width: 100%;
-`
-
-const Wrapper = styled.div`
-  width: 95vw;
-  background: var(--clr-white);
-  margin: 0 auto;
-  @media (min-width: 768px) {
-    width: 100%;
-  }
 `
 
 export default OrderForm

@@ -84,3 +84,14 @@ global variables
   margin: 1.5rem 0;
   border: 1px solid var(--clr-grey-9);
 }
+
+.section-wrapper {
+  width: 95vw;
+  background: var(--clr-white);
+  margin: 0 auto;
+}
+@media screen and (min-width: 768px) {
+  .section-wrapper {
+    width: 100%;
+  }
+}
