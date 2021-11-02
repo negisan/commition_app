@@ -57,7 +57,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false
       },
-      artwork_id: DataTypes.INTEGER,
       order_price: DataTypes.INTEGER,
       order_content: DataTypes.TEXT,
       thanks_comment: DataTypes.TEXT,

@@ -44,15 +44,6 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      artwork_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'Artworks',
-          },
-          key: 'id',
-        },
-      },
       order_price: {
         type: Sequelize.INTEGER
       },
