@@ -1,4 +1,5 @@
 import React, { useContext, useReducer, useState } from 'react'
+
 import {
   FETCH_USER_SUCCESS,
   UPDATE_USER_ICON_SUCCESS,
@@ -7,18 +8,12 @@ import reducer from '../reducers/users.reducer'
 import usersService from '../services/users.service'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
+import { errorMessage } from '../helper/handleErrorMessage'
 
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
 
-const errorMessage = (err: any): string => {
-  return (
-    err.response?.data?.ErrorMessageJP ||
-    err.response?.data?.ErrorMessageEN ||
-    err.response?.data?.message ||
-    err.toString()
-  )
-}
+
 
 const initialState = {
   user: '',

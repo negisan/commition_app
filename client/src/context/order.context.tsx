@@ -9,7 +9,7 @@ import { useAuthStateContext } from './auth.context'
 import { BASE_API_URL } from '../helper/constants'
 import { useUIContext } from './UI.context'
 import RequestsService from '../services/requestsService'
-
+import { errorMessage } from '../helper/handleErrorMessage'
 
 const OrderStateContext = React.createContext<any | null>({})
 const OrderDispatchContext = React.createContext<any | null>({})
@@ -54,10 +54,10 @@ export const OrderProvider = ({ children }: any) => {
         setIsProcessing(false)
         return
       }
+
       const { error } = await stripe?.confirmCardPayment(clientSecret, {
         payment_method: paymentMethodReq?.paymentMethod.id,
       })
-
       if (error) {
         setCheckoutError(error.message)
         setIsProcessing(false)
@@ -76,7 +76,7 @@ export const OrderProvider = ({ children }: any) => {
       }
     } catch (err) {
       setIsProcessing(false)
-      toastError(err)
+      toastError(errorMessage(err))
     }
   }
 

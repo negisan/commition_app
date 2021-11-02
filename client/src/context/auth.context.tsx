@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect, useReducer } from 'react'
 import { useHistory } from 'react-router'
+
 import reducer from '../reducers/auth.reducer'
 import AuthService from '../services/auth.service'
 import { LOGOUT, FETCH_USER_SUCCESS } from '../constants/auth.constant'
 import { useUIContext } from './UI.context'
+import { errorMessage } from '../helper/handleErrorMessage'
 
 const AuthStateContext = React.createContext<any | null>({})
 const AuthDispatchContext = React.createContext<any | null>({})
@@ -12,14 +14,6 @@ const initialState = {
   user: {},
 }
 
-const errorMessage = (err: any): string => {
-  return (
-    err.response?.data?.ErrorMessageJP ||
-    err.response?.data?.ErrorMessageEN ||
-    err.response?.data?.message ||
-    err.toString()
-  )
-}
 
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
