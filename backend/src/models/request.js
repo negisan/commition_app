@@ -16,9 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(User, {
         foreignKey: 'client_id',
       })
-      this.hasOne(Artwork, {
-        foreignKey: 'artwork_id',
-      })
     }
 
     toJSON() {
