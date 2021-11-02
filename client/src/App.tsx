@@ -11,6 +11,7 @@ import {
   ArtworkDetails,
   UserPage,
   Requests,
+  RequestsCreator,
   Login,
   Signup,
   ErrorPage,
@@ -41,6 +42,7 @@ function App() {
         <PrivateRoute exact path='/user/:user/order' component={Order} />
         <PrivateRoute exact path='/account' component={Account} />
         <PrivateRoute exact path='/requests' component={Requests} />
+        <PrivateRoute exact path='/requests/creator' component={RequestsCreator} />
         <Route path='*' component={ErrorPage} />
       </Switch>
     </div>
