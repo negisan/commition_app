@@ -244,6 +244,21 @@ const submitRequest = async (request: any, artwork: any) => {
     })
 }
 
+const completeRequest = async (request: any, comment: string) => {
+  return await axios({
+    headers: authHeader(),
+    method: 'post',
+    url: BASE_API_URL + '/requests/complete?request=' + request.id,
+    data: { comment: comment },
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 export default {
   createRequest,
   clientFetchAllRequests,
@@ -261,4 +276,5 @@ export default {
   acceptRequest,
   cancelRequest,
   submitRequest,
+  completeRequest
 }

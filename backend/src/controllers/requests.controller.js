@@ -7,6 +7,7 @@ const requestService = require('src/services/request.service')
 router.post('/', authorize(), create)
 router.post('/cancel', authorize(), cancel)
 router.post('/accept', authorize(), accept)
+router.post('/complete', authorize(), complete)
 router.get('/client', authorize(), getClientRequests)
 router.get('/creator', authorize(), getCreatorRequests)
 
@@ -36,6 +37,15 @@ function accept(req, res, next) {
 function cancel(req, res, next) {
   requestService
     .cancel(req.query)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch(next)
+}
+
+function complete(req, res, next) {
+  requestService
+    .complete(req.user, req.query, req.body.comment)
     .then(() => {
       res.status(200).send()
     })

@@ -6,6 +6,7 @@ module.exports = {
   create,
   accept,
   cancel,
+  complete,
   getClientRequests,
   getCreatorRequests,
 }
@@ -50,6 +51,34 @@ async function cancel(query) {
     const request = await db.Request.findOne({ where: { id: request_id } })
     await db.User.findOne({
       where: { id: request.clientId },
+    }).then((user) => {
+      user.cash = user.cash + request.order_price
+      user.save()
+    })
+    return Promise.resolve()
+  } catch (err) {
+    throw err
+  }
+}
+
+async function complete(user, query, comment) {
+  try {
+    const request_id = query.request
+    await db.Request.findOne({ where: { id: request_id } }).then((request) => {
+      if (request.clientId !== user.id) {
+        return Promise.reject('forbidden')
+      }
+      request.thanks_comment = comment
+      request.state_default = false
+      request.progressing = false
+      request.submitted = false
+      request.done = true
+      request.save()
+    })
+    // 受注者の残高に料金を加算
+    const request = await db.Request.findOne({ where: { id: request_id } })
+    await db.User.findOne({
+      where: { id: request.creatorId },
     }).then((user) => {
       user.cash = user.cash + request.order_price
       user.save()

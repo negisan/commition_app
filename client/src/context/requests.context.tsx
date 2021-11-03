@@ -270,8 +270,22 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // completeTransaction
+  // completeRequest
   // clientのthanks_commentを保存、order_priceをcreatorの残高に加算してdoneフラグをtrueにする
+  const completeRequest = async (request: any, comment: string) => {
+    setIsLoading(true)
+    await requestsService
+      .completeRequest(request, comment)
+      .then(() => {
+        history.push('/')
+        toastSuccess('正常に送信されました')
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
 
   // filter ====================================================================
   const changeFilterToAll = () => {
@@ -334,6 +348,7 @@ export const RequestsProvider = ({ children }: any) => {
           acceptRequest,
           cancelRequest,
           submitRequest,
+          completeRequest
         }}
       >
         {children}
