@@ -1,4 +1,5 @@
 import React, { useContext, useReducer, useState } from 'react'
+import { useHistory } from 'react-router'
 
 import reducer from '../reducers/requests.reducer'
 import { errorMessage } from '../helper/handleErrorMessage'
@@ -41,6 +42,8 @@ export const RequestsProvider = ({ children }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [filterState, setFilterState] = useState<FilterState>('default')
   const [role, setRole] = useState<Role>('client')
+
+  const history = useHistory()
 
   // client fetch data ====================================================
   const clientFetchAllRequests = async () => {
@@ -224,6 +227,20 @@ export const RequestsProvider = ({ children }: any) => {
 
   // submitRequest
   // ArtWorkを作成してsubmitフラグをtrueにする
+  const submitRequest = async (item: any, artwork: any) => {
+    setIsLoading(true)
+    await requestsService
+      .submitRequest(item, artwork)
+      .then(() => {
+        history.push('/')
+        toastSuccess('正常に送信されました')
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
 
   // completeTransaction
   // clientのthanks_commentを保存、order_priceをcreatorの残高に加算してdoneフラグをtrueにする
@@ -286,6 +303,7 @@ export const RequestsProvider = ({ children }: any) => {
           changeFilterToDone,
           isClientPage,
           isCreatorPage,
+          submitRequest,
         }}
       >
         {children}

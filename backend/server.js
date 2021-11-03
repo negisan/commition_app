@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
+app.use('/artworks', require('./src/controllers/artworks.controller'))
 app.use('/requests', require('./src/controllers/requests.controller'))
 app.use('/checkout',require('./src/controllers/checkout.controller'))
 app.use('/public', require('./src/controllers/public.controller'))

@@ -56,7 +56,6 @@ const clientFetchDefaultRequests = async () => {
     })
 }
 
-
 const clientFetchProgressingRequests = async () => {
   return await axios({
     method: 'get',
@@ -175,7 +174,7 @@ const creatorFetchDoneRequests = async () => {
   return await axios({
     method: 'get',
     url: BASE_API_URL + '/requests/creator?state=done',
-    headers: authHeader()
+    headers: authHeader(),
   })
     .then((res) => {
       return Promise.resolve(res.data)
@@ -189,7 +188,7 @@ const creatorFetchCancelRequests = async () => {
   return await axios({
     method: 'get',
     url: BASE_API_URL + '/requests/creator?state=cancel',
-    headers: authHeader()
+    headers: authHeader(),
   })
     .then((res) => {
       return Promise.resolve(res.data)
@@ -199,7 +198,23 @@ const creatorFetchCancelRequests = async () => {
     })
 }
 
-// ===================================
+// ======================================================================
+const submitRequest = async (request: any, artwork: any) => {
+  const data = new FormData()
+  data.append('file', artwork)
+  return await axios({
+    headers: authHeader(),
+    method: 'post',
+    url: BASE_API_URL + '/artworks?request=' + request.id,
+    data: data,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
 
 export default {
   createRequest,
@@ -215,4 +230,5 @@ export default {
   creatorFetchSubmittedRequests,
   creatorFetchDoneRequests,
   creatorFetchCancelRequests,
+  submitRequest,
 }
