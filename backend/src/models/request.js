@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       this.hasOne(Artwork, {
-        foreignKey: 'artworkId',
+        foreignKey: 'id',
+        sourceKey: 'artworkId',
         constraints: false
       })
     }

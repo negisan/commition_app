@@ -144,6 +144,9 @@ async function getClientRequests(user, query) {
           model: db.User,
           as: 'creator',
         },
+        {
+          model: db.Artwork,
+        },
       ],
     })
     return requests
@@ -166,6 +169,9 @@ async function getClientRequests(user, query) {
           model: db.User,
           as: 'creator',
         },
+        {
+          model: db.Artwork,
+        },
       ],
     })
     return requests
@@ -183,6 +189,9 @@ async function getClientRequests(user, query) {
       {
         model: db.User,
         as: 'creator',
+      },
+      {
+        model: db.Artwork,
       },
     ],
   })
@@ -273,6 +282,9 @@ async function getCreatorRequests(user, query) {
           model: db.User,
           as: 'creator',
         },
+        {
+          model: db.Artwork,
+        },
       ],
     })
     return requests
@@ -295,6 +307,9 @@ async function getCreatorRequests(user, query) {
           model: db.User,
           as: 'creator',
         },
+        {
+          model: db.Artwork,
+        },
       ],
     })
     return requests
@@ -312,6 +327,9 @@ async function getCreatorRequests(user, query) {
       {
         model: db.User,
         as: 'creator',
+      },
+      {
+        model: db.Artwork,
       },
     ],
   })
