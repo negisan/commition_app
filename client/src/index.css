@@ -110,33 +110,29 @@ global variables
 }
 
 .btn_primary {
-  padding: 0.5rem 1rem;
-  border: transparent;
+  border: none;
   border-radius: var(--radius);
-  font-weight: 600;
-  color: var(--clr-white);
+  padding: .5rem .75rem;
   background: var(--clr-primary-4);
-  box-shadow: var(--light-shadow);
-  letter-spacing: var(--spacing);
+  letter-spacing: -1px;
+  color: var(--clr-white);
   cursor: pointer;
   transition: var(--transition);
 }
 .btn_primary:hover {
-  background: var(--clr-primary-7);
+  background: var(--clr-primary-6);
 }
 
 .btn_danger {
-  padding: 0.75rem 1rem;
-  border: transparent;
+  border: none;
   border-radius: var(--radius);
-  font-weight: 600;
-  color: var(--clr-white);
+  padding: .5rem .75rem;
   background: var(--clr-red);
-  box-shadow: var(--light-shadow);
-  letter-spacing: var(--spacing);
+  letter-spacing: -1px;
+  color: var(--clr-white);
   cursor: pointer;
   transition: var(--transition);
 }
 .btn_danger:hover {
-  opacity: 0.5;
+  opacity: 0.6;
 }
