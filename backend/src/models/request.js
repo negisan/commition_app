@@ -44,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false,
       },
+      state_default: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+      },
       submitted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

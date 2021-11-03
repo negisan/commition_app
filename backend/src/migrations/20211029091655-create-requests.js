@@ -28,6 +28,10 @@ module.exports = {
           },
         },
       },
+      state_default: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       progressing: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

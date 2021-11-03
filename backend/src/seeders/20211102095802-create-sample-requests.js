@@ -16,6 +16,7 @@ module.exports = {
       {
         creatorId: 1,
         clientId: 2,
+        state_default: false,
         progressing: false,
         submitted: true,
         done: true,
@@ -29,6 +30,7 @@ module.exports = {
       {
         creatorId: 2,
         clientId: 1,
+        state_default: false,
         progressing: false,
         submitted: true,
         done: true,
@@ -42,6 +44,7 @@ module.exports = {
       {
         creatorId: 1,
         clientId: 2,
+        state_default: true,
         progressing: false,
         submitted: false,
         done: false,
@@ -55,6 +58,7 @@ module.exports = {
       {
         creatorId: 1,
         clientId: 2,
+        state_default: false,
         progressing: false,
         submitted: false,
         done: false,
@@ -68,6 +72,7 @@ module.exports = {
       {
         creatorId: 1,
         clientId: 2,
+        state_default: false,
         progressing: true,
         submitted: false,
         done: false,
@@ -81,6 +86,7 @@ module.exports = {
       {
         creatorId: 1,
         clientId: 2,
+        state_default: false,
         progressing: false,
         submitted: true,
         done: false,
