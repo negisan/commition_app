@@ -14,6 +14,28 @@ async function create(order) {
 
 async function getClientRequests(user, query) {
   console.log('query=============================', query)
+  if (query.state === 'state_default') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          clientId: user.id,
+          state_default: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
   if (query.state === 'cancel') {
     const requests = await db.Request.findAll({
       where: {

@@ -15,6 +15,7 @@ import {
 const Requests: React.FC = () => {
   const {
     clientFetchAllRequests,
+    clientFetchDefaultRequests,
     clientFetchProgressingRequests,
     clientFetchSubmittedRequests,
     clientFetchDoneRequests,
@@ -32,6 +33,9 @@ const Requests: React.FC = () => {
   useEffect(() => {
     if (filterState === 'all') {
       clientFetchAllRequests()
+    }
+    if (filterState === 'default') {
+      clientFetchDefaultRequests()
     }
     if (filterState === 'progressing') {
       clientFetchProgressingRequests()

@@ -42,6 +42,21 @@ const clientFetchAllRequests = async () => {
     })
 }
 
+const clientFetchDefaultRequests = async () => {
+  return await axios({
+    method: 'get',
+    url: BASE_API_URL + '/requests/client?state=state_default',
+    headers: authHeader(),
+  })
+    .then((res) => {
+      return Promise.resolve(res.data)
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
+
 const clientFetchProgressingRequests = async () => {
   return await axios({
     method: 'get',
@@ -98,12 +113,26 @@ const clientFetchCancelRequests = async () => {
     })
 }
 
-// creator ======================================
+// creator =============================================================
 
 const creatorFetchAllRequests = async () => {
   return await axios({
     method: 'get',
     url: BASE_API_URL + '/requests/creator',
+    headers: authHeader(),
+  })
+    .then((res) => {
+      return Promise.resolve(res.data)
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
+const creatorFetchDefaultRequests = async () => {
+  return await axios({
+    method: 'get',
+    url: BASE_API_URL + '/requests/creator?state=state_default',
     headers: authHeader(),
   })
     .then((res) => {
@@ -175,11 +204,13 @@ const creatorFetchCancelRequests = async () => {
 export default {
   createRequest,
   clientFetchAllRequests,
+  clientFetchDefaultRequests,
   clientFetchProgressingRequests,
   clientFetchSubmittedRequests,
   clientFetchDoneRequests,
   clientFetchCancelRequests,
   creatorFetchAllRequests,
+  creatorFetchDefaultRequests,
   creatorFetchProgressingRequests,
   creatorFetchSubmittedRequests,
   creatorFetchDoneRequests,

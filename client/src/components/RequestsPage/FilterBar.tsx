@@ -8,6 +8,7 @@ import {
 const FilterBar:React.FC = () => {
   const {
     changeFilterToAll,
+    changeFilterToDefault,
     changeFilterToCanceled,
     changeFilterToProgressing,
     changeFilterToSubmitted,
@@ -25,6 +26,14 @@ const FilterBar:React.FC = () => {
           }`}
         >
           全て
+        </div>
+        <div
+          onClick={changeFilterToDefault}
+          className={`${
+            filterState === 'default' ? 'selected filter_btn' : 'filter_btn'
+          }`}
+        >
+          未受注
         </div>
         <div
           onClick={changeFilterToProgressing}
@@ -65,12 +74,13 @@ const FilterBar:React.FC = () => {
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 3rem;
+  justify-content: center;
+  gap: 0.5rem;
   .filter_btn {
     cursor: pointer;
     font-weight: 600;
     color: var(--clr-grey-5);
-    padding: 0.75rem 1rem;
+    padding: 0.5rem .75rem;
     border-radius: var(--radius);
     transition: var(--transition);
     :hover {

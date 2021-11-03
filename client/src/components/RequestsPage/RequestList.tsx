@@ -25,7 +25,7 @@ const RequestList: React.FC = () => {
 
   if (filterState === 'all') {
     return requests.map((request: any, index: number) => {
-      if(request.cancel === false && request.progressing === false && request.submitted === false && request.done === false) {
+      if(request.state_default === true) {
         return <RequestDefaultCard item={request} key={index} />
       }
       if(request.cancel === true) {
@@ -40,6 +40,12 @@ const RequestList: React.FC = () => {
       if(request.done === true) {
         return <RequestDoneCard item={request} key={index} />
       }
+    })
+  }
+
+  if (filterState === 'default') {
+    return requests.map((request: any, index: number) => {
+      return <RequestDefaultCard item={request} key={index} />
     })
   }
 

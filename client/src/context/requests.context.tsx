@@ -7,11 +7,13 @@ import requestsService from '../services/requestsService'
 import {
   CLIENT_FETCH_ALL_REQUESTS,
   CLIENT_FETCH_CANCEL_REQUESTS,
+  CLIENT_FETCH_DEFAULT_REQUESTS,
   CLIENT_FETCH_DONE_REQUESTS,
   CLIENT_FETCH_PROGRESSING_REQUESTS,
   CLIENT_FETCH_SUBMITTED_REQUESTS,
   CREATOR_FETCH_ALL_REQUESTS,
   CREATOR_FETCH_CANCEL_REQUESTS,
+  CREATOR_FETCH_DEFAULT_REQUESTS,
   CREATOR_FETCH_DONE_REQUESTS,
   CREATOR_FETCH_PROGRESSING_REQUESTS,
   CREATOR_FETCH_SUBMITTED_REQUESTS,
@@ -24,14 +26,20 @@ const initialState = {
   requests: '',
 }
 
-type FilterState = 'all' | 'progressing' | 'submitted' | 'done' | 'canceled'
+type FilterState =
+  | 'all'
+  | 'default'
+  | 'progressing'
+  | 'submitted'
+  | 'done'
+  | 'canceled'
 type Role = 'client' | 'creator'
 
 export const RequestsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { toastError, toastSuccess } = useUIContext()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [filterState, setFilterState] = useState<FilterState>('all')
+  const [filterState, setFilterState] = useState<FilterState>('default')
   const [role, setRole] = useState<Role>('client')
 
   // client fetch data ====================================================
@@ -41,6 +49,20 @@ export const RequestsProvider = ({ children }: any) => {
       .clientFetchAllRequests()
       .then((requests) => {
         dispatch({ type: CLIENT_FETCH_ALL_REQUESTS, payload: requests })
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
+
+  const clientFetchDefaultRequests = async () => {
+    setIsLoading(true)
+    await requestsService
+      .clientFetchDefaultRequests()
+      .then((requests) => {
+        dispatch({ type: CLIENT_FETCH_DEFAULT_REQUESTS, payload: requests })
         setIsLoading(false)
       })
       .catch((err) => {
@@ -112,6 +134,20 @@ export const RequestsProvider = ({ children }: any) => {
       .creatorFetchAllRequests()
       .then((requests) => {
         dispatch({ type: CREATOR_FETCH_ALL_REQUESTS, payload: requests })
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
+
+  const creatorFetchDefaultRequests = async () => {
+    setIsLoading(true)
+    await requestsService
+      .creatorFetchDefaultRequests()
+      .then((requests) => {
+        dispatch({ type: CREATOR_FETCH_DEFAULT_REQUESTS, payload: requests })
         setIsLoading(false)
       })
       .catch((err) => {
@@ -197,6 +233,10 @@ export const RequestsProvider = ({ children }: any) => {
     setFilterState('all')
   }
 
+  const changeFilterToDefault = () => {
+    setFilterState('default')
+  }
+
   const changeFilterToProgressing = () => {
     setFilterState('progressing')
   }
@@ -213,9 +253,7 @@ export const RequestsProvider = ({ children }: any) => {
     setFilterState('canceled')
   }
 
-
-
-  // filter ======================================================================
+  // role ======================================================================
   const isClientPage = () => {
     setRole('client')
   }
@@ -224,28 +262,30 @@ export const RequestsProvider = ({ children }: any) => {
     setRole('creator')
   }
 
-
   return (
     <RequestsStateContext.Provider value={{ ...state, filterState, role }}>
       <RequestsDispatchContext.Provider
         value={{
           clientFetchAllRequests,
+          clientFetchDefaultRequests,
           clientFetchProgressingRequests,
           clientFetchSubmittedRequests,
           clientFetchDoneRequests,
           clientFetchCancelRequests,
           creatorFetchAllRequests,
+          creatorFetchDefaultRequests,
           creatorFetchProgressingRequests,
           creatorFetchSubmittedRequests,
           creatorFetchDoneRequests,
           creatorFetchCancelRequests,
           changeFilterToAll,
+          changeFilterToDefault,
           changeFilterToCanceled,
           changeFilterToProgressing,
           changeFilterToSubmitted,
           changeFilterToDone,
           isClientPage,
-          isCreatorPage
+          isCreatorPage,
         }}
       >
         {children}
