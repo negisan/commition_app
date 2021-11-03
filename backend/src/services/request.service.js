@@ -37,14 +37,22 @@ async function accept(user, query) {
 async function cancel(query) {
   try {
     const request_id = query.request
-    await db.Request.findOne({
+    const updated_request = {
+      state_default: false,
+      submitted: false,
+      progressing: false,
+      cancel: true,
+    }
+    await db.Request.update(updated_request, {
       where: { id: request_id },
-    }).then((request) => {
-      request.state_default = false
-      request.submitted = false
-      request.progressing = false
-      request.cancel = true
-      request.save()
+    })
+    // 返金処理
+    const request = await db.Request.findOne({ where: { id: request_id } })
+    await db.User.findOne({
+      where: { id: request.clientId },
+    }).then((user) => {
+      user.cash = user.cash + request.order_price
+      user.save()
     })
     return Promise.resolve()
   } catch (err) {
