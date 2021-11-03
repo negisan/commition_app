@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useRequestsStateContext } from '../../context/requests.context'
 
-type Role = 'creator' | 'client'
+const PageHeader: React.FC = () => {
+  const {role} = useRequestsStateContext()
 
-const PageHeader: React.FC<{ role: Role }> = ({ role }) => {
   const pagetitle = (): string => {
     if (role === 'creator') {
       return '受信したリクエスト'

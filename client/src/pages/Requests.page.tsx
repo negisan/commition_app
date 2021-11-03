@@ -19,10 +19,15 @@ const Requests: React.FC = () => {
     clientFetchSubmittedRequests,
     clientFetchDoneRequests,
     clientFetchCancelRequests,
+    isClientPage,
   } = useRequestsDispatchContext()
   const { filterState } = useRequestsStateContext()
 
   console.log(filterState)
+
+  useEffect(() => {
+    isClientPage()
+  }, [])
 
   useEffect(() => {
     if (filterState === 'all') {
@@ -44,7 +49,7 @@ const Requests: React.FC = () => {
 
   return (
     <Layout>
-      <PageHeader role='client' />
+      <PageHeader />
       <FilterBar />
       <div className='divider'></div>
       {filterState}

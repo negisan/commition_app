@@ -25,12 +25,14 @@ const initialState = {
 }
 
 type FilterState = 'all' | 'progressing' | 'submitted' | 'done' | 'canceled'
+type Role = 'client' | 'creator'
 
 export const RequestsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { toastError, toastSuccess } = useUIContext()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [filterState, setFilterState] = useState<FilterState>('all')
+  const [role, setRole] = useState<Role>('client')
 
   // client fetch data ====================================================
   const clientFetchAllRequests = async () => {
@@ -102,7 +104,6 @@ export const RequestsProvider = ({ children }: any) => {
         setIsLoading(false)
       })
   }
-
 
   // creator fetch data ====================================================
   const creatorFetchAllRequests = async () => {
@@ -178,7 +179,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-
   // =======================================================================
   // cancelRequest
   // order_priceをclientの残高に加算してcancelフラグをtrueにする
@@ -191,7 +191,6 @@ export const RequestsProvider = ({ children }: any) => {
 
   // completeTransaction
   // clientのthanks_commentを保存、order_priceをcreatorの残高に加算してdoneフラグをtrueにする
-
 
   // filter ====================================================================
   const changeFilterToAll = () => {
@@ -214,8 +213,20 @@ export const RequestsProvider = ({ children }: any) => {
     setFilterState('canceled')
   }
 
+
+
+  // filter ======================================================================
+  const isClientPage = () => {
+    setRole('client')
+  }
+
+  const isCreatorPage = () => {
+    setRole('creator')
+  }
+
+
   return (
-    <RequestsStateContext.Provider value={{ ...state, filterState }}>
+    <RequestsStateContext.Provider value={{ ...state, filterState, role }}>
       <RequestsDispatchContext.Provider
         value={{
           clientFetchAllRequests,
@@ -232,7 +243,9 @@ export const RequestsProvider = ({ children }: any) => {
           changeFilterToCanceled,
           changeFilterToProgressing,
           changeFilterToSubmitted,
-          changeFilterToDone
+          changeFilterToDone,
+          isClientPage,
+          isCreatorPage
         }}
       >
         {children}
