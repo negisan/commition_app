@@ -10,21 +10,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User, Request }) {
       // define association here
       this.belongsTo(User, {
-        foreignKey: 'user_id',
+        foreignKey: 'creatorId',
         onDelete: 'CASCADE',
       })
       this.belongsTo(Request, {
-        foreignKey: 'request_id',
+        foreignKey: 'requestId',
+        onDelete: 'CASCADE'
       })
     }
   }
   Artwork.init(
     {
-      user_id: {
+      creatorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      request_id: {
+      requestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -7,14 +7,19 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ User, Artwork }) {
+    static associate({ User }) {
       // define association here
+
       this.belongsTo(User, {
-        foreignKey: 'creator_id',
-        onDelete: 'CASCADE',
+        as: 'client',
+        foreignKey: 'clientId',
+        onDelete: 'CASCADE'
       })
+
       this.belongsTo(User, {
-        foreignKey: 'client_id',
+        as: 'creator',
+        foreignKey: 'creatorId',
+        onDelete: 'CASCADE'
       })
     }
 
@@ -26,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Request.init(
     {
-      creator_id: {
+      creatorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      client_id: {
+      clientId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -42,17 +47,17 @@ module.exports = (sequelize, DataTypes) => {
       submitted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       done: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       cancel: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
       },
       order_price: DataTypes.INTEGER,
       order_content: DataTypes.TEXT,

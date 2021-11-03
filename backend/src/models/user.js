@@ -9,8 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Request, Artwork }) {
       // define association here
-      this.hasMany(Request)
-      this.hasMany(Artwork)
     }
 
     toJSON() {
@@ -60,6 +58,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         withHash: { attributes: {} },
+        withoutIcon: {
+          attributes: {
+            exclude: ['hash', 'icon'],
+          },
+        },
       },
     }
   )

@@ -8,15 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      creatorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: 'CASCADE',
         references: {
           model: {
             tableName: 'Users',
+            key: 'id',
           },
-          key: 'id',
         },
       },
       content: {

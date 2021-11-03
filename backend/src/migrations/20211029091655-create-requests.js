@@ -8,23 +8,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      creator_id: {
+      creatorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onDelete: 'CASCADE',
         references: {
           model: {
             tableName: 'Users',
+            key: 'id',
           },
-          key: 'id',
         },
       },
-      client_id: {
+      clientId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: {
             tableName: 'Users',
+            key: 'id',
           },
         },
       },
@@ -45,7 +45,7 @@ module.exports = {
         allowNull: false,
       },
       order_price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       order_content: {
         type: Sequelize.TEXT,
