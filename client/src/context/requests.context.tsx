@@ -24,13 +24,15 @@ const initialState = {
   requests: '',
 }
 
+type FilterState = 'all' | 'progressing' | 'submitted' | 'done' | 'canceled'
+
 export const RequestsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { toastError, toastSuccess } = useUIContext()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [filterState, setFilterState] = useState<FilterState>('all')
 
-  // client fetch data =============================================
-  // clientFetchAllRequests
+  // client fetch data ====================================================
   const clientFetchAllRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -45,7 +47,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // clientFetchProgressingRequests
   const clientFetchProgressingRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -60,7 +61,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // clientFetchSubmittedRequests
   const clientFetchSubmittedRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -75,7 +75,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // clientFetchDoneRequests
   const clientFetchDoneRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -90,7 +89,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // clientFetchCancelRequests
   const clientFetchCancelRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -105,8 +103,8 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // creator fetch data ================================================
-  // creatorFetchAllRequests
+
+  // creator fetch data ====================================================
   const creatorFetchAllRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -121,7 +119,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // creatorFetchProgressingRequests
   const creatorFetchProgressingRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -139,7 +136,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // creatorFetchSubmittedRequests
   const creatorFetchSubmittedRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -154,7 +150,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // creatorFetchDoneRequests
   const creatorFetchDoneRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -169,7 +164,6 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // creatorFetchCancelRequests
   const creatorFetchCancelRequests = async () => {
     setIsLoading(true)
     await requestsService
@@ -184,7 +178,8 @@ export const RequestsProvider = ({ children }: any) => {
       })
   }
 
-  // ==================================================================
+
+  // =======================================================================
   // cancelRequest
   // order_priceをclientの残高に加算してcancelフラグをtrueにする
 
@@ -197,8 +192,30 @@ export const RequestsProvider = ({ children }: any) => {
   // completeTransaction
   // clientのthanks_commentを保存、order_priceをcreatorの残高に加算してdoneフラグをtrueにする
 
+
+  // filter ====================================================================
+  const changeFilterToAll = () => {
+    setFilterState('all')
+  }
+
+  const changeFilterToProgressing = () => {
+    setFilterState('progressing')
+  }
+
+  const changeFilterToSubmitted = () => {
+    setFilterState('submitted')
+  }
+
+  const changeFilterToDone = () => {
+    setFilterState('done')
+  }
+
+  const changeFilterToCanceled = () => {
+    setFilterState('canceled')
+  }
+
   return (
-    <RequestsStateContext.Provider value={{ ...state }}>
+    <RequestsStateContext.Provider value={{ ...state, filterState }}>
       <RequestsDispatchContext.Provider
         value={{
           clientFetchAllRequests,
@@ -210,7 +227,12 @@ export const RequestsProvider = ({ children }: any) => {
           creatorFetchProgressingRequests,
           creatorFetchSubmittedRequests,
           creatorFetchDoneRequests,
-          creatorFetchCancelRequests
+          creatorFetchCancelRequests,
+          changeFilterToAll,
+          changeFilterToCanceled,
+          changeFilterToProgressing,
+          changeFilterToSubmitted,
+          changeFilterToDone
         }}
       >
         {children}

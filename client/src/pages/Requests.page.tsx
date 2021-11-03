@@ -7,18 +7,21 @@ import {
   useRequestsStateContext,
 } from '../context/requests.context'
 
-type FilterState = 'all' | 'progressing' | 'submitted' | 'done' | 'canceled'
 
 const Requests: React.FC = () => {
-  const [filterState, setFilterState] = useState<FilterState>('all')
-  const { requests } = useRequestsStateContext()
   const {
     clientFetchAllRequests,
     clientFetchProgressingRequests,
     clientFetchSubmittedRequests,
     clientFetchDoneRequests,
     clientFetchCancelRequests,
+    changeFilterToAll,
+    changeFilterToCanceled,
+    changeFilterToProgressing,
+    changeFilterToSubmitted,
+    changeFilterToDone
   } = useRequestsDispatchContext()
+  const {filterState} = useRequestsStateContext();
 
   console.log(filterState)
 
@@ -40,14 +43,13 @@ const Requests: React.FC = () => {
     }
   }, [filterState])
 
-  console.log(requests)
 
   return (
     <Layout>
       <PageHeader role='client' />
       <FilterBar>
         <div
-          onClick={() => setFilterState('all')}
+          onClick={changeFilterToAll()}
           className={`${
             filterState === 'all' ? 'selected filter_btn' : 'filter_btn'
           }`}
@@ -55,7 +57,7 @@ const Requests: React.FC = () => {
           全て
         </div>
         <div
-          onClick={() => setFilterState('progressing')}
+          onClick={changeFilterToProgressing}
           className={`${
             filterState === 'progressing' ? 'selected filter_btn' : 'filter_btn'
           }`}
@@ -63,7 +65,7 @@ const Requests: React.FC = () => {
           進行中
         </div>
         <div
-          onClick={() => setFilterState('submitted')}
+          onClick={changeFilterToSubmitted}
           className={`${
             filterState === 'submitted' ? 'selected filter_btn' : 'filter_btn'
           }`}
@@ -71,7 +73,7 @@ const Requests: React.FC = () => {
           納品済み
         </div>
         <div
-          onClick={() => setFilterState('done')}
+          onClick={changeFilterToDone}
           className={`${
             filterState === 'done' ? 'selected filter_btn' : 'filter_btn'
           }`}
@@ -79,7 +81,7 @@ const Requests: React.FC = () => {
           完了
         </div>
         <div
-          onClick={() => setFilterState('canceled')}
+          onClick={changeFilterToCanceled}
           className={`${
             filterState === 'canceled' ? 'selected filter_btn' : 'filter_btn'
           }`}
@@ -90,7 +92,6 @@ const Requests: React.FC = () => {
       <div className='divider'></div>
       {filterState}
       <RequestList />
-      <p>requestsClient</p>
     </Layout>
   )
 }
