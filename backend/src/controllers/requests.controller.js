@@ -11,7 +11,7 @@ router.get('/creator', authorize(), getCreatorRequests)
 module.exports = router
 
 function create(req, res, next) {
-  if (req.user.id === req.body.order.creator_id) {
+  if (req.user.id === req.body.order.creatorId) {
     res.status(403).send('Forbidden')
   }
   requestService
