@@ -16,8 +16,8 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
     const orderData = {
       order_price: values.order_price,
       order_content: values.order_content,
-      creator_id: creator.id,
-      client_id: client.id,
+      creatorId: creator.id,
+      clientId: client.id,
     }
     orderWithCheckout(orderData)
   }

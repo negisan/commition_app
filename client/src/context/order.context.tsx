@@ -17,8 +17,8 @@ const OrderDispatchContext = React.createContext<any | null>({})
 interface OrderData {
   order_price: number
   order_content: string
-  creator_id: number
-  client_id: number
+  creatorId: number
+  clientId: number
 }
 
 export const OrderProvider = ({ children }: any) => {
