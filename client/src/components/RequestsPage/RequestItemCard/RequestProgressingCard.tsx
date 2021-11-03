@@ -71,6 +71,7 @@ const PreviewContainer = styled.div`
   img {
     width: 100%;
     object-fit: contain;
+    border-radius: var(--radius);
   }
   max-width: 768px;
 `
