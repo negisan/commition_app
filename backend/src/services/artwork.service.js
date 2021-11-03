@@ -32,6 +32,9 @@ async function create(user, file, query) {
     await db.Request.findOne({
       where: { id: request_id },
     }).then((request) => {
+      if (request.creatorId !== user.id) {
+        return Promise.reject('forbidden')
+      }
       request.artworkId = artwork.id
       request.progressing = false
       request.submitted = true
