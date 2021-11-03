@@ -54,6 +54,15 @@ module.exports = {
       order_content: {
         type: Sequelize.TEXT,
       },
+      artworkId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Artworks',
+            key: 'id',
+          },
+        },
+      },
       thanks_comment: {
         type: Sequelize.TEXT,
       },

@@ -16,16 +16,20 @@ module.exports = {
     return queryInterface.bulkInsert('Artworks', [
       {
         creatorId: 1,
-        requestId: 1,
         content: fs
           .readFileSync(__dirname + '/images/beach1.jpg')
           .toString('base64'),
       },
       {
         creatorId: 2,
-        requestId: 2,
         content: fs
           .readFileSync(__dirname + '/images/beach2.jpg')
+          .toString('base64'),
+      },
+      {
+        creatorId: 1,
+        content: fs
+          .readFileSync(__dirname + '/images/book1.jpg')
           .toString('base64'),
       },
     ])

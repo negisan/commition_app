@@ -13,19 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'creatorId',
         onDelete: 'CASCADE',
       })
-      this.belongsTo(Request, {
-        foreignKey: 'requestId',
-        onDelete: 'CASCADE'
-      })
     }
   }
   Artwork.init(
     {
       creatorId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      requestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
