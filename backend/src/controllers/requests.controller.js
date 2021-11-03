@@ -5,6 +5,7 @@ const requestService = require('src/services/request.service')
 
 // route
 router.post('/', authorize(), create)
+router.post('/cancel', authorize(), cancel)
 router.get('/client', authorize(), getClientRequests)
 router.get('/creator', authorize(), getCreatorRequests)
 
@@ -16,6 +17,15 @@ function create(req, res, next) {
   }
   requestService
     .create(req.body.order)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch(next)
+}
+
+function cancel(req, res, next) {
+  requestService
+    .cancel(req.query)
     .then(() => {
       res.status(200).send()
     })

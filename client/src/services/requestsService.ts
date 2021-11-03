@@ -199,6 +199,20 @@ const creatorFetchCancelRequests = async () => {
 }
 
 // ======================================================================
+const cancelRequest = async (request: any) => {
+  return axios({
+    headers: authHeader(),
+    method: 'post',
+    url: BASE_API_URL + '/requests/cancel?request=' + request.id,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 const submitRequest = async (request: any, artwork: any) => {
   const data = new FormData()
   data.append('file', artwork)
@@ -230,5 +244,6 @@ export default {
   creatorFetchSubmittedRequests,
   creatorFetchDoneRequests,
   creatorFetchCancelRequests,
+  cancelRequest,
   submitRequest,
 }

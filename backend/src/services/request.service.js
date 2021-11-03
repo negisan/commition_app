@@ -4,6 +4,7 @@ const Op = Sequelize.Op
 
 module.exports = {
   create,
+  cancel,
   getClientRequests,
   getCreatorRequests,
 }
@@ -11,6 +12,24 @@ module.exports = {
 async function create(order) {
   await db.Request.create(order)
   return Promise.resolve()
+}
+
+async function cancel(query) {
+  try {
+    const request_id = query.request
+    await db.Request.findOne({
+      where: { id: request_id },
+    }).then((request) => {
+      request.state_default = false
+      request.submitted = false
+      request.progressing = false
+      request.cancel = true
+      request.save()
+    })
+    return Promise.resolve()
+  } catch (err) {
+    throw err
+  }
 }
 
 async function getClientRequests(user, query) {

@@ -221,6 +221,17 @@ export const RequestsProvider = ({ children }: any) => {
   // =======================================================================
   // cancelRequest
   // order_priceをclientの残高に加算してcancelフラグをtrueにする
+  const cancelRequest = async (request:any) => {
+    setIsLoading(true)
+    await requestsService.cancelRequest(request).then(()=> {
+      toastSuccess('正常にキャンセルされました')
+      history.push('/')
+      setIsLoading(false)
+    }).catch((err) => {
+      toastError(errorMessage(err))
+      setIsLoading(false)
+    })
+  }
 
   // accepptRequest
   // progフラグをtrueにする
@@ -232,8 +243,8 @@ export const RequestsProvider = ({ children }: any) => {
     await requestsService
       .submitRequest(item, artwork)
       .then(() => {
-        history.push('/')
         toastSuccess('正常に送信されました')
+        history.push('/')
         setIsLoading(false)
       })
       .catch((err) => {
@@ -303,6 +314,7 @@ export const RequestsProvider = ({ children }: any) => {
           changeFilterToDone,
           isClientPage,
           isCreatorPage,
+          cancelRequest,
           submitRequest,
         }}
       >

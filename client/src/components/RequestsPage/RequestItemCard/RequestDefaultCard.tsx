@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useRequestsStateContext } from '../../../context/requests.context'
+import {
+  useRequestsDispatchContext,
+  useRequestsStateContext,
+} from '../../../context/requests.context'
 import {
   CardWrapper,
   CardHeader,
@@ -12,6 +15,7 @@ import {
 
 const RequestDefaultCard: React.FC<any> = ({ item }) => {
   const { role } = useRequestsStateContext()
+  const { cancelRequest } = useRequestsDispatchContext()
   if (role === 'client') {
     return (
       <CardWrapper>
@@ -19,8 +23,9 @@ const RequestDefaultCard: React.FC<any> = ({ item }) => {
         <OrderPrice order_price={item.order_price} />
         <OrderContent order_content={item.order_content} />
         <ButtonContainer>
-          <button className='btn_primary'>受注する</button>
-          <button className='btn_danger'>お断りする</button>
+          <button className='btn_danger' onClick={() => cancelRequest(item)}>
+            キャンセルする
+          </button>
         </ButtonContainer>
       </CardWrapper>
     )
@@ -33,7 +38,10 @@ const RequestDefaultCard: React.FC<any> = ({ item }) => {
         <OrderPrice order_price={item.order_price} />
         <OrderContent order_content={item.order_content} />
         <ButtonContainer>
-          <button className='btn_danger'>キャンセルする</button>
+          <button className='btn_primary'>受注する</button>
+          <button className='btn_danger' onClick={() => cancelRequest(item)}>
+            お断りする
+          </button>
         </ButtonContainer>
       </CardWrapper>
     )
