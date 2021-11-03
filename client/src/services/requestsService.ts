@@ -199,6 +199,20 @@ const creatorFetchCancelRequests = async () => {
 }
 
 // ======================================================================
+const acceptRequest = async (request: any) => {
+  return axios({
+    headers: authHeader(),
+    method: 'post',
+    url: BASE_API_URL + '/requests/accept?request=' + request.id,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 const cancelRequest = async (request: any) => {
   return axios({
     headers: authHeader(),
@@ -244,6 +258,7 @@ export default {
   creatorFetchSubmittedRequests,
   creatorFetchDoneRequests,
   creatorFetchCancelRequests,
+  acceptRequest,
   cancelRequest,
   submitRequest,
 }

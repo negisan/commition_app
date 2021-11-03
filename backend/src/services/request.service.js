@@ -4,6 +4,7 @@ const Op = Sequelize.Op
 
 module.exports = {
   create,
+  accept,
   cancel,
   getClientRequests,
   getCreatorRequests,
@@ -12,6 +13,25 @@ module.exports = {
 async function create(order) {
   await db.Request.create(order)
   return Promise.resolve()
+}
+
+async function accept(user, query) {
+  try {
+    const request_id = query.request
+    await db.Request.findOne({
+      where: { id: request_id },
+    }).then((request) => {
+      if (request.creatorId !== user.id) {
+        return Promise.reject('forbidden')
+      }
+      request.state_default = false
+      request.progressing = true
+      request.save()
+    })
+    return Promise.resolve()
+  } catch (err) {
+    throw err
+  }
 }
 
 async function cancel(query) {

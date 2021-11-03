@@ -15,7 +15,7 @@ import {
 
 const RequestDefaultCard: React.FC<any> = ({ item }) => {
   const { role } = useRequestsStateContext()
-  const { cancelRequest } = useRequestsDispatchContext()
+  const { cancelRequest, acceptRequest } = useRequestsDispatchContext()
   if (role === 'client') {
     return (
       <CardWrapper>
@@ -38,7 +38,9 @@ const RequestDefaultCard: React.FC<any> = ({ item }) => {
         <OrderPrice order_price={item.order_price} />
         <OrderContent order_content={item.order_content} />
         <ButtonContainer>
-          <button className='btn_primary'>受注する</button>
+          <button className='btn_primary' onClick={() => acceptRequest(item)}>
+            受注する
+          </button>
           <button className='btn_danger' onClick={() => cancelRequest(item)}>
             お断りする
           </button>

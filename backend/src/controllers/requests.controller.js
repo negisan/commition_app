@@ -6,6 +6,7 @@ const requestService = require('src/services/request.service')
 // route
 router.post('/', authorize(), create)
 router.post('/cancel', authorize(), cancel)
+router.post('/accept', authorize(), accept)
 router.get('/client', authorize(), getClientRequests)
 router.get('/creator', authorize(), getCreatorRequests)
 
@@ -17,6 +18,15 @@ function create(req, res, next) {
   }
   requestService
     .create(req.body.order)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch(next)
+}
+
+function accept(req, res, next) {
+  requestService
+    .accept(req.user, req.query)
     .then(() => {
       res.status(200).send()
     })

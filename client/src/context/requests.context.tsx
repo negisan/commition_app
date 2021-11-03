@@ -221,27 +221,44 @@ export const RequestsProvider = ({ children }: any) => {
   // =======================================================================
   // cancelRequest
   // order_priceをclientの残高に加算してcancelフラグをtrueにする
-  const cancelRequest = async (request:any) => {
+  const cancelRequest = async (request: any) => {
     setIsLoading(true)
-    await requestsService.cancelRequest(request).then(()=> {
-      toastSuccess('正常にキャンセルされました')
-      history.push('/')
-      setIsLoading(false)
-    }).catch((err) => {
-      toastError(errorMessage(err))
-      setIsLoading(false)
-    })
+    await requestsService
+      .cancelRequest(request)
+      .then(() => {
+        toastSuccess('正常にキャンセルされました')
+        history.push('/')
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
   }
 
-  // accepptRequest
+  // acceptRequest
   // progフラグをtrueにする
+  const acceptRequest = async (request: any) => {
+    setIsLoading(true)
+    await requestsService
+      .acceptRequest(request)
+      .then(() => {
+        toastSuccess('リクエストを承認しました')
+        history.push('/')
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsLoading(false)
+      })
+  }
 
   // submitRequest
   // ArtWorkを作成してsubmitフラグをtrueにする
-  const submitRequest = async (item: any, artwork: any) => {
+  const submitRequest = async (request: any, artwork: any) => {
     setIsLoading(true)
     await requestsService
-      .submitRequest(item, artwork)
+      .submitRequest(request, artwork)
       .then(() => {
         toastSuccess('正常に送信されました')
         history.push('/')
@@ -314,6 +331,7 @@ export const RequestsProvider = ({ children }: any) => {
           changeFilterToDone,
           isClientPage,
           isCreatorPage,
+          acceptRequest,
           cancelRequest,
           submitRequest,
         }}
