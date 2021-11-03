@@ -1,13 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Layout, PageHeader, RequestList } from '../components/RequestsPage'
+import {
+  useRequestsDispatchContext,
+  useRequestsStateContext,
+} from '../context/requests.context'
 
 type FilterState = 'all' | 'progressing' | 'submitted' | 'done' | 'canceled'
 
 const Requests: React.FC = () => {
   const [filterState, setFilterState] = useState<FilterState>('all')
-  // client_id = user.id の全てのリクエストを取得
+  const { requests } = useRequestsStateContext()
+  const {
+    clientFetchAllRequests,
+    clientFetchProgressingRequests,
+    clientFetchSubmittedRequests,
+    clientFetchDoneRequests,
+    clientFetchCancelRequests,
+  } = useRequestsDispatchContext()
+
+  console.log(filterState)
+
+  useEffect(() => {
+    if (filterState === 'all') {
+      clientFetchAllRequests()
+    }
+    if (filterState === 'progressing') {
+      clientFetchProgressingRequests()
+    }
+    if (filterState === 'submitted') {
+      clientFetchSubmittedRequests()
+    }
+    if (filterState === 'done') {
+      clientFetchDoneRequests()
+    }
+    if (filterState === 'canceled') {
+      clientFetchCancelRequests()
+    }
+  }, [filterState])
+
+  console.log(requests)
 
   return (
     <Layout>

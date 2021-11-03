@@ -5,6 +5,8 @@ const requestService = require('src/services/request.service')
 
 // route
 router.post('/', authorize(), create)
+router.get('/client', authorize(), getClientRequests)
+// router.get('/creator', authorize(), getCreatorRequests)
 
 module.exports = router
 
@@ -16,6 +18,15 @@ function create(req, res, next) {
     .create(req.body.order)
     .then(() => {
       res.status(200).send()
+    })
+    .catch(next)
+}
+
+function getClientRequests(req, res, next) {
+  requestService
+    .getClientRequests(req.user, req.query)
+    .then((data) => {
+      res.status(200).json(data)
     })
     .catch(next)
 }
