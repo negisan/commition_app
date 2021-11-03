@@ -5,6 +5,7 @@ const Op = Sequelize.Op
 module.exports = {
   create,
   getClientRequests,
+  getCreatorRequests,
 }
 
 async function create(order) {
@@ -13,7 +14,6 @@ async function create(order) {
 }
 
 async function getClientRequests(user, query) {
-  console.log('query=============================', query)
   if (query.state === 'state_default') {
     const requests = await db.Request.findAll({
       where: {
@@ -127,6 +127,135 @@ async function getClientRequests(user, query) {
   const requests = await db.Request.findAll({
     where: {
       clientId: user.id,
+    },
+    include: [
+      {
+        model: db.User,
+        as: 'client',
+      },
+      {
+        model: db.User,
+        as: 'creator',
+      },
+    ],
+  })
+  return requests
+}
+// RoleCreatorRequests ================================================================================
+async function getCreatorRequests(user, query) {
+  if (query.state === 'state_default') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          creatorId: user.id,
+          state_default: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
+  if (query.state === 'cancel') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          creatorId: user.id,
+          cancel: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
+  if (query.state === 'progressing') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          creatorId: user.id,
+          progressing: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
+  if (query.state === 'submitted') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          creatorId: user.id,
+          submitted: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
+  if (query.state === 'done') {
+    const requests = await db.Request.findAll({
+      where: {
+        [Op.and]: {
+          creatorId: user.id,
+          done: true,
+        },
+      },
+      include: [
+        {
+          model: db.User,
+          as: 'client',
+        },
+        {
+          model: db.User,
+          as: 'creator',
+        },
+      ],
+    })
+    return requests
+  }
+
+  const requests = await db.Request.findAll({
+    where: {
+      creatorId: user.id,
     },
     include: [
       {
