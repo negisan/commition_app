@@ -4,6 +4,7 @@ import OrderContent from './OrderContent'
 import ButtonContainer from './ButtonContainer'
 import OrderPrice from './OrderPrice'
 import ArtworkContainer from './ArtworkContainer'
+import ClientCommentContainer from './ClientCommentContainer'
 export {
   CardWrapper,
   CardHeader,
@@ -11,4 +12,5 @@ export {
   ButtonContainer,
   OrderPrice,
   ArtworkContainer,
+  ClientCommentContainer
 }
