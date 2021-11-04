@@ -18,8 +18,12 @@ const RequestsubmittedCard: React.FC<any> = ({ item }) => {
   if (role === 'client') {
     return (
       <CardWrapper>
-        <CardHeader user_name={item.creator.name} />
-        <OrderPrice order_price={item.order_price} />
+        <CardHeader
+          userName={item.creator.name}
+          orderPrice={item.order_price}
+          createdAt={item.createdAt}
+          request={item}
+        />
         <OrderContent order_content={item.order_content} />
         <ArtworkContainer imgSource={item.Artwork?.content} />
         <ClientCommentForm request={item} />
@@ -30,8 +34,12 @@ const RequestsubmittedCard: React.FC<any> = ({ item }) => {
   if (role === 'creator') {
     return (
       <CardWrapper>
-        <CardHeader user_name={item.client.name} />
-        <OrderPrice order_price={item.order_price} />
+        <CardHeader
+          userName={item.client.name}
+          orderPrice={item.order_price}
+          createdAt={item.createdAt}
+          request={item}
+        />
         <OrderContent order_content={item.order_content} />
         <ArtworkContainer imgSource={item.Artwork?.content} />
         <MessageContainer>

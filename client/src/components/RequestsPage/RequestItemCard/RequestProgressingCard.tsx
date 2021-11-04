@@ -24,8 +24,12 @@ const RequestProgressingCard: React.FC<any> = ({ item }) => {
   if (role === 'client') {
     return (
       <CardWrapper>
-        <CardHeader user_name={item.creator.name} />
-        <OrderPrice order_price={item.order_price} />
+        <CardHeader
+          userName={item.creator.name}
+          orderPrice={item.order_price}
+          createdAt={item.createdAt}
+          request={item}
+        />
         <OrderContent order_content={item.order_content} />
         <MessageContainer>
           <p>受注されました！投稿をお待ちください。</p>
@@ -37,8 +41,12 @@ const RequestProgressingCard: React.FC<any> = ({ item }) => {
   if (role === 'creator') {
     return (
       <CardWrapper>
-        <CardHeader user_name={item.client.name} />
-        <OrderPrice order_price={item.order_price} />
+        <CardHeader
+          userName={item.client.name}
+          orderPrice={item.order_price}
+          createdAt={item.createdAt}
+          request={item}
+        />
         <OrderContent order_content={item.order_content} />
         <UploadForm>
           <PreviewContainer>
@@ -58,8 +66,11 @@ const RequestProgressingCard: React.FC<any> = ({ item }) => {
         </UploadForm>
         <ButtonContainer>
           <button
-          onClick={() => submitRequest(item, fies.file)}
-          className='btn_primary'>送信する</button>
+            onClick={() => submitRequest(item, fies.file)}
+            className='btn_primary'
+          >
+            送信する
+          </button>
         </ButtonContainer>
       </CardWrapper>
     )
