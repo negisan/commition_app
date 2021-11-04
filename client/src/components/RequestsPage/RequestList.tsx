@@ -23,25 +23,6 @@ const RequestList: React.FC = () => {
     )
   }
 
-  if (filterState === 'all') {
-    return requests.map((request: any, index: number) => {
-      if(request.state_default === true) {
-        return <RequestDefaultCard item={request} key={index} />
-      }
-      if(request.cancel === true) {
-        return <RequestCancelCard item={request} key={index} />
-      }
-      if(request.progressing === true) {
-        return <RequestProgressingCard item={request} key={index} />
-      }
-      if(request.submitted === true) {
-        return <RequestsubmittedCard item={request} key={index} />
-      }
-      if(request.done === true) {
-        return <RequestDoneCard item={request} key={index} />
-      }
-    })
-  }
 
   if (filterState === 'default') {
     return requests.map((request: any, index: number) => {
@@ -77,6 +58,8 @@ const RequestList: React.FC = () => {
 const NoItemsMessage = styled.div`
   display: flex;
   justify-content: center;
+  color: var(--clr-grey-5);
+  font-weight: 600;
 `
 
 export default RequestList

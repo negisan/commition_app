@@ -27,9 +27,6 @@ const RequestsCreator: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (filterState === 'all') {
-      creatorFetchAllRequests()
-    }
     if (filterState === 'default') {
       creatorFetchDefaultRequests()
     }

@@ -20,14 +20,6 @@ const FilterBar:React.FC = () => {
     <div>
       <Wrapper>
         <div
-          onClick={changeFilterToAll}
-          className={`${
-            filterState === 'all' ? 'selected filter_btn' : 'filter_btn'
-          }`}
-        >
-          全て
-        </div>
-        <div
           onClick={changeFilterToDefault}
           className={`${
             filterState === 'default' ? 'selected filter_btn' : 'filter_btn'

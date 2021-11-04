@@ -31,9 +31,6 @@ const Requests: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    if (filterState === 'all') {
-      clientFetchAllRequests()
-    }
     if (filterState === 'default') {
       clientFetchDefaultRequests()
     }
