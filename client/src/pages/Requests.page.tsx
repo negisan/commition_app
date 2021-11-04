@@ -53,7 +53,6 @@ const Requests: React.FC = () => {
       <PageHeader />
       <FilterBar />
       <div className='divider'></div>
-      {filterState}
       <RequestList />
     </Layout>
   )
