@@ -6,6 +6,7 @@ const Op = Sequelize.Op
 
 module.exports = {
   create,
+  show,
 }
 
 async function create(user, file, query) {
@@ -44,4 +45,24 @@ async function create(user, file, query) {
   } catch (err) {
     throw err
   }
+}
+
+async function show(artworkId) {
+  const requestWithArtwork = await db.Request.findOne({
+    where: { artworkId: artworkId },
+    include: [
+      {
+        model: db.User,
+        as: 'client',
+      },
+      {
+        model: db.User,
+        as: 'creator',
+      },
+      {
+        model: db.Artwork,
+      },
+    ],
+  })
+  return requestWithArtwork
 }

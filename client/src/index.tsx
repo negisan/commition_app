@@ -13,6 +13,7 @@ import { UIProvider } from './context/UI.context'
 import { UsersProvider } from './context/users.context'
 import { OrderProvider } from './context/order.context'
 import { RequestsProvider } from './context/requests.context'
+import { ArtworksProvider } from './context/artworks.context'
 
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
@@ -25,7 +26,9 @@ ReactDOM.render(
             <UsersProvider>
               <RequestsProvider>
                 <OrderProvider>
-                  <App />
+                  <ArtworksProvider>
+                    <App />
+                  </ArtworksProvider>
                 </OrderProvider>
               </RequestsProvider>
             </UsersProvider>
