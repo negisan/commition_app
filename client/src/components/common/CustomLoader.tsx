@@ -8,10 +8,10 @@ const CustomLoader: React.FC = () => {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        marginTop: '3rem',
+        padding: '3rem 0 6rem',
       }}
     >
-      <ScaleLoader loading={true} color={'var(--clr-primary-6)'} />
+      <ScaleLoader loading={true} color={'var(--clr-primary-6)'} height={16} />
     </div>
   )
 }
