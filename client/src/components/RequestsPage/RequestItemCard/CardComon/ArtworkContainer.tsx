@@ -1,16 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const ArtworkContainer: React.FC<{ imgSource: string }> = ({ imgSource }) => {
+const ArtworkContainer: React.FC<{ imgSource: string; artworkId: number }> = ({
+  imgSource,
+  artworkId,
+}) => {
   return (
     <Wrapper>
       <h3>作品</h3>
       <div className='divider' style={{ marginTop: 0 }}></div>
       <ImageContainer>
-        <img
-          src={`${imgSource ? 'data:image/jpeg;base64,' + imgSource : ''}`}
-          alt='artwork'
-        />
+        <Link to={`/artworks/` + artworkId}>
+          <img
+            src={`${imgSource ? 'data:image/jpeg;base64,' + imgSource : ''}`}
+            alt='artwork'
+          />
+        </Link>
       </ImageContainer>
     </Wrapper>
   )

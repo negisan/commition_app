@@ -25,7 +25,7 @@ const RequestDoneCard: React.FC<any> = ({ item }) => {
           request={item}
         />
         <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork?.content} />
+        <ArtworkContainer imgSource={item.Artwork?.content} artworkId={item?.Artwork.id} />
         <ClientCommentContainer clientComment={item.thanks_comment} />
       </CardWrapper>
     )
@@ -40,7 +40,7 @@ const RequestDoneCard: React.FC<any> = ({ item }) => {
           request={item}
         />
         <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork?.content} />
+        <ArtworkContainer imgSource={item.Artwork?.content} artworkId={item?.Artwork.id} />
         <ClientCommentContainer clientComment={item.thanks_comment} />
       </CardWrapper>
     )

@@ -25,7 +25,7 @@ const RequestsubmittedCard: React.FC<any> = ({ item }) => {
           request={item}
         />
         <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork?.content} />
+        <ArtworkContainer imgSource={item.Artwork?.content} artworkId={item?.Artwork?.id} />
         <ClientCommentForm request={item} />
       </CardWrapper>
     )
@@ -41,7 +41,7 @@ const RequestsubmittedCard: React.FC<any> = ({ item }) => {
           request={item}
         />
         <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork?.content} />
+        <ArtworkContainer imgSource={item.Artwork?.content} artworkId={item?.Artwork?.id} />
         <MessageContainer>
           <p>納品済みです。料金は発注者が確認後に残高に加算されます。</p>
         </MessageContainer>
