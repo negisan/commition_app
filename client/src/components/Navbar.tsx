@@ -22,13 +22,13 @@ const Navbar = () => {
             <LinkContainer>
               <Link to={'/requests'}>
                 <HiPaperAirplane />
-                リクエスト
+                <small>リクエスト</small>
               </Link>
             </LinkContainer>
             <LinkContainer>
               <Link to={'/account'}>
                 <GrConfigure size={13} />
-                設定
+                <small>設定</small>
               </Link>
             </LinkContainer>
             <LinkContainer>
