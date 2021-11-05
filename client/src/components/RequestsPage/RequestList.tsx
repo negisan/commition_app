@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { useRequestsStateContext } from '../../context/requests.context'
+import { CustomLoader } from '../common'
 
 import {
   RequestDefaultCard,
@@ -12,8 +13,12 @@ import {
 } from './RequestItemCard'
 
 const RequestList: React.FC = () => {
-  const { requests, filterState } = useRequestsStateContext()
+  const { requests, filterState, isLoading } = useRequestsStateContext()
   console.log(requests)
+
+  if (isLoading) {
+    return <CustomLoader/>
+  }
 
   if (requests == '') {
     return (
@@ -22,7 +27,6 @@ const RequestList: React.FC = () => {
       </NoItemsMessage>
     )
   }
-
 
   if (filterState === 'default') {
     return requests.map((request: any, index: number) => {

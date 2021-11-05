@@ -11,13 +11,13 @@ const AuthStateContext = React.createContext<any | null>({})
 const AuthDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  user: {},
+  user: '',
 }
 
 
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsLoading] = useState<Boolean>(false)
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
   const { toastSuccess, toastError } = useUIContext()
   const history = useHistory()
 
@@ -98,6 +98,7 @@ export const AuthProvider = ({ children }: any) => {
         }
       )
     }
+    setIsLoading(false)
   }, [])
 
   return (

@@ -21,7 +21,7 @@ const initialState = {
 
 export const UsersProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsloading] = useState(false)
+  const [isLoading, setIsloading] = useState<boolean>(true)
   const { toastError, toastSuccess } = useUIContext()
 
   const fetchUser = async (user_name: string) => {
@@ -61,7 +61,7 @@ export const UsersProvider = ({ children }: any) => {
   }
 
   return (
-    <UsersStateContext.Provider value={{ ...state }}>
+    <UsersStateContext.Provider value={{ ...state, isLoading }}>
       <UsersDispatchContext.Provider
         value={{ fetchUser, submitNewUserIcon, getNewUserIcon }}
       >

@@ -39,7 +39,7 @@ type Role = 'client' | 'creator'
 export const RequestsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { toastError, toastSuccess } = useUIContext()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [filterState, setFilterState] = useState<FilterState>('default')
   const [role, setRole] = useState<Role>('client')
 
@@ -322,7 +322,7 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   return (
-    <RequestsStateContext.Provider value={{ ...state, filterState, role }}>
+    <RequestsStateContext.Provider value={{ ...state, filterState, role, isLoading }}>
       <RequestsDispatchContext.Provider
         value={{
           clientFetchAllRequests,

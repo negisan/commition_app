@@ -5,25 +5,25 @@ import { useHistory } from 'react-router'
 
 import { useAuthStateContext } from '../context/auth.context'
 
-const UserInfoBar: React.FC<any> = ({ user }) => {
+const UserInfoBar: React.FC<{user: any}> = ({ user }) => {
   const { user: logedinUser } = useAuthStateContext()
   const history = useHistory()
   const onClickNewOrder = () => {
-    if (user.accepting_order) {
-      return history.push(`/user/${user.name}/order`)
+    if (user?.accepting_order) {
+      return history.push(`/user/${user?.name}/order`)
     }
   }
 
   return (
     <Wrapper>
-      {user.id === logedinUser.id ? (
+      {user?.id === logedinUser.id ? (
         <></>
       ) : (
         <>
           <ButtonContainer>
             <button
               className={
-                user.accepting_order
+                user?.accepting_order
                   ? 'request_button'
                   : 'request_button forbidden'
               }
@@ -41,11 +41,11 @@ const UserInfoBar: React.FC<any> = ({ user }) => {
           <tbody>
             <tr>
               <td>金額</td>
-              <td>{user.default_order_price}</td>
+              <td>{user?.default_order_price}</td>
             </tr>
             <tr>
               <td>リクエスト受付</td>
-              <td>{user.accepting_order ? '受付中' : '休止中'}</td>
+              <td>{user?.accepting_order ? '受付中' : '休止中'}</td>
             </tr>
           </tbody>
         </table>

@@ -9,30 +9,30 @@ import { CustomLoader } from '../common'
 const ArtworkList: React.FC = () => {
   const { artworks, isLoading } = useArtworksStateContext()
 
-  if (isLoading) {
-    return <CustomLoader />
-  }
-
   return (
     <div className='section-wrapper'>
       <HeaderContainer>
         <h2>新着</h2>
         <div className='divider' style={{ marginTop: 0 }}></div>
       </HeaderContainer>
-      <ArtworksContainer>
-        {artworks?.map((artwork: any) => {
-          return (
-            <ArtworkContainer key={artwork.id}>
-              <Link to={`/artworks/${artwork.id}`}>
-                <img
-                  src={`data:image/jpg;base64,` + artwork.content}
-                  alt='artwork'
-                />
-              </Link>
-            </ArtworkContainer>
-          )
-        })}
-      </ArtworksContainer>
+      {isLoading ? (
+        <></>
+      ) : (
+        <ArtworksContainer>
+          {artworks?.map((artwork: any) => {
+            return (
+              <ArtworkContainer key={artwork.id}>
+                <Link to={`/artworks/${artwork.id}`}>
+                  <img
+                    src={`data:image/jpg;base64,` + artwork.content}
+                    alt='artwork'
+                  />
+                </Link>
+              </ArtworkContainer>
+            )
+          })}
+        </ArtworksContainer>
+      )}
     </div>
   )
 }

@@ -9,7 +9,8 @@ import { GrConfigure } from 'react-icons/gr'
 import { FiUser } from 'react-icons/fi'
 
 const Navbar = () => {
-  const { user } = useAuthStateContext()
+  const { user, isLoading: isLoadingUser } = useAuthStateContext()
+
   return (
     <Wrapper>
       <Logo>
@@ -17,7 +18,9 @@ const Navbar = () => {
         <Link to={'/'}>Commition</Link>
       </Logo>
       <NavItemsRight>
-        {user ? (
+        {isLoadingUser ? (
+          <></>
+        ) : user ? (
           <>
             <LinkContainer>
               <Link to={'/requests'}>
