@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Navbar, PrivateRoute } from './components'
-
 import {
   Account,
   Home,
@@ -23,7 +22,7 @@ function App() {
     <div>
       <ToastContainer
         position='top-center'
-        autoClose={5000}
+        autoClose={4000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
