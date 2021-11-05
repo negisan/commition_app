@@ -6,6 +6,7 @@ const Op = Sequelize.Op
 
 module.exports = {
   create,
+  index,
   show,
 }
 
@@ -43,6 +44,22 @@ async function create(user, file, query) {
     })
     return Promise.resolve()
   } catch (err) {
+    throw err
+  }
+}
+
+async function index(page, sort) {
+  try {
+    const perPage = 20
+    if (sort === 'new_date') {
+      const artworks = await db.Artwork.findAll({
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        order: [['createdAt', 'DESC']]
+      })
+      return artworks
+    }
+  } catch(err) {
     throw err
   }
 }

@@ -6,18 +6,27 @@ const upload = require('src/_middleware/upload-artworks')
 
 // route
 router.post('/', authorize(), upload.single('file'), create)
+router.get('/', index)
 router.get('/:id', show)
 
 module.exports = router
 
-
 function create(req, res, next) {
   artworkService
-  .create(req.user, req.file, req.query)
-  .then(() => {
-    res.status(200).send()
-  })
-  .catch(next)
+    .create(req.user, req.file, req.query)
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch(next)
+}
+
+function index(req, res, next) {
+  artworkService
+    .index(req.query.page, req.query.sort)
+    .then((artworks) => {
+      res.json(artworks)
+    })
+    .catch(next)
 }
 
 function show(req, res, next) {
