@@ -34,6 +34,7 @@ export const OrderProvider = ({ children }: any) => {
   const orderWithCheckout = async (order_data: OrderData) => {
     const cardElement = elements?.getElement('card')
     try {
+      setIsProcessing(true)
       // 支払い
       const { data: clientSecret } = await axios({
         method: 'post',

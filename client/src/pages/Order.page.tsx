@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router'
 import styled from 'styled-components'
+import BlockUi from 'react-block-ui'
+import 'react-block-ui/style.css'
 
 import { PageHeader, UserInfoBar, OrderForm } from '../components'
 import { useAuthStateContext } from '../context/auth.context'
+import { useOrderStateContext } from '../context/order.context'
 import {
   useUsersDispatchContext,
   useUsersStateContext,
@@ -11,27 +14,28 @@ import {
 
 const Order: React.FC = () => {
   const { user } = useAuthStateContext()
-  const { user: params_user_name }: any = useParams()
-  const { fetchUser } = useUsersDispatchContext()
-  const { user: ownerUser } = useUsersStateContext()
+  const { user: ownerUser, isLoading } = useUsersStateContext()
+  const { isProcessing } = useOrderStateContext()
 
   const history = useHistory()
-
-  useEffect(() => {
-    fetchUser(params_user_name)
-  }, [])
 
   if (ownerUser.id === user.id) {
     history.replace('/')
   }
 
+  if (isLoading) {
+    return <></>
+  }
+
   return (
     <>
-      <PageHeader user={ownerUser} />
-      <SectionWrapper>
-        <UserInfoBar user={ownerUser} />
-        <OrderForm client={user} creator={ownerUser} />
-      </SectionWrapper>
+      <BlockUi tag='div' blocking={isProcessing}>
+        <PageHeader user={ownerUser} />
+        <SectionWrapper>
+          <UserInfoBar user={ownerUser} />
+          <OrderForm client={user} creator={ownerUser} />
+        </SectionWrapper>
+      </BlockUi>
     </>
   )
 }
