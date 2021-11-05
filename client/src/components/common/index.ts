@@ -1,2 +1,3 @@
 import UserBar from './UserBar'
-export { UserBar }
+import CustomLoader from './CustomLoader'
+export { UserBar, CustomLoader }
