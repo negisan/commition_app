@@ -4,4 +4,13 @@ import PageHeader from './PageHeader'
 import UserInfoBar from './UserInfoBar'
 import UserArtworks from './UserArtworks'
 import OrderForm from './OrderForm'
-export { OrderForm, UserInfoBar, UserArtworks, PageHeader, Navbar, PrivateRoute }
+import NotFound from './NotFound'
+export {
+  NotFound,
+  OrderForm,
+  UserInfoBar,
+  UserArtworks,
+  PageHeader,
+  Navbar,
+  PrivateRoute,
+}
