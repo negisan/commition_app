@@ -33,12 +33,11 @@ const User: React.FC = () => {
 const SectionWrapper = styled.section`
   padding: 3rem 0;
   display: grid;
-  gap: 3rem;
+  gap: 1.5rem;
 @media (min-width: 768px) {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 3rem 1rem;
-  gap: 1.5rem;
   grid-template-columns: 16rem auto;
   grid-auto-flow: row;
 }
