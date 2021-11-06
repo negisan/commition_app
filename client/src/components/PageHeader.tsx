@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import default_icon from '../statics/images/default_icon.jpg'
 
@@ -15,7 +16,9 @@ const PageHeader: React.FC<any> = ({ user }) => {
         />
       </UserIcon>
       <InfoBar>
-        <h3 className='user_name'>{user?.name}</h3>
+        <Link to={`/user/${user.name}`}>
+          <h3 className='user_name'>{user?.name}</h3>
+        </Link>
       </InfoBar>
     </>
   )
