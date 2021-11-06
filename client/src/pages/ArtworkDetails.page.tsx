@@ -16,7 +16,6 @@ const ArtworkDetails: React.FC = () => {
   useEffect(() => {
     fetchArtwork(id)
   }, [])
-  console.log(artwork)
 
   if (artwork === null) {
     return <NotFound />
@@ -25,10 +24,14 @@ const ArtworkDetails: React.FC = () => {
   return (
     <Wrapper>
       <ArtworkContainer>
-        <img
-          src={`data:image/jpeg;base64,` + artwork?.Artwork?.content}
-          alt='artwork'
-        />
+        {artwork?.Artwork?.content ? (
+          <img
+            src={`data:image/jpeg;base64,` + artwork?.Artwork?.content}
+            alt='artwork'
+          />
+        ) : (
+          ''
+        )}
       </ArtworkContainer>
       <div>
         <RequestInfoContainer>
@@ -49,7 +52,6 @@ const ArtworkDetails: React.FC = () => {
     </Wrapper>
   )
 }
-
 
 const ContentContainer = styled.div`
   h3 {

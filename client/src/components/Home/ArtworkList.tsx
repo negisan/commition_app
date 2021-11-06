@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom'
 
 import { useArtworksStateContext } from '../../context/artworks.context'
 
-import { CustomLoader } from '../common'
-
 const ArtworkList: React.FC = () => {
-  const { artworks, isLoading } = useArtworksStateContext()
+  const { artworks, isLoading: isLoadingArtworks } = useArtworksStateContext()
 
   return (
     <div className='section-wrapper'>
@@ -15,9 +13,7 @@ const ArtworkList: React.FC = () => {
         <h2>新着</h2>
         <div className='divider' style={{ marginTop: 0 }}></div>
       </HeaderContainer>
-      {isLoading ? (
-        <></>
-      ) : (
+      {artworks ? (
         <ArtworksContainer>
           {artworks?.map((artwork: any) => {
             return (
@@ -32,6 +28,8 @@ const ArtworkList: React.FC = () => {
             )
           })}
         </ArtworksContainer>
+      ) : (
+        ''
       )}
     </div>
   )

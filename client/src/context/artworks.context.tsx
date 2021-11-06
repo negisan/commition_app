@@ -1,7 +1,10 @@
 import React, { useContext, useReducer, useState } from 'react'
 
 import reducer from '../reducers/artworks.reducer'
-import { FETCH_ARTWORKS_SUCCESS, FETCH_ARTWORK_SUCCESS } from '../constants/artworks.constant'
+import {
+  FETCH_ARTWORKS_SUCCESS,
+  FETCH_ARTWORK_SUCCESS,
+} from '../constants/artworks.constant'
 import artworksService from '../services/artworks.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
@@ -29,7 +32,7 @@ export const ArtworksProvider = ({ children }: any) => {
     await artworksService
       .fetchArtworks(page, sort)
       .then((artworks) => {
-        dispatch({type: FETCH_ARTWORKS_SUCCESS, payload: artworks})
+        dispatch({ type: FETCH_ARTWORKS_SUCCESS, payload: artworks })
         setIsLoading(false)
       })
       .catch((err) => {
