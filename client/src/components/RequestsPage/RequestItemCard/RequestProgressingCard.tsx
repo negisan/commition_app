@@ -25,12 +25,12 @@ const RequestProgressingCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.creator.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.creator.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
         <MessageContainer>
           <p>受注されました！投稿をお待ちください。</p>
         </MessageContainer>
@@ -42,12 +42,12 @@ const RequestProgressingCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.client.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.client.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
         <UploadForm>
           <PreviewContainer>
             <img src={fies?.source || no_image} alt='preview' />

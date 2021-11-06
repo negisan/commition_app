@@ -20,12 +20,12 @@ const RequestDefaultCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.creator.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.creator.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
         <ButtonContainer>
           <button className='btn_danger' onClick={() => cancelRequest(item)}>
             キャンセルする
@@ -39,12 +39,12 @@ const RequestDefaultCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.client.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.client.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
         <ButtonContainer>
           <button className='btn_primary' onClick={() => acceptRequest(item)}>
             受注する

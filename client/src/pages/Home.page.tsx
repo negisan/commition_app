@@ -8,7 +8,7 @@ import {
 } from '../context/artworks.context'
 
 const Home: React.FC = () => {
-  const { artworks, isLoading } = useArtworksStateContext()
+  const { artworks } = useArtworksStateContext()
   const { fetchArtworks } = useArtworksDispatchContext()
 
   useEffect(() => {

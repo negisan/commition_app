@@ -11,12 +11,12 @@ const RequestCancelCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.creator.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.creator.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
       </CardWrapper>
     )
   }
@@ -24,12 +24,12 @@ const RequestCancelCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.client.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.client.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
+        <OrderContent order_content={item?.order_content} />
       </CardWrapper>
     )
   }

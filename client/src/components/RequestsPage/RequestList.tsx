@@ -29,31 +29,31 @@ const RequestList: React.FC = () => {
   }
 
   if (filterState === 'default') {
-    return requests.map((request: any, index: number) => {
+    return requests?.map((request: any, index: number) => {
       return <RequestDefaultCard item={request} key={index} />
     })
   }
 
   if (filterState === 'canceled') {
-    return requests.map((request: any, index: number) => {
+    return requests?.map((request: any, index: number) => {
       return <RequestCancelCard item={request} key={index} />
     })
   }
 
   if (filterState === 'progressing') {
-    return requests.map((request: any, index: number) => {
+    return requests?.map((request: any, index: number) => {
       return <RequestProgressingCard item={request} key={index} />
     })
   }
 
   if (filterState === 'submitted') {
-    return requests.map((request: any, index: number) => {
+    return requests?.map((request: any, index: number) => {
       return <RequestsubmittedCard item={request} key={index} />
     })
   }
 
   if (filterState === 'done') {
-    return requests.map((request: any, index: number) => {
+    return requests?.map((request: any, index: number) => {
       return <RequestDoneCard item={request} key={index} />
     })
   }

@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 
 import { useRequestsStateContext } from '../../../../context/requests.context'
 
-// {
-//   userName: string
-//   orderPrice: number
-//   createdAt: string
-//   request: any
-// }
-const CardHeader: React.FC<any> = ({
+interface CardHeaderProps {
+  userName: string
+  orderPrice: number
+  createdAt: string
+  request: any
+}
+
+const CardHeader: React.FC<CardHeaderProps> = ({
   userName,
   orderPrice,
   createdAt,

@@ -24,8 +24,6 @@ const Requests: React.FC = () => {
   } = useRequestsDispatchContext()
   const { filterState } = useRequestsStateContext()
 
-  console.log(filterState)
-
   useEffect(() => {
     isClientPage()
   }, [])

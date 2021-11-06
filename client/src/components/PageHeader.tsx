@@ -9,13 +9,13 @@ const PageHeader: React.FC<any> = ({ user }) => {
       <UserIcon>
         <img
           src={`${
-            user.icon ? 'data:image/jpeg;base64,' + user.icon : default_icon
+            user?.icon ? 'data:image/jpeg;base64,' + user?.icon : default_icon
           }`}
           alt='user icon'
         />
       </UserIcon>
       <InfoBar>
-        <h3 className='user_name'>{user.name}</h3>
+        <h3 className='user_name'>{user?.name}</h3>
       </InfoBar>
     </>
   )
