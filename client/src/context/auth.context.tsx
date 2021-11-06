@@ -14,7 +14,6 @@ const initialState = {
   user: '',
 }
 
-
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setIsLoading] = useState<Boolean>(true)
@@ -82,6 +81,10 @@ export const AuthProvider = ({ children }: any) => {
     history.push('/')
   }
 
+  const isLoggedin = () => {
+    return localStorage.getItem('user') ? true : false
+  }
+
   useEffect(() => {
     if (localStorage.getItem('user')) {
       setIsLoading(true)
@@ -102,7 +105,7 @@ export const AuthProvider = ({ children }: any) => {
   }, [])
 
   return (
-    <AuthStateContext.Provider value={{ ...state, isLoading }}>
+    <AuthStateContext.Provider value={{ ...state, isLoading, isLoggedin }}>
       <AuthDispatchContext.Provider value={{ register, login, logout }}>
         {children}
       </AuthDispatchContext.Provider>
