@@ -1,6 +1,7 @@
 import React, { useContext, useReducer, useState } from 'react'
 
 import {
+  FETCH_USERS_SUCCESS,
   FETCH_USER_SUCCESS,
   UPDATE_USER_ICON_SUCCESS,
 } from '../constants/users.constant'
@@ -13,16 +14,28 @@ import { errorMessage } from '../helper/handleErrorMessage'
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
 
-
-
 const initialState = {
   user: '',
+  users: '',
 }
 
 export const UsersProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setIsloading] = useState<boolean>(true)
   const { toastError, toastSuccess } = useUIContext()
+
+  const fetchUsers = async (page: number = 1) => {
+    setIsloading(true)
+    await UsersService.fetchUsers(page)
+      .then((users) => {
+        dispatch({ type: FETCH_USERS_SUCCESS, payload: users })
+        setIsloading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsloading(false)
+      })
+  }
 
   const fetchUser = async (user_name: string) => {
     setIsloading(true)
@@ -63,7 +76,7 @@ export const UsersProvider = ({ children }: any) => {
   return (
     <UsersStateContext.Provider value={{ ...state, isLoading }}>
       <UsersDispatchContext.Provider
-        value={{ fetchUser, submitNewUserIcon, getNewUserIcon }}
+        value={{ fetchUsers, fetchUser, submitNewUserIcon, getNewUserIcon }}
       >
         {children}
       </UsersDispatchContext.Provider>
