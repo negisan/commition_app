@@ -3,6 +3,7 @@ const db = require('src/models')
 module.exports = {
   getUser,
   getUsers,
+  getUserArtworks,
 }
 
 async function getUsers(page) {
@@ -29,4 +30,18 @@ async function getUser(userName) {
   }
 
   return user
+}
+
+async function getUserArtworks(userId, page) {
+  try {
+    const perpage = 15
+    const artworks = await db.Artwork.findAll({
+      where: { creatorId: userId },
+      limit: perpage,
+      offset: (page - 1) * perpage,
+    })
+    return artworks
+  } catch (err) {
+    throw err
+  }
 }

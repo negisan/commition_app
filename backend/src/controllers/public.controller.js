@@ -3,8 +3,9 @@ const router = express.Router()
 const publicService = require('src/services/public.service')
 
 // route
-router.get('/user/:name', getUser)
+router.get('/user/artworks', getUserArtworks)
 router.get('/users', getUsers)
+router.get('/users/:name', getUser)
 
 module.exports = router
 
@@ -19,5 +20,14 @@ function getUser(req, res, next) {
   publicService
     .getUser(req.params.name)
     .then((user) => res.json(user))
+    .catch(next)
+}
+
+function getUserArtworks(req, res, next) {
+  publicService
+    .getUserArtworks(req.query.user, req.query.page)
+    .then((artworks) => {
+      res.json(artworks)
+    })
     .catch(next)
 }

@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
 import styled from 'styled-components'
 
-import { PageHeader, UserArtworks, UserInfoBar } from '../components'
+import { PageHeader, UserInfoBar } from '../components'
+import { UserArtworks } from '../components/UserPage'
 import { useAuthStateContext } from '../context/auth.context'
 import {
   useUsersDispatchContext,
@@ -23,7 +24,7 @@ const User: React.FC = () => {
       <PageHeader user={ownerUser} />
       <SectionWrapper>
         <UserInfoBar user={ownerUser} />
-        <UserArtworks />
+        <UserArtworks user={ownerUser} />
       </SectionWrapper>
     </>
   )

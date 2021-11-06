@@ -18,7 +18,20 @@ const fetchUsers = async (page: number) => {
 const fetchUser = async (user_name: string) => {
   return await axios({
     method: 'get',
-    url: BASE_API_URL + '/public/user/' + user_name,
+    url: BASE_API_URL + '/public/users/' + user_name,
+  })
+    .then((res) => {
+      return Promise.resolve(res.data)
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
+const fetchUserArtworks = async (user_id: number, page: number) => {
+  return await axios({
+    method: 'get',
+    url: BASE_API_URL + `/public/user/artworks?user=${user_id}&page=${page}`
   })
     .then((res) => {
       return Promise.resolve(res.data)
@@ -49,5 +62,6 @@ const updateUserIcon = async (new_user_icon: any) => {
 export default {
   fetchUsers,
   fetchUser,
+  fetchUserArtworks,
   updateUserIcon,
 }

@@ -2,6 +2,7 @@ import React, { useContext, useReducer, useState } from 'react'
 
 import {
   FETCH_USERS_SUCCESS,
+  FETCH_USER_ARTWORKS_SUCCESS,
   FETCH_USER_SUCCESS,
   UPDATE_USER_ICON_SUCCESS,
 } from '../constants/users.constant'
@@ -17,6 +18,7 @@ const UsersDispatchContext = React.createContext<any | null>({})
 const initialState = {
   user: '',
   users: '',
+  userArtworks: '',
 }
 
 export const UsersProvider = ({ children }: any) => {
@@ -42,6 +44,19 @@ export const UsersProvider = ({ children }: any) => {
     await UsersService.fetchUser(user_name)
       .then((user) => {
         dispatch({ type: FETCH_USER_SUCCESS, payload: user })
+        setIsloading(false)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsloading(false)
+      })
+  }
+
+  const fetchUserArtworks = async (user_id: number, page: number = 1) => {
+    setIsloading(true)
+    await UsersService.fetchUserArtworks(user_id, page)
+      .then((artworks) => {
+        dispatch({ type: FETCH_USER_ARTWORKS_SUCCESS, payload: artworks })
         setIsloading(false)
       })
       .catch((err) => {
@@ -76,7 +91,13 @@ export const UsersProvider = ({ children }: any) => {
   return (
     <UsersStateContext.Provider value={{ ...state, isLoading }}>
       <UsersDispatchContext.Provider
-        value={{ fetchUsers, fetchUser, submitNewUserIcon, getNewUserIcon }}
+        value={{
+          fetchUsers,
+          fetchUser,
+          fetchUserArtworks,
+          submitNewUserIcon,
+          getNewUserIcon,
+        }}
       >
         {children}
       </UsersDispatchContext.Provider>
