@@ -28,8 +28,14 @@ const Home: React.FC = () => {
 
   return (
     <Wrapper>
-      <ArtworkList />
-      <UsersList />
+      {artworks ? (
+        <>
+          <ArtworkList />
+          <UsersList />
+        </>
+      ) : (
+        ''
+      )}
     </Wrapper>
   )
 }
