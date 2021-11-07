@@ -26,8 +26,11 @@ const ArtworkDetails: React.FC = () => {
     return <div></div>
   }
 
-  const { artwork_image, order_content, thanks_comment } = artwork
+  if (!artwork) {
+    return null
+  }
 
+  const { artwork_image, order_content, thanks_comment } = artwork
   return (
     <Wrapper>
       <ArtworkContainer>
