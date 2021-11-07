@@ -48,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      isCreator: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      isClient: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
     },
     {
       sequelize,

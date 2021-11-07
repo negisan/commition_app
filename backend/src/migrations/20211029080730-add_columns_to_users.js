@@ -25,6 +25,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       }),
+      queryInterface.addColumn('Users', 'isCreator', {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      }),
+      queryInterface.addColumn('Users', 'isClient', {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      }),
     ])
   },
 
@@ -40,6 +48,8 @@ module.exports = {
       queryInterface.removeColumn('Users', 'default_order_price'),
       queryInterface.removeColumn('Users', 'accepting_order'),
       queryInterface.removeColumn('Users', 'cash'),
+      queryInterface.removeColumn('Users', 'isCreator'),
+      queryInterface.removeColumn('Users', 'isClient'),
     ])
   },
 }
