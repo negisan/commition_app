@@ -19,7 +19,7 @@ const UsersList = () => {
         {users
           ? users?.map((user: any) => {
               return (
-                <Link to={`/user/${user.name}`}>
+                <Link to={`/user/${user.name}`} key={user.id}>
                   <UserContainer>
                     <div className='user-cover'></div>
                     <img

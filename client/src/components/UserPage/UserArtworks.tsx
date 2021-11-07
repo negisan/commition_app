@@ -26,7 +26,7 @@ const UserArtworks: React.FC<any> = ({ user }) => {
         {userArtworks
           ? userArtworks?.map((artwork: any) => {
               return (
-                <Link to={`/artworks/${artwork.id}`}>
+                <Link to={`/artworks/${artwork.id}`} key={artwork.id}>
                   <ArtworkContainer key={artwork.id}>
                     {artwork.content ? (
                       <img
