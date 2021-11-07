@@ -1,7 +1,6 @@
 import React, { useContext, useReducer, useState } from 'react'
 
 import {
-  FETCH_USERS_SUCCESS,
   FETCH_USER_ARTWORKS_SUCCESS,
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
@@ -11,6 +10,9 @@ import {
   FETCH_USER_ARTWORKS_BEGIN,
   FETCH_USER_ARTWORKS_FAIL,
   FETCH_USER_ARTWORKS_CLEANUP,
+  FETCH_CREATORS_SUCCESS,
+  FETCH_CREATORS_BEGIN,
+  FETCH_CREATORS_FAIL,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import usersService from '../services/users.service'
@@ -22,7 +24,8 @@ const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  users: [],
+  creators: [],
+  creators_loading: false,
   user: {},
   user_loading: false,
   userArtworks: [],
@@ -34,16 +37,15 @@ export const UsersProvider = ({ children }: any) => {
   const [isLoading, setIsloading] = useState<boolean>(true)
   const { toastError, toastSuccess } = useUIContext()
 
-  const fetchUsers = async (page: number = 1) => {
-    setIsloading(true)
-    await UsersService.fetchUsers(page)
+  const fetchCreators = async (page: number = 1) => {
+    dispatch({ type: FETCH_CREATORS_BEGIN })
+    await UsersService.fetchUsers('creator', page)
       .then((users) => {
-        dispatch({ type: FETCH_USERS_SUCCESS, payload: users })
-        setIsloading(false)
+        dispatch({ type: FETCH_CREATORS_SUCCESS, payload: users })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsloading(false)
+        dispatch({ type: FETCH_CREATORS_FAIL })
       })
   }
 
@@ -106,7 +108,7 @@ export const UsersProvider = ({ children }: any) => {
     <UsersStateContext.Provider value={{ ...state, isLoading }}>
       <UsersDispatchContext.Provider
         value={{
-          fetchUsers,
+          fetchCreators,
           fetchUser,
           fetchUserCleanup,
           fetchUserArtworks,

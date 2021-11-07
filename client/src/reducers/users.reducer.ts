@@ -1,5 +1,7 @@
 import {
-  FETCH_USERS_SUCCESS,
+  FETCH_CREATORS_BEGIN,
+  FETCH_CREATORS_FAIL,
+  FETCH_CREATORS_SUCCESS,
   FETCH_USER_ARTWORKS_BEGIN,
   FETCH_USER_ARTWORKS_CLEANUP,
   FETCH_USER_ARTWORKS_FAIL,
@@ -12,8 +14,14 @@ import {
 } from '../constants/users.constant'
 
 const users_reducer = (state: any, action: any) => {
-  if (action.type === FETCH_USERS_SUCCESS) {
-    return { ...state, users: action.payload }
+  if (action.type === FETCH_CREATORS_BEGIN) {
+    return { ...state, creators_loading: true }
+  }
+  if (action.type === FETCH_CREATORS_SUCCESS) {
+    return { ...state, creators: action.payload, creators_loading: false }
+  }
+  if (action.type === FETCH_CREATORS_FAIL) {
+    return { ...state, creators_loading: false }
   }
   if (action.type === FETCH_USER_BEGIN) {
     return { ...state, user_loading: true }

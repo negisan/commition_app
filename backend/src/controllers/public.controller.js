@@ -11,7 +11,7 @@ module.exports = router
 
 function getUsers(req, res, next) {
   publicService
-    .getUsers(req.query.page)
+    .getUsers(req.query.user_type, req.query.page)
     .then((users) => res.json(users))
     .catch(next)
 }

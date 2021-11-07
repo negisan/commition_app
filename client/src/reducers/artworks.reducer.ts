@@ -4,6 +4,7 @@ import {
   FETCH_ARTWORK_BEGIN,
   FETCH_ARTWORK_FAIL,
   FETCH_ARTWORK_CLEANUP,
+  FETCH_ARTWORKS_BEGIN,
 } from '../constants/artworks.constant'
 
 const artwork_reducer = (state: any, action: any) => {
@@ -28,8 +29,14 @@ const artwork_reducer = (state: any, action: any) => {
   if (action.type === FETCH_ARTWORK_CLEANUP) {
     return { ...state, artwork: {}, artwork_creator: {} }
   }
+  if (action.type === FETCH_ARTWORKS_BEGIN) {
+    return { ...state, artworks_loading: true }
+  }
   if (action.type === FETCH_ARTWORKS_SUCCESS) {
-    return { ...state, artworks: action.payload }
+    return { ...state, artworks: action.payload, artworks_loading: false }
+  }
+  if (action.type === FETCH_ARTWORKS_SUCCESS) {
+    return { ...state, artworks_loading: false }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)

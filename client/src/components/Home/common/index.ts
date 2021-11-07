@@ -1,2 +1,3 @@
 import ItemsLayout from './ItemsLayout'
-export { ItemsLayout }
+import RoleTag from './RoleTag'
+export { ItemsLayout, RoleTag }

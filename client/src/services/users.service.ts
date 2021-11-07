@@ -2,10 +2,12 @@ import axios from 'axios'
 import authHeader from './auth-header'
 import { BASE_API_URL } from '../helper/constants'
 
-const fetchUsers = async (page: number) => {
+type UserType = 'creator' | 'client'
+
+const fetchUsers = async (user_type: UserType, page: number) => {
   return await axios({
     method: 'get',
-    url: BASE_API_URL + '/public/users/?page=' + page,
+    url: BASE_API_URL + `/public/users/?user_type=${user_type}&page=${page}`,
   })
     .then((res) => {
       return Promise.resolve(res.data)
@@ -31,7 +33,7 @@ const fetchUser = async (user_name: string) => {
 const fetchUserArtworks = async (user_id: number, page: number) => {
   return await axios({
     method: 'get',
-    url: BASE_API_URL + `/public/user/artworks?user=${user_id}&page=${page}`
+    url: BASE_API_URL + `/public/user/artworks?user=${user_id}&page=${page}`,
   })
     .then((res) => {
       return Promise.resolve(res.data)
@@ -44,7 +46,6 @@ const fetchUserArtworks = async (user_id: number, page: number) => {
 const updateUserIcon = async (new_user_icon: any) => {
   const data = new FormData()
   data.append('file', new_user_icon)
-  // @ts-ignore
   return await axios({
     headers: authHeader(),
     method: 'put',

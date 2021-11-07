@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useUsersStateContext } from '../../context/users.context'
-import { ItemsLayout } from './common'
+import {
+  useUsersDispatchContext,
+  useUsersStateContext,
+} from '../../context/users.context'
+import { ItemsLayout, RoleTag } from './common'
 import default_icon from '../../statics/images/default_icon.jpg'
 
-const UsersList = () => {
-  const { users } = useUsersStateContext()
+const CreatorList = () => {
+  const { creators: users } = useUsersStateContext()
 
   return (
     <div className='section-wrapper' style={{ marginTop: '3rem' }}>
       <HeaderContainer>
-        <h2>新着ユーザー</h2>
+        <h2>新着クリエイター</h2>
         <div className='divider' style={{ marginTop: 0 }}></div>
       </HeaderContainer>
       <ItemsLayout>
@@ -21,7 +24,10 @@ const UsersList = () => {
               return (
                 <Link to={`/user/${user.name}`} key={user.id}>
                   <UserContainer>
-                    <div className='user-cover'></div>
+                    <div className='user-cover'>
+                      {user.isCreator && <RoleTag role={'クリエイター'} />}
+                      {user.isClient && <RoleTag role={'クライアント'} />}
+                    </div>
                     <img
                       src={
                         user.icon
@@ -78,7 +84,7 @@ const UserContainer = styled.div`
   position: relative;
   img {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -88,4 +94,4 @@ const UserContainer = styled.div`
   }
 `
 
-export default UsersList
+export default CreatorList

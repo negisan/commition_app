@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react'
+import React, { useContext, useReducer } from 'react'
 
 import reducer from '../reducers/artworks.reducer'
 import {
+  FETCH_ARTWORKS_BEGIN,
   FETCH_ARTWORKS_SUCCESS,
+  FETCH_ARTWORKS_FAIL,
   FETCH_ARTWORK_BEGIN,
   FETCH_ARTWORK_CLEANUP,
   FETCH_ARTWORK_FAIL,
@@ -27,23 +29,21 @@ type SortType = 'new_date' | 'old_date'
 
 export const ArtworksProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsLoading] = useState<Boolean>(true)
   const { toastError } = useUIContext()
 
   const fetchArtworks = async (
     page: number = 1,
     sort: SortType = 'new_date'
   ) => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_ARTWORKS_BEGIN })
     await artworksService
       .fetchArtworks(page, sort)
       .then((artworks) => {
         dispatch({ type: FETCH_ARTWORKS_SUCCESS, payload: artworks })
-        setIsLoading(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_ARTWORKS_FAIL })
       })
   }
 

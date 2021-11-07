@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { ArtworkList, UsersList } from '../components/Home'
+import { ArtworkList, CreatorList } from '../components/Home'
 import {
   useArtworksDispatchContext,
-  useArtworksStateContext,
 } from '../context/artworks.context'
 import {
   useUsersDispatchContext,
@@ -13,29 +11,23 @@ import {
 } from '../context/users.context'
 
 const Home: React.FC = () => {
-  const { artworks } = useArtworksStateContext()
-  const { fetchArtworks } = useArtworksDispatchContext()
-  const { fetchUsers } = useUsersDispatchContext()
-  const { users } = useUsersStateContext()
+  const { fetchArtworks, artworks_loading } = useArtworksDispatchContext()
+  const { fetchCreators } = useUsersDispatchContext()
+  const { creators_loading } = useUsersStateContext()
 
   useEffect(() => {
     fetchArtworks()
-    fetchUsers()
+    fetchCreators()
   }, [])
 
-  console.log(artworks)
-  console.log(users)
+  if (artworks_loading) {
+    return null
+  }
 
   return (
     <Wrapper>
-      {artworks ? (
-        <>
-          <ArtworkList />
-          <UsersList />
-        </>
-      ) : (
-        ''
-      )}
+      <ArtworkList />
+      {!creators_loading && <CreatorList />}
     </Wrapper>
   )
 }

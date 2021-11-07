@@ -6,15 +6,28 @@ module.exports = {
   getUserArtworks,
 }
 
-async function getUsers(page) {
+async function getUsers(user_type, page) {
   try {
     const perPage = 20
-    const users = await db.User.findAll({
-      offset: (page - 1) * perPage,
-      limit: perPage,
-      order: [['createdAt', 'DESC']],
-    })
-    return users
+    if (user_type === 'creator') {
+      const creators = await db.User.findAll({
+        where: { isCreator: true },
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        order: [['createdAt', 'DESC']],
+      })
+      return creators
+    }
+    if (user_type === 'client') {
+      const clients = await db.User.findAll({
+        where: { isClient: true },
+        offset: (page - 1) * perPage,
+        limit: perPage,
+        order: [['createdAt', 'DESC']],
+      })
+      return clients
+    }
+    throw 'getUsers関数はユーザタイプが必要です'
   } catch (err) {
     throw err
   }

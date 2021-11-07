@@ -1,3 +1,3 @@
 import ArtworkList from './ArtworkList'
-import UsersList from './UsersList'
-export { ArtworkList, UsersList }
+import CreatorList from './CreatorList'
+export { ArtworkList, CreatorList }
