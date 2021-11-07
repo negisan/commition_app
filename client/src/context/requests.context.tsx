@@ -47,21 +47,6 @@ export const RequestsProvider = ({ children }: any) => {
   const history = useHistory()
 
   // client fetch data ====================================================
-  const clientFetchAllRequests = async () => {
-    setIsLoading(true)
-    await sleep(1000)
-    await requestsService
-      .clientFetchAllRequests()
-      .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_ALL_REQUESTS, payload: requests })
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsLoading(false)
-      })
-  }
-
   const clientFetchDefaultRequests = async () => {
     setIsLoading(true)
     await sleep(1000)
@@ -138,21 +123,6 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   // creator fetch data ====================================================
-  const creatorFetchAllRequests = async () => {
-    setIsLoading(true)
-    await sleep(1000)
-    await requestsService
-      .creatorFetchAllRequests()
-      .then((requests) => {
-        dispatch({ type: CREATOR_FETCH_ALL_REQUESTS, payload: requests })
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsLoading(false)
-      })
-  }
-
   const creatorFetchDefaultRequests = async () => {
     setIsLoading(true)
     await sleep(1000)
@@ -344,13 +314,11 @@ export const RequestsProvider = ({ children }: any) => {
     >
       <RequestsDispatchContext.Provider
         value={{
-          clientFetchAllRequests,
           clientFetchDefaultRequests,
           clientFetchProgressingRequests,
           clientFetchSubmittedRequests,
           clientFetchDoneRequests,
           clientFetchCancelRequests,
-          creatorFetchAllRequests,
           creatorFetchDefaultRequests,
           creatorFetchProgressingRequests,
           creatorFetchSubmittedRequests,

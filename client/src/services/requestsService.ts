@@ -27,21 +27,6 @@ const createRequest = async (order_data: OrderData) => {
 }
 
 // client ===================================
-
-const clientFetchAllRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/client',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
 const clientFetchDefaultRequests = async () => {
   return await axios({
     method: 'get',
@@ -113,21 +98,6 @@ const clientFetchCancelRequests = async () => {
 }
 
 // creator =============================================================
-
-const creatorFetchAllRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
 const creatorFetchDefaultRequests = async () => {
   return await axios({
     method: 'get',
@@ -261,13 +231,11 @@ const completeRequest = async (request: any, comment: string) => {
 
 export default {
   createRequest,
-  clientFetchAllRequests,
   clientFetchDefaultRequests,
   clientFetchProgressingRequests,
   clientFetchSubmittedRequests,
   clientFetchDoneRequests,
   clientFetchCancelRequests,
-  creatorFetchAllRequests,
   creatorFetchDefaultRequests,
   creatorFetchProgressingRequests,
   creatorFetchSubmittedRequests,
