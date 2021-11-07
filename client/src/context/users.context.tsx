@@ -3,8 +3,14 @@ import React, { useContext, useReducer, useState } from 'react'
 import {
   FETCH_USERS_SUCCESS,
   FETCH_USER_ARTWORKS_SUCCESS,
+  FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
+  FETCH_USER_FAIL,
+  FETCH_USER_CLEANUP,
   UPDATE_USER_ICON_SUCCESS,
+  FETCH_USER_ARTWORKS_BEGIN,
+  FETCH_USER_ARTWORKS_FAIL,
+  FETCH_USER_ARTWORKS_CLEANUP,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import usersService from '../services/users.service'
@@ -16,9 +22,11 @@ const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  user: '',
-  users: '',
-  userArtworks: '',
+  users: [],
+  user: {},
+  user_loading: false,
+  userArtworks: [],
+  userArtworks_loading: false,
 }
 
 export const UsersProvider = ({ children }: any) => {
@@ -40,29 +48,35 @@ export const UsersProvider = ({ children }: any) => {
   }
 
   const fetchUser = async (user_name: string) => {
-    setIsloading(true)
+    dispatch({ type: FETCH_USER_BEGIN })
     await UsersService.fetchUser(user_name)
       .then((user) => {
         dispatch({ type: FETCH_USER_SUCCESS, payload: user })
-        setIsloading(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsloading(false)
+        dispatch({ type: FETCH_USER_FAIL })
       })
   }
 
+  const fetchUserCleanup = () => {
+    dispatch({ type: FETCH_USER_CLEANUP })
+  }
+
   const fetchUserArtworks = async (user_id: number, page: number = 1) => {
-    setIsloading(true)
+    dispatch({ type: FETCH_USER_ARTWORKS_BEGIN })
     await UsersService.fetchUserArtworks(user_id, page)
       .then((artworks) => {
         dispatch({ type: FETCH_USER_ARTWORKS_SUCCESS, payload: artworks })
-        setIsloading(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsloading(false)
+        dispatch({ type: FETCH_USER_ARTWORKS_FAIL })
       })
+  }
+
+  const fetchUserArtworksCleanup = () => {
+    dispatch({ type: FETCH_USER_ARTWORKS_CLEANUP })
   }
 
   const [newUserIcon, setNewUserIcon] = useState<File>()
@@ -94,7 +108,9 @@ export const UsersProvider = ({ children }: any) => {
         value={{
           fetchUsers,
           fetchUser,
+          fetchUserCleanup,
           fetchUserArtworks,
+          fetchUserArtworksCleanup,
           submitNewUserIcon,
           getNewUserIcon,
         }}

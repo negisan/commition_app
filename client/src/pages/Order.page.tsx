@@ -14,17 +14,23 @@ import {
 
 const Order: React.FC = () => {
   const { user } = useAuthStateContext()
-  const { user: ownerUser, isLoading } = useUsersStateContext()
+  const { user: ownerUser, user_loading } = useUsersStateContext()
+  const { fetchUser, fetchUserCleanup } = useUsersDispatchContext()
   const { isProcessing } = useOrderStateContext()
-
   const history = useHistory()
+  const { user: user_name }: any = useParams()
+
+  useEffect(() => {
+    fetchUser(user_name)
+    return () => fetchUserCleanup()
+  }, [user_name])
+
+  if (user_loading) {
+    return null
+  }
 
   if (ownerUser.id === user.id) {
     history.replace('/')
-  }
-
-  if (isLoading) {
-    return <></>
   }
 
   return (

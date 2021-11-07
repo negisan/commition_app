@@ -4,27 +4,45 @@ import styled from 'styled-components'
 
 import { PageHeader, UserInfoBar } from '../components'
 import { UserArtworks } from '../components/UserPage'
-import { useAuthStateContext } from '../context/auth.context'
 import {
   useUsersDispatchContext,
   useUsersStateContext,
 } from '../context/users.context'
 
 const User: React.FC = () => {
-  const { user: ownerUser } = useUsersStateContext()
-  const { fetchUser } = useUsersDispatchContext()
+  const {
+    user: ownerUser,
+    user_loading,
+    userArtworks_loading,
+  } = useUsersStateContext()
+  const {
+    fetchUser,
+    fetchUserCleanup,
+    fetchUserArtworks,
+    fetchUserArtworksCleanup,
+  } = useUsersDispatchContext()
   const { user: params_user_name }: any = useParams()
 
   useEffect(() => {
     fetchUser(params_user_name)
+    return () => fetchUserCleanup()
   }, [params_user_name])
+
+  useEffect(() => {
+    fetchUserArtworks(ownerUser.id)
+    return () => fetchUserArtworksCleanup()
+  }, [ownerUser])
+
+  if (user_loading) {
+    return null
+  }
 
   return (
     <>
       <PageHeader user={ownerUser} />
       <SectionWrapper>
         <UserInfoBar user={ownerUser} />
-        <UserArtworks user={ownerUser} />
+        {!userArtworks_loading && <UserArtworks />}
       </SectionWrapper>
     </>
   )

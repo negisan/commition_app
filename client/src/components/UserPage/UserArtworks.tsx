@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import {
-  useUsersDispatchContext,
-  useUsersStateContext,
-} from '../../context/users.context'
+import { useUsersStateContext } from '../../context/users.context'
 
-const UserArtworks: React.FC<any> = ({ user }) => {
+const UserArtworks: React.FC = () => {
   const { userArtworks } = useUsersStateContext()
-  const { fetchUserArtworks } = useUsersDispatchContext()
-
-  useEffect(() => {
-    fetchUserArtworks(user.id)
-  }, [user])
-
-  console.log(userArtworks)
 
   return (
     <div className='section-wrapper'>
@@ -24,7 +14,7 @@ const UserArtworks: React.FC<any> = ({ user }) => {
       </HeaderContainer>
       <Layout>
         {userArtworks
-          ? userArtworks?.map((artwork: any) => {
+          ? userArtworks.map((artwork: any) => {
               return (
                 <Link to={`/artworks/${artwork.id}`} key={artwork.id}>
                   <ArtworkContainer key={artwork.id}>
