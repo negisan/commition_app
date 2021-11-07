@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { ArtworkList, CreatorList } from '../components/Home'
-import {
-  useArtworksDispatchContext,
-} from '../context/artworks.context'
+import { ArtworkList, CreatorList, ClientList } from '../components/Home'
+import { useArtworksDispatchContext } from '../context/artworks.context'
 import {
   useUsersDispatchContext,
   useUsersStateContext,
@@ -12,12 +10,13 @@ import {
 
 const Home: React.FC = () => {
   const { fetchArtworks, artworks_loading } = useArtworksDispatchContext()
-  const { fetchCreators } = useUsersDispatchContext()
-  const { creators_loading } = useUsersStateContext()
+  const { fetchCreators, fetchClients } = useUsersDispatchContext()
+  const { creators_loading, clients_loading } = useUsersStateContext()
 
   useEffect(() => {
     fetchArtworks()
     fetchCreators()
+    fetchClients()
   }, [])
 
   if (artworks_loading) {
@@ -28,6 +27,7 @@ const Home: React.FC = () => {
     <Wrapper>
       <ArtworkList />
       {!creators_loading && <CreatorList />}
+      {!clients_loading && <ClientList />}
     </Wrapper>
   )
 }

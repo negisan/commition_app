@@ -1,18 +1,21 @@
 import React, { useContext, useReducer, useState } from 'react'
 
 import {
-  FETCH_USER_ARTWORKS_SUCCESS,
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAIL,
   FETCH_USER_CLEANUP,
   UPDATE_USER_ICON_SUCCESS,
   FETCH_USER_ARTWORKS_BEGIN,
+  FETCH_USER_ARTWORKS_SUCCESS,
   FETCH_USER_ARTWORKS_FAIL,
   FETCH_USER_ARTWORKS_CLEANUP,
-  FETCH_CREATORS_SUCCESS,
   FETCH_CREATORS_BEGIN,
+  FETCH_CREATORS_SUCCESS,
   FETCH_CREATORS_FAIL,
+  FETCH_CLIENTS_BEGIN,
+  FETCH_CLIENTS_SUCCESS,
+  FETCH_CLIENTS_FAIL
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import usersService from '../services/users.service'
@@ -26,6 +29,8 @@ const UsersDispatchContext = React.createContext<any | null>({})
 const initialState = {
   creators: [],
   creators_loading: false,
+  clients: [],
+  clients_loading: false,
   user: {},
   user_loading: false,
   userArtworks: [],
@@ -46,6 +51,18 @@ export const UsersProvider = ({ children }: any) => {
       .catch((err) => {
         toastError(errorMessage(err))
         dispatch({ type: FETCH_CREATORS_FAIL })
+      })
+  }
+
+  const fetchClients = async (page: number = 1) => {
+    dispatch({ type: FETCH_CLIENTS_BEGIN })
+    await UsersService.fetchUsers('client', page)
+      .then((users) => {
+        dispatch({ type: FETCH_CLIENTS_SUCCESS, payload: users })
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: FETCH_CLIENTS_FAIL })
       })
   }
 
@@ -109,6 +126,7 @@ export const UsersProvider = ({ children }: any) => {
       <UsersDispatchContext.Provider
         value={{
           fetchCreators,
+          fetchClients,
           fetchUser,
           fetchUserCleanup,
           fetchUserArtworks,

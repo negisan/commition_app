@@ -1,19 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { useUsersStateContext } from '../../context/users.context'
 import { UserList } from './common'
 
-const CreatorList: React.FC = () => {
-  const { creators } = useUsersStateContext()
+const ClientList = () => {
+  const { clients } = useUsersStateContext()
 
   return (
     <div className='section-wrapper' style={{ marginTop: '3rem' }}>
       <HeaderContainer>
-        <h2>新着クリエイター</h2>
+        <h2>新着クライアント</h2>
         <div className='divider' style={{ marginTop: 0 }}></div>
       </HeaderContainer>
-      <UserList users={creators} />
+      <UserList users={clients} />
     </div>
   )
 }
@@ -26,4 +25,4 @@ const HeaderContainer = styled.div`
   }
 `
 
-export default CreatorList
+export default ClientList

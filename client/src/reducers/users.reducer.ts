@@ -1,4 +1,7 @@
 import {
+  FETCH_CLIENTS_BEGIN,
+  FETCH_CLIENTS_FAIL,
+  FETCH_CLIENTS_SUCCESS,
   FETCH_CREATORS_BEGIN,
   FETCH_CREATORS_FAIL,
   FETCH_CREATORS_SUCCESS,
@@ -23,6 +26,17 @@ const users_reducer = (state: any, action: any) => {
   if (action.type === FETCH_CREATORS_FAIL) {
     return { ...state, creators_loading: false }
   }
+
+  if (action.type === FETCH_CLIENTS_BEGIN) {
+    return { ...state, clients_loading: true }
+  }
+  if (action.type === FETCH_CLIENTS_SUCCESS) {
+    return { ...state, clients: action.payload, clients_loading: false }
+  }
+  if (action.type === FETCH_CLIENTS_FAIL) {
+    return { ...state, clients_loading: false }
+  }
+
   if (action.type === FETCH_USER_BEGIN) {
     return { ...state, user_loading: true }
   }
@@ -35,6 +49,7 @@ const users_reducer = (state: any, action: any) => {
   if (action.type === FETCH_USER_CLEANUP) {
     return { ...state, user: {} }
   }
+
   if (action.type === FETCH_USER_ARTWORKS_BEGIN) {
     return { ...state, userArtworks_loading: true }
   }
@@ -51,6 +66,7 @@ const users_reducer = (state: any, action: any) => {
   if (action.type === FETCH_USER_ARTWORKS_CLEANUP) {
     return { ...state, userArtworks: [] }
   }
+
   if (action.type === UPDATE_USER_ICON_SUCCESS) {
     return { ...state, user: action.payload }
   }
