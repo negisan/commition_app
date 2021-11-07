@@ -9,45 +9,45 @@ import {
 import { UserBar } from '../components/common'
 
 const ArtworkDetails: React.FC = () => {
-  const { artwork } = useArtworksStateContext()
-  const { fetchArtwork } = useArtworksDispatchContext()
+  const {
+    artwork,
+    artwork_creator,
+    artwork_loading: isLoading,
+  } = useArtworksStateContext()
+  const { fetchArtwork, fetchArtworkCleanup } = useArtworksDispatchContext()
   const { id }: any = useParams()
 
   useEffect(() => {
     fetchArtwork(id)
-  }, [])
+    return () => fetchArtworkCleanup()
+  }, [id])
 
-  if (artwork === null) {
-    return <NotFound />
+  if (isLoading) {
+    return <div></div>
   }
+
+  const { artwork_image, order_content, thanks_comment } = artwork
 
   return (
     <Wrapper>
       <ArtworkContainer>
-        {artwork?.Artwork?.content ? (
-          <img
-            src={`data:image/jpeg;base64,` + artwork?.Artwork?.content}
-            alt='artwork'
-          />
-        ) : (
-          ''
-        )}
+        <img src={`data:image/jpeg;base64,` + artwork_image} alt='artwork' />
       </ArtworkContainer>
       <div>
         <RequestInfoContainer>
-          <UserBar user={artwork?.creator} />
+          <UserBar user={artwork_creator} />
           <div className='divider' />
           <ContentContainer>
             <h3>リクエスト</h3>
-            <p>{artwork?.order_content}</p>
+            <p>{order_content}</p>
           </ContentContainer>
           <div className='divider'></div>
           <ContentContainer>
             <h3>クライアントのコメント</h3>
-            <p>{artwork?.thanks_comment}</p>
+            <p>{thanks_comment}</p>
           </ContentContainer>
         </RequestInfoContainer>
-        <UserInfoBar user={artwork?.creator} />
+        <UserInfoBar user={artwork_creator} />
       </div>
     </Wrapper>
   )

@@ -1,8 +1,11 @@
-import React, { useContext, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 
 import reducer from '../reducers/artworks.reducer'
 import {
   FETCH_ARTWORKS_SUCCESS,
+  FETCH_ARTWORK_BEGIN,
+  FETCH_ARTWORK_CLEANUP,
+  FETCH_ARTWORK_FAIL,
   FETCH_ARTWORK_SUCCESS,
 } from '../constants/artworks.constant'
 import artworksService from '../services/artworks.service'
@@ -13,8 +16,11 @@ const ArtworksStateContext = React.createContext<any | null>({})
 const ArtworksDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  artwork: '',
-  artworks: '',
+  artwork: {},
+  artwork_creator: {},
+  artwork_loading: false,
+  artworks: [],
+  artworks_loading: false,
 }
 
 type SortType = 'new_date' | 'old_date'
@@ -42,22 +48,27 @@ export const ArtworksProvider = ({ children }: any) => {
   }
 
   const fetchArtwork = async (artworkId: any) => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_ARTWORK_BEGIN })
     await artworksService
       .fetchArtwork(artworkId)
       .then((requestWithArtwork) => {
         dispatch({ type: FETCH_ARTWORK_SUCCESS, payload: requestWithArtwork })
-        setIsLoading(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_ARTWORK_FAIL })
       })
   }
 
+  const fetchArtworkCleanup = () => {
+    dispatch({ type: FETCH_ARTWORK_CLEANUP })
+  }
+
   return (
-    <ArtworksStateContext.Provider value={{ ...state, isLoading }}>
-      <ArtworksDispatchContext.Provider value={{ fetchArtwork, fetchArtworks }}>
+    <ArtworksStateContext.Provider value={{ ...state }}>
+      <ArtworksDispatchContext.Provider
+        value={{ fetchArtwork, fetchArtworkCleanup, fetchArtworks }}
+      >
         {children}
       </ArtworksDispatchContext.Provider>
     </ArtworksStateContext.Provider>
