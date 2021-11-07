@@ -12,8 +12,18 @@ module.exports = {
 }
 
 async function create(order) {
-  await db.Request.create(order)
-  return Promise.resolve()
+  try {
+    const client_id = order.client_id
+    await db.Request.create(order)
+    // userのisClientフラグをtrueに更新
+    await db.User.findOne({ where: { id: client_id } }).then((user) => {
+      user.isClient = true
+      user.save()
+    })
+    return Promise.resolve()
+  } catch (err) {
+    throw err
+  }
 }
 
 async function accept(user, query) {
@@ -81,6 +91,7 @@ async function complete(user, query, comment) {
       where: { id: request.creatorId },
     }).then((user) => {
       user.cash = user.cash + request.order_price
+      user.isCreator = true
       user.save()
     })
     return Promise.resolve()
