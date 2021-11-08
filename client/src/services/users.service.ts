@@ -60,9 +60,47 @@ const updateUserIcon = async (new_user_icon: any) => {
     })
 }
 
+const setAcceptingOrderToFalse = async (user_id: number) => {
+  const data = {
+    accepting_order: false,
+  }
+  return await axios({
+    url: BASE_API_URL + `/users/${user_id}?update_type=accepting_order`,
+    method: 'put',
+    headers: authHeader(),
+    data: data,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
+const setAcceptingOrderToTrue = async (user_id: number) => {
+  const data = {
+    accepting_order: true,
+  }
+  return await axios({
+    url: BASE_API_URL + `/users/${user_id}?update_type=accepting_order`,
+    method: 'put',
+    headers: authHeader(),
+    data: data,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 export default {
   fetchUsers,
   fetchUser,
   fetchUserArtworks,
+  setAcceptingOrderToFalse,
+  setAcceptingOrderToTrue,
   updateUserIcon,
 }

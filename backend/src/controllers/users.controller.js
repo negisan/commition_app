@@ -8,6 +8,7 @@ const upload = require('src/_middleware/upload-user-icon')
 router.post('/', create)
 router.get('/', authorize(), show)
 router.put('/icon', authorize(), upload.single('file'), updateUserIcon)
+router.put('/:user_id', authorize(), update)
 
 module.exports = router
 
@@ -25,6 +26,15 @@ function show(req, res, next) {
     .show(req)
     .then((user) => {
       res.json(user)
+    })
+    .catch(next)
+}
+
+function update(req, res, next) {
+  userService
+    .update(req.user, req.body, req.query.update_type)
+    .then(() => {
+      res.status(200).send()
     })
     .catch(next)
 }

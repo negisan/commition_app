@@ -15,13 +15,14 @@ import {
   FETCH_CREATORS_FAIL,
   FETCH_CLIENTS_BEGIN,
   FETCH_CLIENTS_SUCCESS,
-  FETCH_CLIENTS_FAIL
+  FETCH_CLIENTS_FAIL,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import usersService from '../services/users.service'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
+import { useHistory } from 'react-router'
 
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
@@ -39,8 +40,9 @@ const initialState = {
 
 export const UsersProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsloading] = useState<boolean>(true)
+  const [isLoading, setIsloading] = useState<boolean>(false)
   const { toastError, toastSuccess } = useUIContext()
+  const history = useHistory()
 
   const fetchCreators = async (page: number = 1) => {
     dispatch({ type: FETCH_CREATORS_BEGIN })
@@ -121,6 +123,33 @@ export const UsersProvider = ({ children }: any) => {
       })
   }
 
+  const setAcceptingOrderToFalse = async (user_id: number) => {
+    setIsloading(true)
+    await usersService
+      .setAcceptingOrderToFalse(user_id)
+      .then(() => {
+        setIsloading(false)
+        history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsloading(false)
+      })
+  }
+  const setAcceptingOrderToTrue = async (user_id: number) => {
+    setIsloading(true)
+    await usersService
+      .setAcceptingOrderToTrue(user_id)
+      .then(() => {
+        setIsloading(false)
+        history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsloading(false)
+      })
+  }
+
   return (
     <UsersStateContext.Provider value={{ ...state, isLoading }}>
       <UsersDispatchContext.Provider
@@ -131,8 +160,10 @@ export const UsersProvider = ({ children }: any) => {
           fetchUserCleanup,
           fetchUserArtworks,
           fetchUserArtworksCleanup,
-          submitNewUserIcon,
           getNewUserIcon,
+          submitNewUserIcon,
+          setAcceptingOrderToFalse,
+          setAcceptingOrderToTrue,
         }}
       >
         {children}

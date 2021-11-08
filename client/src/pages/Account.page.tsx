@@ -1,52 +1,57 @@
 import React from 'react'
 import styled from 'styled-components'
+import BlockUi from 'react-block-ui'
 
 import { useAuthDispatchContext } from '../context/auth.context'
-import { useUsersDispatchContext } from '../context/users.context'
+import { UserIconForm, SwitchAcceptingOrder } from '../components/AccountPage'
+import { useUsersStateContext } from '../context/users.context'
 
 const Account: React.FC = () => {
   const { logout } = useAuthDispatchContext()
-  const { getNewUserIcon, submitNewUserIcon } = useUsersDispatchContext()
+  const { isLoading } = useUsersStateContext()
+
   return (
     <PageLayout>
       <SectionWrapper className='section-wrapper'>
-        <HeaderContainer>
-          <div className='account_config-page_title'>
-            <h1>アカウント設定</h1>
-          </div>
-          <div className='account_config-signout_btn'>
-            <button onClick={logout}>サインアウト</button>
-          </div>
-        </HeaderContainer>
-        <div className='divider' />
-        <UserIconForm>
-          <input
-            id='img'
-            type='file'
-            accept='image/*,.png,.jpg,.jpeg,.gif'
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              getNewUserIcon(e)
-            }
-          />
-          <div className='account_config-usericon_submit'>
-            <input
-              type='button'
-              value='変更を保存する'
-              onClick={submitNewUserIcon}
-              className='account_config-submit_btn'
-            />
-          </div>
-        </UserIconForm>
-        <div className="divider" />
+        {/* <BlockUi tag='div' blocking={isLoading}> */}
+          <HeaderContainer>
+            <div className='account_config-page_title'>
+              <h1>アカウント設定</h1>
+            </div>
+            <div className='account_config-signout_btn'>
+              <button onClick={logout}>サインアウト</button>
+            </div>
+          </HeaderContainer>
+          <div className='divider' />
+          <TitleContainer>
+            <h3>リクエスト受付</h3>
+          </TitleContainer>
+          <SwitchAcceptingOrder />
+          <div className='divider' />
+          <TitleContainer>
+            <h3>おまかせ金額の編集</h3>
+          </TitleContainer>
+          <div className='divider' />
+          <TitleContainer>
+            <h3>ユーザーアイコンの編集</h3>
+          </TitleContainer>
+          <UserIconForm />
+          <div className='divider' />
+          <TitleContainer>
+            <h3>売上</h3>
+          </TitleContainer>
+        {/* </BlockUi> */}
       </SectionWrapper>
     </PageLayout>
   )
 }
 
-const UserIconForm = styled.form`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5rem;
+const TitleContainer = styled.div`
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+  h3 {
+    color: var(--clr-grey-3);
+  }
 `
 
 const HeaderContainer = styled.div`

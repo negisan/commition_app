@@ -8,6 +8,7 @@ module.exports = {
   authenticate,
   create,
   show,
+  update,
   updateUserIcon,
 }
 
@@ -47,6 +48,23 @@ async function create(params) {
 
 async function show(req) {
   return await omitHash(req.user)
+}
+
+async function update(user, data, update_type) {
+  try {
+    if (update_type === 'accepting_order') {
+      await db.sequelize.transaction({}, async () => {
+        await db.User.findOne({ where: { id: user.id } }).then((user) => {
+          user.accepting_order = data.accepting_order
+          user.save()
+        })
+      })
+      return Promise.resolve()
+    }
+    throw `no match ${update_type} - update_type`
+  } catch (err) {
+    throw err
+  }
 }
 
 async function updateUserIcon(req) {
