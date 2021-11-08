@@ -27,7 +27,7 @@ const SwitchAcceptingOrder: React.FC = () => {
 }
 
 const Button = styled.div`
-  border: 1px solid var(--clr-primary-4);
+  border: 1px solid var(--clr-primary-6);
   padding: 0.5rem;
   font-weight: 600;
   color: var(--clr-grey-4);
