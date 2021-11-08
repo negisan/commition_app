@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
       <h5>
         &copy; {new Date().getFullYear()}
         <span>Commition App</span>
-        <h5>All right reserved</h5>
       </h5>
+      <h5>All right reserved</h5>
     </Wrapper>
   )
 }
@@ -16,6 +16,7 @@ const Footer: React.FC = () => {
 const Wrapper = styled.div`
   height: 5rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
