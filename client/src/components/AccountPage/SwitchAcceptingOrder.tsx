@@ -3,20 +3,20 @@ import styled from 'styled-components'
 import { useAuthDispatchContext, useAuthStateContext } from '../../context/auth.context'
 
 const SwitchAcceptingOrder: React.FC = () => {
-  const { user } = useAuthStateContext()
+  const { myuser } = useAuthStateContext()
   const { setAcceptingOrderToFalse, setAcceptingOrderToTrue } = useAuthDispatchContext()
 
   return (
     <Wrapper>
       <ButtonLeft
-        className={user.accepting_order ? 'selected' : ''}
-        onClick={() => setAcceptingOrderToTrue(user.id)}
+        className={myuser.accepting_order ? 'selected' : ''}
+        onClick={() => setAcceptingOrderToTrue(myuser.id)}
       >
         受付
       </ButtonLeft>
       <ButtonRight
-        className={user.accepting_order ? '' : 'selected'}
-        onClick={() => setAcceptingOrderToFalse(user.id)}
+        className={myuser.accepting_order ? '' : 'selected'}
+        onClick={() => setAcceptingOrderToFalse(myuser.id)}
       >
         休止
       </ButtonRight>

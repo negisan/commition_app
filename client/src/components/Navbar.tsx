@@ -9,7 +9,7 @@ import { GrConfigure } from 'react-icons/gr'
 import { FiUser } from 'react-icons/fi'
 
 const Navbar = () => {
-  const { user, isLoggedin } = useAuthStateContext()
+  const { myuser, isLoggedin } = useAuthStateContext()
   // @ts-ignore
   const UserFromLocalStorage = JSON.parse(localStorage.getItem('user'))
 
@@ -35,7 +35,7 @@ const Navbar = () => {
               </Link>
             </LinkContainer>
             <LinkContainer>
-              <Link to={`/user/${user.name}`}>
+              <Link to={`/user/${myuser.name}`}>
                 <FiUser size={15} />
                 {UserFromLocalStorage.name}
               </Link>

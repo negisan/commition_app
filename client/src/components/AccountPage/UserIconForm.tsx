@@ -8,7 +8,7 @@ import {
 
 const UserIconForm: React.FC = () => {
   const { submitNewUserIcon } = useAuthDispatchContext()
-  const { user } = useAuthStateContext()
+  const { myuser } = useAuthStateContext()
   const [newUserIcon, setNewUserIcon] = useState<File>()
 
   const getNewUserIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +29,7 @@ const UserIconForm: React.FC = () => {
         <input
           type='button'
           value='変更を保存する'
-          onClick={() => submitNewUserIcon(user.id, newUserIcon)}
+          onClick={() => submitNewUserIcon(myuser.id, newUserIcon)}
           className='account_config-submit_btn'
         />
       </div>

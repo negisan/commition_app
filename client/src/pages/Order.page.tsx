@@ -13,7 +13,7 @@ import {
 } from '../context/users.context'
 
 const Order: React.FC = () => {
-  const { user } = useAuthStateContext()
+  const { myuser } = useAuthStateContext()
   const { user: ownerUser, user_loading } = useUsersStateContext()
   const { fetchUser, fetchUserCleanup } = useUsersDispatchContext()
   const { isProcessing } = useOrderStateContext()
@@ -30,7 +30,7 @@ const Order: React.FC = () => {
     return null
   }
 
-  if (ownerUser.id === user.id) {
+  if (ownerUser.id === myuser.id) {
     history.replace('/')
   }
 
@@ -40,7 +40,7 @@ const Order: React.FC = () => {
         <PageHeader user={ownerUser} />
         <SectionWrapper>
           <UserInfoBar user={ownerUser} />
-          <OrderForm client={user} creator={ownerUser} />
+          <OrderForm client={myuser} creator={ownerUser} />
         </SectionWrapper>
       </BlockUi>
     </>

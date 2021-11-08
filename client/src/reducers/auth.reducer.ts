@@ -17,14 +17,14 @@ const auth_reducer = (state: any, action: any) => {
     return {}
   }
   if (action.type === FETCH_USER_SUCCESS) {
-    return { ...state, user: action.payload }
+    return { ...state, myuser: action.payload }
   }
 
   if (action.type === UPDATE_USER_ICON_BEGIN) {
     return { ...state, update_user_loading: true }
   }
   if (action.type === UPDATE_USER_ICON_SUCCESS) {
-    return { ...state, user: action.payload, update_user_loading: false }
+    return { ...state, myuser: action.payload, update_user_loading: false }
   }
   if (action.type === UPDATE_USER_ICON_FAIL) {
     return { ...state, update_user_loading: false }
@@ -34,7 +34,7 @@ const auth_reducer = (state: any, action: any) => {
     return { ...state, update_user_loading: true }
   }
   if (action.type === UPDATE_ACCEPTING_ORDER_SUCCESS) {
-    return { ...state, user: action.payload, update_user_loading: false }
+    return { ...state, myuser: action.payload, update_user_loading: false }
   }
   if (action.type === UPDATE_ACCEPTING_ORDER_FAIL) {
     return { ...state, update_user_loading: false }
@@ -44,7 +44,7 @@ const auth_reducer = (state: any, action: any) => {
     return { ...state, update_user_loading: true }
   }
   if (action.type === UPDATE_DEFAULT_ORDER_PRICE_SUCCESS) {
-    return { ...state, user: action.payload, update_user_loading: false }
+    return { ...state, myuser: action.payload, update_user_loading: false }
   }
   if (action.type === UPDATE_DEFAULT_ORDER_PRICE_FAIL) {
     return { ...state, update_user_loading: false }

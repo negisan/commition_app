@@ -6,18 +6,18 @@ import { useHistory } from 'react-router'
 import { useAuthStateContext } from '../context/auth.context'
 
 const UserInfoBar: React.FC<{ user: any }> = ({ user }) => {
-  const { user: logedinUser } = useAuthStateContext()
+  const { myuser } = useAuthStateContext()
   const history = useHistory()
   const onClickNewOrder = () => {
-    if (user?.accepting_order) {
-      return history.push(`/user/${user?.name}/order`)
+    if (user.accepting_order) {
+      return history.push(`/user/${user.name}/order`)
     }
   }
 
   return (
     <Wrapper>
-      {user?.id === logedinUser.id ? (
-        <></>
+      {user.id === myuser.id ? (
+        ''
       ) : (
         <>
           <ButtonContainer>

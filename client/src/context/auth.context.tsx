@@ -23,7 +23,7 @@ const AuthStateContext = React.createContext<any | null>({})
 const AuthDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  user: {},
+  myuser: {},
   update_user_loading: false,
 }
 

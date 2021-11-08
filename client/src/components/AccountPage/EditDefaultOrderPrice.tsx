@@ -6,18 +6,18 @@ import {
 } from '../../context/auth.context'
 
 const EditDefaultOrderPrice: React.FC = () => {
-  const { user } = useAuthStateContext()
+  const { myuser } = useAuthStateContext()
   const { updateDefaultOrderPrice } = useAuthDispatchContext()
   const [value, setValue] = useState('')
 
   useEffect(() => {
-    setValue(user.default_order_price)
-  }, [user])
+    setValue(myuser.default_order_price)
+  }, [myuser])
 
   return (
     <>
       <DefaultOrderPriceForm
-        onSubmit={() => updateDefaultOrderPrice(user.id, value)}
+        onSubmit={() => updateDefaultOrderPrice(myuser.id, value)}
       >
         <input
           type='number'
