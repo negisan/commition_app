@@ -14,7 +14,6 @@ import {
 
 const RequestList: React.FC = () => {
   const { requests, filterState, isLoading } = useRequestsStateContext()
-  console.log(requests)
 
   if (isLoading) {
     return <CustomLoader/>

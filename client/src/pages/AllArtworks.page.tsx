@@ -13,8 +13,6 @@ const AllArtworks = () => {
   const { all_artworks, has_more_artworks } = useArtworksStateContext()
   const { loadMoreArtworks } = useArtworksDispatchContext()
 
-  console.log(all_artworks)
-
   const items = (
     <>
       {all_artworks ? (
