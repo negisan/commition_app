@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+// @ts-nocheck
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import {
   useAuthDispatchContext,
@@ -8,22 +9,20 @@ import {
 const EditDefaultOrderPrice: React.FC = () => {
   const { myuser } = useAuthStateContext()
   const { updateDefaultOrderPrice } = useAuthDispatchContext()
-  const [value, setValue] = useState('')
+  const inputRef = useRef(null!)
 
   useEffect(() => {
-    setValue(myuser.default_order_price)
+    inputRef.current.value = myuser.default_order_price
   }, [myuser])
 
   return (
     <>
       <DefaultOrderPriceForm
-        onSubmit={() => updateDefaultOrderPrice(myuser.id, value)}
+        onSubmit={() =>
+          updateDefaultOrderPrice(myuser.id, inputRef.current.value)
+        }
       >
-        <input
-          type='number'
-          value={value}
-          onChange={(e: any) => setValue(e.target.value)}
-        />
+        <input type='number' ref={inputRef} />
         <button type='submit'>変更を保存する</button>
       </DefaultOrderPriceForm>
     </>
@@ -49,6 +48,11 @@ const DefaultOrderPriceForm = styled.form`
     padding: 0.5rem 0.75rem;
     background: var(--clr-primary-4);
     color: var(--clr-white);
+    cursor: pointer;
+    transition: var(--transition);
+    :hover {
+      background: var(--clr-primary-5);
+    }
   }
 `
 
