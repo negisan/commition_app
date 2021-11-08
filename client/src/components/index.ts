@@ -4,7 +4,9 @@ import PageHeader from './PageHeader'
 import UserInfoBar from './UserInfoBar'
 import OrderForm from './OrderForm'
 import NotFound from './NotFound'
+import Footer from './Footer'
 export {
+  Footer,
   NotFound,
   OrderForm,
   UserInfoBar,
