@@ -96,11 +96,6 @@ const LinksContainer = styled.div`
   }
 `
 
-const ErrorInfo = styled.span`
-  margin-left: 1rem;
-  color: var(--clr-red);
-`
-
 const StyledButton = styled.button`
   width: 100%;
   padding: 0.75rem 1.5rem;
@@ -120,8 +115,18 @@ const StyledButton = styled.button`
     background: var(--clr-primary-5);
   }
 `
+
+const ErrorInfo = styled.span`
+  position: absolute;
+  top: 2.75rem;
+  left: 0.5rem;
+  width: 100%;
+  color: var(--clr-red);
+`
+
 const FieldContainer = styled.div`
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
   .error {
     border-color: var(--clr-red);
   }
@@ -141,7 +146,7 @@ const FieldContainer = styled.div`
       outline: none;
     }
   }
-  @media (min-width: 425px) {
+  @media (min-width: 426px) {
     input {
       background: var(--clr-white);
     }
@@ -168,7 +173,7 @@ const FormCard = styled.div`
   .side-img {
     display: none;
   }
-  @media (min-width: 425px) {
+  @media (min-width: 426px) {
     box-shadow: var(--dark-shadow);
     border-radius: var(--radius);
     background: var(--clr-white);
