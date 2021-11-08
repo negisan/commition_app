@@ -19,7 +19,7 @@ async function authenticate({ email, password }) {
     throw 'パスワードが間違っています'
   }
   const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
-  return { token }
+  return { token, name: user.name }
 }
 
 async function create(params) {

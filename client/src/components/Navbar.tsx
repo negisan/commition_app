@@ -10,6 +10,8 @@ import { FiUser } from 'react-icons/fi'
 
 const Navbar = () => {
   const { user, isLoggedin } = useAuthStateContext()
+  // @ts-ignore
+  const UserFromLocalStorage = JSON.parse(localStorage.getItem('user'))
 
   return (
     <Wrapper>
@@ -35,7 +37,7 @@ const Navbar = () => {
             <LinkContainer>
               <Link to={`/user/${user.name}`}>
                 <FiUser size={15} />
-                {user?.name}
+                {UserFromLocalStorage.name}
               </Link>
             </LinkContainer>
           </>
