@@ -47,7 +47,7 @@ const users_reducer = (state: any, action: any) => {
     return { ...state, user_loading: false }
   }
   if (action.type === FETCH_USER_CLEANUP) {
-    return { ...state, user: {} }
+    return { ...state, user: {}, user_loading: true }
   }
 
   if (action.type === FETCH_USER_ARTWORKS_BEGIN) {

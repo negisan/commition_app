@@ -39,11 +39,17 @@ const User: React.FC = () => {
 
   return (
     <>
-      <PageHeader user={ownerUser} />
-      <SectionWrapper>
-        <UserInfoBar user={ownerUser} />
-        {!userArtworks_loading && <UserArtworks />}
-      </SectionWrapper>
+      {ownerUser ? (
+        <>
+          <PageHeader user={ownerUser} />
+          <SectionWrapper>
+            <UserInfoBar user={ownerUser} />
+            {!userArtworks_loading && <UserArtworks />}
+          </SectionWrapper>
+        </>
+      ) : (
+        ''
+      )}
     </>
   )
 }
