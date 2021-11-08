@@ -72,6 +72,7 @@ const UserContainer = styled.div`
     border: 2px solid var(--clr-white);
     width: 65px;
     height: 65px;
+    object-fit: cover;
   }
 `
 
