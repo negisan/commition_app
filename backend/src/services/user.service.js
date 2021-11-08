@@ -2,9 +2,7 @@ const fs = require('fs')
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-
 const db = require('src/models')
-const config = require('src/config/config.json')
 
 module.exports = {
   authenticate,
@@ -18,31 +16,33 @@ async function authenticate({ email, password }) {
   if (!user || !(await bcrypt.compare(password, user.hash))) {
     throw 'パスワードが間違っています'
   }
-
   const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
   return { token }
 }
 
 async function create(params) {
-  // validate
-  if (await db.User.findOne({ where: { email: params.email } })) {
-    throw params.email + 'は既に使われています。'
-  }
-  if (await db.User.findOne({ where: { name: params.name } })) {
-    throw params.name + 'は既に使われています。'
-  }
+  try {
+    // validate
+    if (await db.User.findOne({ where: { email: params.email } })) {
+      throw params.email + 'は既に使われています。'
+    }
+    if (await db.User.findOne({ where: { name: params.name } })) {
+      throw params.name + 'は既に使われています。'
+    }
 
-  // hash password
-  if (params.password) {
-    params.hash = await bcrypt.hash(params.password, 10)
-  }
-  // save user
-  await db.User.create(params)
+    if (params.password) {
+      params.hash = await bcrypt.hash(params.password, 10)
+    }
+    await db.sequelize.transaction({}, async () => {
+      await db.User.create(params)
+    })
 
-  // return token
-  const user = await db.User.findOne({ where: { email: params.email } })
-  const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
-  return { token }
+    const user = await db.User.findOne({ where: { email: params.email } })
+    const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
+    return { token }
+  } catch (err) {
+    throw err
+  }
 }
 
 async function show(req) {
@@ -64,7 +64,10 @@ async function updateUserIcon(req) {
         .toString('base64'),
     }
     const updated_data = Object.assign(req.user, new_user_icon)
-    await db.User.update(updated_data, { where: { id: req.user.id } })
+
+    await db.sequelize.transaction({}, async () => {
+      await db.User.update(updated_data, { where: { id: req.user.id } })
+    })
 
     return updated_data
   } catch (err) {
@@ -73,12 +76,6 @@ async function updateUserIcon(req) {
 }
 
 // helper function
-
-async function getUser(id) {
-  const user = await db.User.findByPk(id)
-  if (!user) throw 'ユーザーが見つかりません'
-  return user
-}
 
 function omitHash(user) {
   const { hash, ...userWithoutHash } = user

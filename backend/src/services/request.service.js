@@ -14,11 +14,13 @@ module.exports = {
 async function create(order) {
   try {
     const client_id = order.clientId
-    await db.Request.create(order)
-    // userのisClientフラグをtrueに更新
-    await db.User.findOne({ where: { id: client_id } }).then((user) => {
-      user.isClient = true
-      user.save()
+    await db.sequelize.transaction({}, async () => {
+      await db.Request.create(order)
+      // userのisClientフラグをtrueに更新
+      await db.User.findOne({ where: { id: client_id } }).then((user) => {
+        user.isClient = true
+        user.save()
+      })
     })
     return Promise.resolve()
   } catch (err) {
@@ -29,15 +31,17 @@ async function create(order) {
 async function accept(user, query) {
   try {
     const request_id = query.request
-    await db.Request.findOne({
-      where: { id: request_id },
-    }).then((request) => {
-      if (request.creatorId !== user.id) {
-        return Promise.reject('forbidden')
-      }
-      request.state_default = false
-      request.progressing = true
-      request.save()
+    await db.sequelize.transaction({}, async () => {
+      await db.Request.findOne({
+        where: { id: request_id },
+      }).then((request) => {
+        if (request.creatorId !== user.id) {
+          return Promise.reject('forbidden')
+        }
+        request.state_default = false
+        request.progressing = true
+        request.save()
+      })
     })
     return Promise.resolve()
   } catch (err) {
@@ -54,16 +58,18 @@ async function cancel(query) {
       progressing: false,
       cancel: true,
     }
-    await db.Request.update(updated_request, {
-      where: { id: request_id },
-    })
-    // 返金処理
-    const request = await db.Request.findOne({ where: { id: request_id } })
-    await db.User.findOne({
-      where: { id: request.clientId },
-    }).then((user) => {
-      user.cash = user.cash + request.order_price
-      user.save()
+    await db.sequelize.transaction({}, async () => {
+      await db.Request.update(updated_request, {
+        where: { id: request_id },
+      })
+      // 返金処理
+      const request = await db.Request.findOne({ where: { id: request_id } })
+      await db.User.findOne({
+        where: { id: request.clientId },
+      }).then((user) => {
+        user.cash = user.cash + request.order_price
+        user.save()
+      })
     })
     return Promise.resolve()
   } catch (err) {
@@ -74,25 +80,29 @@ async function cancel(query) {
 async function complete(user, query, comment) {
   try {
     const request_id = query.request
-    await db.Request.findOne({ where: { id: request_id } }).then((request) => {
-      if (request.clientId !== user.id) {
-        return Promise.reject('forbidden')
-      }
-      request.thanks_comment = comment
-      request.state_default = false
-      request.progressing = false
-      request.submitted = false
-      request.done = true
-      request.save()
-    })
-    // 受注者の残高に料金を加算
-    const request = await db.Request.findOne({ where: { id: request_id } })
-    await db.User.findOne({
-      where: { id: request.creatorId },
-    }).then((user) => {
-      user.cash = user.cash + request.order_price
-      user.isCreator = true
-      user.save()
+    await db.sequelize.transaction({}, async () => {
+      await db.Request.findOne({ where: { id: request_id } }).then(
+        (request) => {
+          if (request.clientId !== user.id) {
+            return Promise.reject('forbidden')
+          }
+          request.thanks_comment = comment
+          request.state_default = false
+          request.progressing = false
+          request.submitted = false
+          request.done = true
+          request.save()
+        }
+      )
+      // 受注者の残高に料金を加算
+      const request = await db.Request.findOne({ where: { id: request_id } })
+      await db.User.findOne({
+        where: { id: request.creatorId },
+      }).then((user) => {
+        user.cash = user.cash + request.order_price
+        user.isCreator = true
+        user.save()
+      })
     })
     return Promise.resolve()
   } catch (err) {

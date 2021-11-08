@@ -1,8 +1,6 @@
 const fs = require('fs')
 
 const db = require('src/models')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 
 module.exports = {
   create,
@@ -28,19 +26,20 @@ async function create(user, file, query) {
         )
         .toString('base64'),
     }
-    const artwork = await db.Artwork.create(data)
-
-    // Requestのフラグを更新
-    await db.Request.findOne({
-      where: { id: request_id },
-    }).then((request) => {
-      if (request.creatorId !== user.id) {
-        return Promise.reject('forbidden')
-      }
-      request.artworkId = artwork.id
-      request.progressing = false
-      request.submitted = true
-      request.save()
+    await db.sequelize.transaction({}, async () => {
+      const artwork = await db.Artwork.create(data)
+      // Requestのフラグを更新
+      await db.Request.findOne({
+        where: { id: request_id },
+      }).then((request) => {
+        if (request.creatorId !== user.id) {
+          return Promise.reject('forbidden')
+        }
+        request.artworkId = artwork.id
+        request.progressing = false
+        request.submitted = true
+        request.save()
+      })
     })
     return Promise.resolve()
   } catch (err) {
@@ -55,11 +54,11 @@ async function index(page, sort) {
       const artworks = await db.Artwork.findAll({
         offset: (page - 1) * perPage,
         limit: perPage,
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
       })
       return artworks
     }
-  } catch(err) {
+  } catch (err) {
     throw err
   }
 }
