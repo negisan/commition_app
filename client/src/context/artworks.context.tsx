@@ -11,6 +11,7 @@ import {
   FETCH_ARTWORK_SUCCESS,
   FETCH_MORE_ARTWORKS_FAIL,
   FETCH_MORE_ARTWORKS_SUCCESS,
+  FETCH_ARTWORKS_CLEANUP,
 } from '../constants/artworks.constant'
 import artworksService from '../services/artworks.service'
 import { useUIContext } from './UI.context'
@@ -24,7 +25,7 @@ const initialState = {
   artwork_creator: {},
   artwork_loading: false,
   artworks: [],
-  artworks_loading: false,
+  artworks_loading: true,
   all_artworks: [],
   has_more_artworks: true,
 }
@@ -49,6 +50,10 @@ export const ArtworksProvider = ({ children }: any) => {
         toastError(errorMessage(err))
         dispatch({ type: FETCH_ARTWORKS_FAIL })
       })
+  }
+
+  const fetchArtworksCleanup = async () => {
+    dispatch({ type: FETCH_ARTWORKS_CLEANUP })
   }
 
   const loadMoreArtworks = async (page: any) => {
@@ -91,6 +96,7 @@ export const ArtworksProvider = ({ children }: any) => {
           fetchArtwork,
           fetchArtworkCleanup,
           fetchArtworks,
+          fetchArtworksCleanup,
           loadMoreArtworks,
         }}
       >

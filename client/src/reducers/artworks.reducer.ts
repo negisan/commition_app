@@ -1,12 +1,14 @@
 import {
-  FETCH_ARTWORK_SUCCESS,
-  FETCH_ARTWORKS_SUCCESS,
   FETCH_ARTWORK_BEGIN,
+  FETCH_ARTWORK_SUCCESS,
   FETCH_ARTWORK_FAIL,
   FETCH_ARTWORK_CLEANUP,
   FETCH_ARTWORKS_BEGIN,
+  FETCH_ARTWORKS_SUCCESS,
+  FETCH_ARTWORKS_FAIL,
   FETCH_MORE_ARTWORKS_SUCCESS,
   FETCH_MORE_ARTWORKS_FAIL,
+  FETCH_ARTWORKS_CLEANUP,
 } from '../constants/artworks.constant'
 
 const artwork_reducer = (state: any, action: any) => {
@@ -38,8 +40,11 @@ const artwork_reducer = (state: any, action: any) => {
   if (action.type === FETCH_ARTWORKS_SUCCESS) {
     return { ...state, artworks: action.payload, artworks_loading: false }
   }
-  if (action.type === FETCH_ARTWORKS_SUCCESS) {
+  if (action.type === FETCH_ARTWORKS_FAIL) {
     return { ...state, artworks_loading: false }
+  }
+  if (action.type === FETCH_ARTWORKS_CLEANUP) {
+    return { ...state, artworks_loading: true }
   }
 
   if (action.type === FETCH_MORE_ARTWORKS_SUCCESS) {

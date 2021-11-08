@@ -2,14 +2,18 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import { ArtworkList, CreatorList, ClientList } from '../components/Home'
-import { useArtworksDispatchContext } from '../context/artworks.context'
+import {
+  useArtworksDispatchContext,
+  useArtworksStateContext,
+} from '../context/artworks.context'
 import {
   useUsersDispatchContext,
   useUsersStateContext,
 } from '../context/users.context'
 
 const Home: React.FC = () => {
-  const { fetchArtworks, artworks_loading } = useArtworksDispatchContext()
+  const { artworks_loading } = useArtworksStateContext()
+  const { fetchArtworks, fetchArtworksCleanup } = useArtworksDispatchContext()
   const { fetchCreators, fetchClients } = useUsersDispatchContext()
   const { creators_loading, clients_loading } = useUsersStateContext()
 
@@ -17,6 +21,7 @@ const Home: React.FC = () => {
     fetchArtworks()
     fetchCreators()
     fetchClients()
+    return () => fetchArtworksCleanup()
   }, [])
 
   if (artworks_loading) {
