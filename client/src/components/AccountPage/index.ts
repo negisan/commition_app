@@ -1,3 +1,4 @@
 import SwitchAcceptingOrder from './SwitchAcceptingOrder'
 import UserIconForm from './UserIconForm'
-export { SwitchAcceptingOrder, UserIconForm }
+import EditDefaultOrderPrice from './EditDefaultOrderPrice'
+export { SwitchAcceptingOrder, UserIconForm, EditDefaultOrderPrice }

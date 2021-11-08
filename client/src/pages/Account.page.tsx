@@ -2,7 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { useAuthDispatchContext } from '../context/auth.context'
-import { UserIconForm, SwitchAcceptingOrder } from '../components/AccountPage'
+import {
+  UserIconForm,
+  SwitchAcceptingOrder,
+  EditDefaultOrderPrice,
+} from '../components/AccountPage'
 
 const Account: React.FC = () => {
   const { logout } = useAuthDispatchContext()
@@ -27,6 +31,7 @@ const Account: React.FC = () => {
         <TitleContainer>
           <h3>おまかせ金額の編集</h3>
         </TitleContainer>
+        <EditDefaultOrderPrice />
         <div className='divider' />
         <TitleContainer>
           <h3>ユーザーアイコンの編集</h3>

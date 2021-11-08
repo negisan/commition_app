@@ -62,6 +62,15 @@ async function update(user, data, update_type) {
       })
       return Promise.resolve()
     }
+    if (update_type === 'default_order_price') {
+      await db.sequelize.transaction({}, async () => {
+        await db.User.findOne({ where: { id: user.id } }).then((user) => {
+          user.default_order_price = data.default_order_price
+          user.save()
+        })
+      })
+      return Promise.resolve()
+    }
     throw `no match ${update_type} - update_type`
   } catch (err) {
     throw err

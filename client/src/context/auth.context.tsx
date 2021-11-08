@@ -11,7 +11,7 @@ const AuthStateContext = React.createContext<any | null>({})
 const AuthDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  user: '',
+  user: {},
 }
 
 export const AuthProvider = ({ children }: any) => {

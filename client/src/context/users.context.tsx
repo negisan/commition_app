@@ -109,8 +109,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const submitNewUserIcon = async () => {
     setIsloading(true)
-    await UsersService
-      .updateUserIcon(newUserIcon)
+    await UsersService.updateUserIcon(newUserIcon)
       .then((user) => {
         dispatch({ type: UPDATE_USER_ICON_SUCCESS, payload: user })
         toastSuccess('ユーザーアイコンを更新しました')
@@ -124,8 +123,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const setAcceptingOrderToFalse = async (user_id: number) => {
     setIsloading(true)
-    await UsersService
-      .setAcceptingOrderToFalse(user_id)
+    await UsersService.setAcceptingOrderToFalse(user_id)
       .then(() => {
         setIsloading(false)
         history.go(0)
@@ -137,11 +135,23 @@ export const UsersProvider = ({ children }: any) => {
   }
   const setAcceptingOrderToTrue = async (user_id: number) => {
     setIsloading(true)
-    await UsersService
-      .setAcceptingOrderToTrue(user_id)
+    await UsersService.setAcceptingOrderToTrue(user_id)
       .then(() => {
         setIsloading(false)
         history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        setIsloading(false)
+      })
+  }
+
+  const updateDefaultOrderPrice = async (user_id: number, price: number) => {
+    setIsloading(true)
+    await UsersService.updateDefaultOrderPrice(user_id, price)
+      .then(() => {
+        history.go(0)
+        setIsloading(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
@@ -163,6 +173,7 @@ export const UsersProvider = ({ children }: any) => {
           submitNewUserIcon,
           setAcceptingOrderToFalse,
           setAcceptingOrderToTrue,
+          updateDefaultOrderPrice,
         }}
       >
         {children}

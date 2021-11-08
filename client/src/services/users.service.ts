@@ -96,12 +96,31 @@ const setAcceptingOrderToTrue = async (user_id: number) => {
     })
 }
 
- // eslint-disable-next-line
+const updateDefaultOrderPrice = async (user_id: number, price: number) => {
+  const data = {
+    default_order_price: price,
+  }
+  return axios({
+    method: 'put',
+    url: BASE_API_URL + `/users/${user_id}?update_type=default_order_price`,
+    headers: authHeader(),
+    data: data,
+  })
+    .then(() => {
+      return Promise.resolve()
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
+// eslint-disable-next-line
 export default {
   fetchUsers,
   fetchUser,
   fetchUserArtworks,
   setAcceptingOrderToFalse,
   setAcceptingOrderToTrue,
+  updateDefaultOrderPrice,
   updateUserIcon,
 }
