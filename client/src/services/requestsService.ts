@@ -5,8 +5,8 @@ import { BASE_API_URL } from '../helper/constants'
 interface OrderData {
   order_price: number
   order_content: string
-  creator_id: number
-  client_id: number
+  creatorId: number
+  clientId: number
 }
 
 const createRequest = async (order_data: OrderData) => {
@@ -244,5 +244,5 @@ export default {
   acceptRequest,
   cancelRequest,
   submitRequest,
-  completeRequest
+  completeRequest,
 }

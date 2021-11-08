@@ -13,7 +13,7 @@ module.exports = {
 
 async function create(order) {
   try {
-    const client_id = order.client_id
+    const client_id = order.clientId
     await db.Request.create(order)
     // userのisClientフラグをtrueに更新
     await db.User.findOne({ where: { id: client_id } }).then((user) => {
