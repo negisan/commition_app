@@ -60,6 +60,7 @@ const login = async (credentials: LoginCredentials) => {
     })
 }
 
+ // eslint-disable-next-line
 export default {
   register,
   fetchUser,

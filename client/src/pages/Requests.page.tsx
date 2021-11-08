@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
 
 import {
   FilterBar,
@@ -26,6 +25,7 @@ const Requests: React.FC = () => {
 
   useEffect(() => {
     isClientPage()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -45,6 +45,7 @@ const Requests: React.FC = () => {
       clientFetchCancelRequests()
     }
     return () => clientPageCleanup()
+    // eslint-disable-next-line
   }, [filterState])
 
   return (

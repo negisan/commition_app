@@ -18,7 +18,6 @@ import {
   FETCH_CLIENTS_FAIL,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
-import usersService from '../services/users.service'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
@@ -110,7 +109,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const submitNewUserIcon = async () => {
     setIsloading(true)
-    await usersService
+    await UsersService
       .updateUserIcon(newUserIcon)
       .then((user) => {
         dispatch({ type: UPDATE_USER_ICON_SUCCESS, payload: user })
@@ -125,7 +124,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const setAcceptingOrderToFalse = async (user_id: number) => {
     setIsloading(true)
-    await usersService
+    await UsersService
       .setAcceptingOrderToFalse(user_id)
       .then(() => {
         setIsloading(false)
@@ -138,7 +137,7 @@ export const UsersProvider = ({ children }: any) => {
   }
   const setAcceptingOrderToTrue = async (user_id: number) => {
     setIsloading(true)
-    await usersService
+    await UsersService
       .setAcceptingOrderToTrue(user_id)
       .then(() => {
         setIsloading(false)

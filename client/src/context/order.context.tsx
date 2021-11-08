@@ -5,7 +5,6 @@ import { useHistory } from 'react-router'
 
 import { useStripe, useElements } from '@stripe/react-stripe-js'
 
-import { useAuthStateContext } from './auth.context'
 import { BASE_API_URL } from '../helper/constants'
 import { useUIContext } from './UI.context'
 import RequestsService from '../services/requestsService'
@@ -25,7 +24,6 @@ export const OrderProvider = ({ children }: any) => {
   const [isProcessing, setIsProcessing] = useState(false)
   const [checkoutError, setCheckoutError] = useState()
 
-  const { user } = useAuthStateContext()
   const { toastError, toastSuccess } = useUIContext()
   const stripe = useStripe()
   const elements = useElements()

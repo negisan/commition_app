@@ -26,11 +26,13 @@ const User: React.FC = () => {
   useEffect(() => {
     fetchUser(params_user_name)
     return () => fetchUserCleanup()
+    // eslint-disable-next-line
   }, [params_user_name])
 
   useEffect(() => {
     fetchUserArtworks(ownerUser.id)
     return () => fetchUserArtworksCleanup()
+    // eslint-disable-next-line
   }, [ownerUser])
 
   if (user_loading || userArtworks_loading) {

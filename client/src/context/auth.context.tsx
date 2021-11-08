@@ -102,6 +102,7 @@ export const AuthProvider = ({ children }: any) => {
       )
     }
     setIsLoading(false)
+    // eslint-disable-next-line
   }, [])
 
   return (

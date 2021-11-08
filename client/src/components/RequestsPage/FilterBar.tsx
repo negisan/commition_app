@@ -7,7 +7,6 @@ import {
 
 const FilterBar:React.FC = () => {
   const {
-    changeFilterToAll,
     changeFilterToDefault,
     changeFilterToCanceled,
     changeFilterToProgressing,

@@ -23,6 +23,7 @@ const Home: React.FC = () => {
     fetchCreators()
     fetchClients()
     return () => fetchArtworksCleanup()
+    // eslint-disable-next-line
   }, [])
 
   if (artworks_loading) {

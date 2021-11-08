@@ -229,6 +229,7 @@ const completeRequest = async (request: any, comment: string) => {
     })
 }
 
+ // eslint-disable-next-line
 export default {
   createRequest,
   clientFetchDefaultRequests,

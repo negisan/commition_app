@@ -5,7 +5,6 @@ import { useRequestsStateContext } from '../../../context/requests.context'
 import {
   CardWrapper,
   CardHeader,
-  OrderPrice,
   OrderContent,
   ArtworkContainer,
 } from './CardComon'

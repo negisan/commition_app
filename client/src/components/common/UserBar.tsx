@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom'
 import defaultIcon from '../../statics/images/default_icon.jpg'
 
 const UserBar: React.FC<{ user: any }> = ({ user }) => {
-  const username = user?.name
-  const icon = user?.icon
-
   const userIcon = () => {
     if (user?.icon) {
       return `data:image/jpeg;base64,` + user?.icon

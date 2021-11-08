@@ -96,6 +96,7 @@ const setAcceptingOrderToTrue = async (user_id: number) => {
     })
 }
 
+ // eslint-disable-next-line
 export default {
   fetchUsers,
   fetchUser,

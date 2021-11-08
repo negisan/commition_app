@@ -1,8 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import { useRequestsStateContext } from '../../../context/requests.context'
-import { CardHeader, CardWrapper, OrderPrice, OrderContent } from './CardComon'
+import { CardHeader, CardWrapper, OrderContent } from './CardComon'
 
 const RequestCancelCard: React.FC<any> = ({ item }) => {
   const { role } = useRequestsStateContext()

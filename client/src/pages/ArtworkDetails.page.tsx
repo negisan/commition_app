@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import styled from 'styled-components'
-import { NotFound, UserInfoBar } from '../components'
+import { UserInfoBar } from '../components'
 import {
   useArtworksDispatchContext,
   useArtworksStateContext,
@@ -20,6 +20,7 @@ const ArtworkDetails: React.FC = () => {
   useEffect(() => {
     fetchArtwork(id)
     return () => fetchArtworkCleanup()
+    // eslint-disable-next-line
   }, [id])
 
   if (isLoading) {

@@ -23,6 +23,7 @@ const Order: React.FC = () => {
   useEffect(() => {
     fetchUser(user_name)
     return () => fetchUserCleanup()
+    // eslint-disable-next-line
   }, [user_name])
 
   if (user_loading) {

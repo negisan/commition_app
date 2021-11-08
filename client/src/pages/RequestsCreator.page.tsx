@@ -24,6 +24,7 @@ const RequestsCreator: React.FC = () => {
 
   useEffect(() => {
     isCreatorPage()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const RequestsCreator: React.FC = () => {
       creatorFetchCancelRequests()
     }
     return () => creatorPageCleanup()
+    // eslint-disable-next-line
   }, [filterState])
 
   return (

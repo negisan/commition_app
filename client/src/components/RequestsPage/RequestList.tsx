@@ -20,7 +20,7 @@ const RequestList: React.FC = () => {
     return <CustomLoader/>
   }
 
-  if (requests == '') {
+  if (requests === []) {
     return (
       <NoItemsMessage>
         <small>何もありません</small>

@@ -6,7 +6,7 @@ import { useArtworksStateContext } from '../../context/artworks.context'
 import { ItemsLayout } from '../common'
 
 const ArtworkList: React.FC = () => {
-  const { artworks, isLoading: isLoadingArtworks } = useArtworksStateContext()
+  const { artworks } = useArtworksStateContext()
 
   return (
     <div className='section-wrapper'>

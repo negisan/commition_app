@@ -10,7 +10,6 @@ import {
 import {
   CardWrapper,
   CardHeader,
-  OrderPrice,
   OrderContent,
   ButtonContainer,
 } from './CardComon'

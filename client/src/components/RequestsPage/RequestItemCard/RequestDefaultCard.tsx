@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import {
   useRequestsDispatchContext,
   useRequestsStateContext,
@@ -10,7 +8,6 @@ import {
   CardHeader,
   OrderContent,
   ButtonContainer,
-  OrderPrice,
 } from './CardComon'
 
 const RequestDefaultCard: React.FC<any> = ({ item }) => {

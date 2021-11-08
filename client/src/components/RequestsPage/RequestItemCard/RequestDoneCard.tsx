@@ -1,10 +1,8 @@
 import React from 'react'
-import styled from 'styled-components'
 import { useRequestsStateContext } from '../../../context/requests.context'
 import {
   CardWrapper,
   CardHeader,
-  OrderPrice,
   OrderContent,
   ArtworkContainer,
   ClientCommentContainer,
