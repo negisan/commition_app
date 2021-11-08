@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useAuthStateContext } from '../../context/auth.context'
-import { useUsersDispatchContext } from '../../context/users.context'
+import { useAuthDispatchContext, useAuthStateContext } from '../../context/auth.context'
 
 const SwitchAcceptingOrder: React.FC = () => {
   const { user } = useAuthStateContext()
-  const { setAcceptingOrderToFalse, setAcceptingOrderToTrue } =
-    useUsersDispatchContext()
+  const { setAcceptingOrderToFalse, setAcceptingOrderToTrue } = useAuthDispatchContext()
 
   return (
     <Wrapper>

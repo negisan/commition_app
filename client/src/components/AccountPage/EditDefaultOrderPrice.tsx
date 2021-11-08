@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useAuthStateContext } from '../../context/auth.context'
-import { useUsersDispatchContext } from '../../context/users.context'
+import {
+  useAuthDispatchContext,
+  useAuthStateContext,
+} from '../../context/auth.context'
 
 const EditDefaultOrderPrice: React.FC = () => {
   const { user } = useAuthStateContext()
-  const { updateDefaultOrderPrice } = useUsersDispatchContext()
-  const [value, setValue] = useState(user.default_order_price)
+  const { updateDefaultOrderPrice } = useAuthDispatchContext()
+  const [value, setValue] = useState('')
+
+  useEffect(() => {
+    setValue(user.default_order_price)
+  }, [user])
 
   return (
     <>

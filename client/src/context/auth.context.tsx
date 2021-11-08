@@ -3,7 +3,19 @@ import { useHistory } from 'react-router'
 
 import reducer from '../reducers/auth.reducer'
 import AuthService from '../services/auth.service'
-import { LOGOUT, FETCH_USER_SUCCESS } from '../constants/auth.constant'
+import {
+  LOGOUT,
+  FETCH_USER_SUCCESS,
+  UPDATE_USER_ICON_BEGIN,
+  UPDATE_USER_ICON_SUCCESS,
+  UPDATE_USER_ICON_FAIL,
+  UPDATE_ACCEPTING_ORDER_BEGIN,
+  UPDATE_ACCEPTING_ORDER_SUCCESS,
+  UPDATE_ACCEPTING_ORDER_FAIL,
+  UPDATE_DEFAULT_ORDER_PRICE_BEGIN,
+  UPDATE_DEFAULT_ORDER_PRICE_SUCCESS,
+  UPDATE_DEFAULT_ORDER_PRICE_FAIL,
+} from '../constants/auth.constant'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
 
@@ -12,6 +24,7 @@ const AuthDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
   user: {},
+  update_user_loading: false,
 }
 
 export const AuthProvider = ({ children }: any) => {
@@ -105,9 +118,73 @@ export const AuthProvider = ({ children }: any) => {
     // eslint-disable-next-line
   }, [])
 
+  // update user =======================================================================
+
+  const submitNewUserIcon = async (user_id: number, newUserIcon: File) => {
+    dispatch({ type: UPDATE_USER_ICON_BEGIN })
+    await AuthService.updateUserIcon(user_id, newUserIcon)
+      .then((user) => {
+        dispatch({ type: UPDATE_USER_ICON_SUCCESS, payload: user })
+        toastSuccess('ユーザーアイコンを更新しました')
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: UPDATE_USER_ICON_FAIL })
+      })
+  }
+
+  const setAcceptingOrderToFalse = async (user_id: number) => {
+    dispatch({ type: UPDATE_ACCEPTING_ORDER_BEGIN })
+    await AuthService.setAcceptingOrderToFalse(user_id)
+      .then((user) => {
+        dispatch({ type: UPDATE_ACCEPTING_ORDER_SUCCESS, payload: user })
+        history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: UPDATE_ACCEPTING_ORDER_FAIL })
+      })
+  }
+
+  const setAcceptingOrderToTrue = async (user_id: number) => {
+    dispatch({ type: UPDATE_ACCEPTING_ORDER_BEGIN })
+    await AuthService.setAcceptingOrderToTrue(user_id)
+      .then((user) => {
+        dispatch({ type: UPDATE_ACCEPTING_ORDER_SUCCESS, payload: user })
+        history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: UPDATE_ACCEPTING_ORDER_FAIL })
+      })
+  }
+
+  const updateDefaultOrderPrice = async (user_id: number, price: number) => {
+    dispatch({ type: UPDATE_DEFAULT_ORDER_PRICE_BEGIN })
+    await AuthService.updateDefaultOrderPrice(user_id, price)
+      .then((user) => {
+        dispatch({ type: UPDATE_DEFAULT_ORDER_PRICE_SUCCESS, payload: user })
+        history.go(0)
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: UPDATE_DEFAULT_ORDER_PRICE_FAIL })
+      })
+  }
+
   return (
     <AuthStateContext.Provider value={{ ...state, isLoading, isLoggedin }}>
-      <AuthDispatchContext.Provider value={{ register, login, logout }}>
+      <AuthDispatchContext.Provider
+        value={{
+          register,
+          login,
+          logout,
+          submitNewUserIcon,
+          setAcceptingOrderToTrue,
+          setAcceptingOrderToFalse,
+          updateDefaultOrderPrice,
+        }}
+      >
         {children}
       </AuthDispatchContext.Provider>
     </AuthStateContext.Provider>

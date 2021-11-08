@@ -1,5 +1,4 @@
 import axios from 'axios'
-import authHeader from './auth-header'
 import { BASE_API_URL } from '../helper/constants'
 
 type UserType = 'creator' | 'client'
@@ -43,84 +42,9 @@ const fetchUserArtworks = async (user_id: number, page: number) => {
     })
 }
 
-const updateUserIcon = async (new_user_icon: any) => {
-  const data = new FormData()
-  data.append('file', new_user_icon)
-  return await axios({
-    headers: authHeader(),
-    method: 'put',
-    url: BASE_API_URL + '/users/icon',
-    data: data,
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const setAcceptingOrderToFalse = async (user_id: number) => {
-  const data = {
-    accepting_order: false,
-  }
-  return await axios({
-    url: BASE_API_URL + `/users/${user_id}?update_type=accepting_order`,
-    method: 'put',
-    headers: authHeader(),
-    data: data,
-  })
-    .then(() => {
-      return Promise.resolve()
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const setAcceptingOrderToTrue = async (user_id: number) => {
-  const data = {
-    accepting_order: true,
-  }
-  return await axios({
-    url: BASE_API_URL + `/users/${user_id}?update_type=accepting_order`,
-    method: 'put',
-    headers: authHeader(),
-    data: data,
-  })
-    .then(() => {
-      return Promise.resolve()
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const updateDefaultOrderPrice = async (user_id: number, price: number) => {
-  const data = {
-    default_order_price: price,
-  }
-  return axios({
-    method: 'put',
-    url: BASE_API_URL + `/users/${user_id}?update_type=default_order_price`,
-    headers: authHeader(),
-    data: data,
-  })
-    .then(() => {
-      return Promise.resolve()
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
 // eslint-disable-next-line
 export default {
   fetchUsers,
   fetchUser,
   fetchUserArtworks,
-  setAcceptingOrderToFalse,
-  setAcceptingOrderToTrue,
-  updateDefaultOrderPrice,
-  updateUserIcon,
 }

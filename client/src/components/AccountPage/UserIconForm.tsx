@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { useUsersDispatchContext } from '../../context/users.context'
+import {
+  useAuthDispatchContext,
+  useAuthStateContext,
+} from '../../context/auth.context'
 
 const UserIconForm: React.FC = () => {
-  const { getNewUserIcon, submitNewUserIcon } = useUsersDispatchContext()
+  const { submitNewUserIcon } = useAuthDispatchContext()
+  const { user } = useAuthStateContext()
+  const [newUserIcon, setNewUserIcon] = useState<File>()
+
+  const getNewUserIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return
+    const img: File = e.target.files[0]
+    setNewUserIcon(img)
+  }
 
   return (
     <Wrapper>
@@ -18,7 +29,7 @@ const UserIconForm: React.FC = () => {
         <input
           type='button'
           value='変更を保存する'
-          onClick={submitNewUserIcon}
+          onClick={() => submitNewUserIcon(user.id, newUserIcon)}
           className='account_config-submit_btn'
         />
       </div>

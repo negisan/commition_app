@@ -1,11 +1,10 @@
-import React, { useContext, useReducer, useState } from 'react'
+import React, { useContext, useReducer } from 'react'
 
 import {
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAIL,
   FETCH_USER_CLEANUP,
-  UPDATE_USER_ICON_SUCCESS,
   FETCH_USER_ARTWORKS_BEGIN,
   FETCH_USER_ARTWORKS_SUCCESS,
   FETCH_USER_ARTWORKS_FAIL,
@@ -21,7 +20,6 @@ import reducer from '../reducers/users.reducer'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
-import { useHistory } from 'react-router'
 
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
@@ -39,9 +37,7 @@ const initialState = {
 
 export const UsersProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsloading] = useState<boolean>(false)
-  const { toastError, toastSuccess } = useUIContext()
-  const history = useHistory()
+  const { toastError } = useUIContext()
 
   const fetchCreators = async (page: number = 1) => {
     dispatch({ type: FETCH_CREATORS_BEGIN })
@@ -99,68 +95,8 @@ export const UsersProvider = ({ children }: any) => {
     dispatch({ type: FETCH_USER_ARTWORKS_CLEANUP })
   }
 
-  const [newUserIcon, setNewUserIcon] = useState<File>()
-
-  const getNewUserIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const img: File = e.target.files[0]
-    setNewUserIcon(img)
-  }
-
-  const submitNewUserIcon = async () => {
-    setIsloading(true)
-    await UsersService.updateUserIcon(newUserIcon)
-      .then((user) => {
-        dispatch({ type: UPDATE_USER_ICON_SUCCESS, payload: user })
-        toastSuccess('ユーザーアイコンを更新しました')
-        setIsloading(false)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsloading(false)
-      })
-  }
-
-  const setAcceptingOrderToFalse = async (user_id: number) => {
-    setIsloading(true)
-    await UsersService.setAcceptingOrderToFalse(user_id)
-      .then(() => {
-        setIsloading(false)
-        history.go(0)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsloading(false)
-      })
-  }
-  const setAcceptingOrderToTrue = async (user_id: number) => {
-    setIsloading(true)
-    await UsersService.setAcceptingOrderToTrue(user_id)
-      .then(() => {
-        setIsloading(false)
-        history.go(0)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsloading(false)
-      })
-  }
-
-  const updateDefaultOrderPrice = async (user_id: number, price: number) => {
-    setIsloading(true)
-    await UsersService.updateDefaultOrderPrice(user_id, price)
-      .then(() => {
-        history.go(0)
-        setIsloading(false)
-      })
-      .catch((err) => {
-        toastError(errorMessage(err))
-        setIsloading(false)
-      })
-  }
-
   return (
-    <UsersStateContext.Provider value={{ ...state, isLoading }}>
+    <UsersStateContext.Provider value={{ ...state }}>
       <UsersDispatchContext.Provider
         value={{
           fetchCreators,
@@ -169,11 +105,6 @@ export const UsersProvider = ({ children }: any) => {
           fetchUserCleanup,
           fetchUserArtworks,
           fetchUserArtworksCleanup,
-          getNewUserIcon,
-          submitNewUserIcon,
-          setAcceptingOrderToFalse,
-          setAcceptingOrderToTrue,
-          updateDefaultOrderPrice,
         }}
       >
         {children}
