@@ -9,6 +9,8 @@ import {
   FETCH_ARTWORK_CLEANUP,
   FETCH_ARTWORK_FAIL,
   FETCH_ARTWORK_SUCCESS,
+  FETCH_MORE_ARTWORKS_FAIL,
+  FETCH_MORE_ARTWORKS_SUCCESS,
 } from '../constants/artworks.constant'
 import artworksService from '../services/artworks.service'
 import { useUIContext } from './UI.context'
@@ -23,6 +25,8 @@ const initialState = {
   artwork_loading: false,
   artworks: [],
   artworks_loading: false,
+  all_artworks: [],
+  has_more_artworks: true,
 }
 
 type SortType = 'new_date' | 'old_date'
@@ -47,6 +51,22 @@ export const ArtworksProvider = ({ children }: any) => {
       })
   }
 
+  const loadMoreArtworks = async (page: any) => {
+    console.log(page)
+    await artworksService
+      .fetchArtworks(page, 'new_date')
+      .then((artworks) => {
+        if (artworks.length < 1) {
+          dispatch({ type: FETCH_MORE_ARTWORKS_FAIL })
+          return
+        }
+        dispatch({ type: FETCH_MORE_ARTWORKS_SUCCESS, payload: artworks })
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+      })
+  }
+
   const fetchArtwork = async (artworkId: any) => {
     dispatch({ type: FETCH_ARTWORK_BEGIN })
     await artworksService
@@ -67,7 +87,12 @@ export const ArtworksProvider = ({ children }: any) => {
   return (
     <ArtworksStateContext.Provider value={{ ...state }}>
       <ArtworksDispatchContext.Provider
-        value={{ fetchArtwork, fetchArtworkCleanup, fetchArtworks }}
+        value={{
+          fetchArtwork,
+          fetchArtworkCleanup,
+          fetchArtworks,
+          loadMoreArtworks,
+        }}
       >
         {children}
       </ArtworksDispatchContext.Provider>

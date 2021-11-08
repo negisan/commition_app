@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { ItemsLayout, RoleTag } from '.'
+import { RoleTag } from '.'
+import { ItemsLayout } from '../../common'
 import default_icon from '../../../statics/images/default_icon.jpg'
 
 const UserList: React.FC<{ users: any }> = ({ users }) => {

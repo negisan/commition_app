@@ -14,7 +14,8 @@ import {
   Login,
   Signup,
   ErrorPage,
-  Order
+  Order,
+  AllArtworks
 } from './pages'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/user/:user' component={UserPage} />
+        <Route exact path="/artworks" component={AllArtworks} />
         <Route exact path='/artworks/:id' component={ArtworkDetails} />
         <PrivateRoute exact path='/user/:user/order' component={Order} />
         <PrivateRoute exact path='/account' component={Account} />
