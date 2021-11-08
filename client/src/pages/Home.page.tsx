@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import { CustomLoader } from '../components/common'
 
 import { ArtworkList, CreatorList, ClientList } from '../components/Home'
 import {
@@ -25,7 +26,7 @@ const Home: React.FC = () => {
   }, [])
 
   if (artworks_loading) {
-    return null
+    return <CustomLoader />
   }
 
   return (
