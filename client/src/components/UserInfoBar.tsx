@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 
 import { useAuthStateContext } from '../context/auth.context'
 
-const UserInfoBar: React.FC<{user: any}> = ({ user }) => {
+const UserInfoBar: React.FC<{ user: any }> = ({ user }) => {
   const { user: logedinUser } = useAuthStateContext()
   const history = useHistory()
   const onClickNewOrder = () => {
@@ -40,8 +40,8 @@ const UserInfoBar: React.FC<{user: any}> = ({ user }) => {
         <table>
           <tbody>
             <tr>
-              <td>金額</td>
-              <td>{user?.default_order_price}</td>
+              <td>おまかせ金額</td>
+              <td>￥{user?.default_order_price}</td>
             </tr>
             <tr>
               <td>リクエスト受付</td>
