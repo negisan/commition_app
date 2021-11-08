@@ -12,13 +12,13 @@ import {
 
 const RequestsCreator: React.FC = () => {
   const {
-    creatorFetchAllRequests,
     creatorFetchDefaultRequests,
     creatorFetchProgressingRequests,
     creatorFetchSubmittedRequests,
     creatorFetchDoneRequests,
     creatorFetchCancelRequests,
     isCreatorPage,
+    creatorPageCleanup,
   } = useRequestsDispatchContext()
   const { filterState } = useRequestsStateContext()
 
@@ -42,6 +42,7 @@ const RequestsCreator: React.FC = () => {
     if (filterState === 'canceled') {
       creatorFetchCancelRequests()
     }
+    return () => creatorPageCleanup()
   }, [filterState])
 
   return (

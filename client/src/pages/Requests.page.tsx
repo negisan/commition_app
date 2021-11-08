@@ -14,13 +14,13 @@ import {
 
 const Requests: React.FC = () => {
   const {
-    clientFetchAllRequests,
     clientFetchDefaultRequests,
     clientFetchProgressingRequests,
     clientFetchSubmittedRequests,
     clientFetchDoneRequests,
     clientFetchCancelRequests,
     isClientPage,
+    clientPageCleanup,
   } = useRequestsDispatchContext()
   const { filterState } = useRequestsStateContext()
 
@@ -44,6 +44,7 @@ const Requests: React.FC = () => {
     if (filterState === 'canceled') {
       clientFetchCancelRequests()
     }
+    return () => clientPageCleanup()
   }, [filterState])
 
   return (

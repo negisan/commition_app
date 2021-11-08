@@ -7,25 +7,25 @@ import { errorMessage } from '../helper/handleErrorMessage'
 import { useUIContext } from './UI.context'
 import requestsService from '../services/requestsService'
 import {
-  CLIENT_FETCH_ALL_REQUESTS,
   CLIENT_FETCH_CANCEL_REQUESTS,
   CLIENT_FETCH_DEFAULT_REQUESTS,
   CLIENT_FETCH_DONE_REQUESTS,
   CLIENT_FETCH_PROGRESSING_REQUESTS,
   CLIENT_FETCH_SUBMITTED_REQUESTS,
-  CREATOR_FETCH_ALL_REQUESTS,
+  CLIENT_REQUESTS_CLEANUP,
   CREATOR_FETCH_CANCEL_REQUESTS,
   CREATOR_FETCH_DEFAULT_REQUESTS,
   CREATOR_FETCH_DONE_REQUESTS,
   CREATOR_FETCH_PROGRESSING_REQUESTS,
   CREATOR_FETCH_SUBMITTED_REQUESTS,
+  CREATOR_REQUESTS_CLEANUP,
 } from '../constants/requests.constat'
 
 const RequestsStateContext = React.createContext<any | null>({})
 const RequestsDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
-  requests: '',
+  requests: [],
 }
 
 type FilterState =
@@ -203,7 +203,6 @@ export const RequestsProvider = ({ children }: any) => {
 
   // =======================================================================
   // cancelRequest
-  // order_priceをclientの残高に加算してcancelフラグをtrueにする
   const cancelRequest = async (request: any) => {
     setIsLoading(true)
     await sleep(1000)
@@ -221,7 +220,6 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   // acceptRequest
-  // progフラグをtrueにする
   const acceptRequest = async (request: any) => {
     setIsLoading(true)
     await sleep(1000)
@@ -239,7 +237,6 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   // submitRequest
-  // ArtWorkを作成してsubmitフラグをtrueにする
   const submitRequest = async (request: any, artwork: any) => {
     setIsLoading(true)
     await sleep(1000)
@@ -257,7 +254,6 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   // completeRequest
-  // clientのthanks_commentを保存、order_priceをcreatorの残高に加算してdoneフラグをtrueにする
   const completeRequest = async (request: any, comment: string) => {
     setIsLoading(true)
     await sleep(1000)
@@ -308,6 +304,17 @@ export const RequestsProvider = ({ children }: any) => {
     setRole('creator')
   }
 
+  // =============================================================================
+  const clientPageCleanup = () => {
+    dispatch({ type: CLIENT_REQUESTS_CLEANUP })
+    setIsLoading(true)
+  }
+
+  const creatorPageCleanup = () => {
+    dispatch({ type: CREATOR_REQUESTS_CLEANUP })
+    setIsLoading(true)
+  }
+
   return (
     <RequestsStateContext.Provider
       value={{ ...state, filterState, role, isLoading }}
@@ -336,6 +343,8 @@ export const RequestsProvider = ({ children }: any) => {
           cancelRequest,
           submitRequest,
           completeRequest,
+          creatorPageCleanup,
+          clientPageCleanup,
         }}
       >
         {children}
