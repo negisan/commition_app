@@ -33,7 +33,7 @@ const User: React.FC = () => {
     return () => fetchUserArtworksCleanup()
   }, [ownerUser])
 
-  if (user_loading) {
+  if (user_loading || userArtworks_loading) {
     return null
   }
 
