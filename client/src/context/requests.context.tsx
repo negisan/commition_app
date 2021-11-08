@@ -49,7 +49,7 @@ export const RequestsProvider = ({ children }: any) => {
   // client fetch data ====================================================
   const clientFetchDefaultRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .clientFetchDefaultRequests()
       .then((requests) => {
@@ -64,7 +64,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchProgressingRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .clientFetchProgressingRequests()
       .then((requests) => {
@@ -79,7 +79,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchSubmittedRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .clientFetchSubmittedRequests()
       .then((requests) => {
@@ -94,7 +94,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchDoneRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .clientFetchDoneRequests()
       .then((requests) => {
@@ -109,7 +109,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchCancelRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .clientFetchCancelRequests()
       .then((requests) => {
@@ -125,7 +125,7 @@ export const RequestsProvider = ({ children }: any) => {
   // creator fetch data ====================================================
   const creatorFetchDefaultRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .creatorFetchDefaultRequests()
       .then((requests) => {
@@ -140,7 +140,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchProgressingRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .creatorFetchProgressingRequests()
       .then((requests) => {
@@ -158,7 +158,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchSubmittedRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .creatorFetchSubmittedRequests()
       .then((requests) => {
@@ -173,7 +173,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchDoneRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .creatorFetchDoneRequests()
       .then((requests) => {
@@ -188,7 +188,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchCancelRequests = async () => {
     setIsLoading(true)
-    await sleep(1000)
+    await sleep(500)
     await requestsService
       .creatorFetchCancelRequests()
       .then((requests) => {
@@ -205,7 +205,6 @@ export const RequestsProvider = ({ children }: any) => {
   // cancelRequest
   const cancelRequest = async (request: any) => {
     setIsLoading(true)
-    await sleep(1000)
     await requestsService
       .cancelRequest(request)
       .then(() => {
@@ -222,7 +221,6 @@ export const RequestsProvider = ({ children }: any) => {
   // acceptRequest
   const acceptRequest = async (request: any) => {
     setIsLoading(true)
-    await sleep(1000)
     await requestsService
       .acceptRequest(request)
       .then(() => {
@@ -239,7 +237,6 @@ export const RequestsProvider = ({ children }: any) => {
   // submitRequest
   const submitRequest = async (request: any, artwork: any) => {
     setIsLoading(true)
-    await sleep(1000)
     await requestsService
       .submitRequest(request, artwork)
       .then(() => {
@@ -256,7 +253,6 @@ export const RequestsProvider = ({ children }: any) => {
   // completeRequest
   const completeRequest = async (request: any, comment: string) => {
     setIsLoading(true)
-    await sleep(1000)
     await requestsService
       .completeRequest(request, comment)
       .then(() => {
