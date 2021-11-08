@@ -23,7 +23,7 @@ const ArtworkDetails: React.FC = () => {
   }, [id])
 
   if (isLoading) {
-    return <div></div>
+    return null
   }
 
   if (!artwork) {
@@ -33,9 +33,11 @@ const ArtworkDetails: React.FC = () => {
   const { artwork_image, order_content, thanks_comment } = artwork
   return (
     <Wrapper>
-      <ArtworkContainer>
-        <img src={`data:image/jpeg;base64,` + artwork_image} alt='artwork' />
-      </ArtworkContainer>
+      {artwork_image && (
+        <ArtworkContainer>
+          <img src={`data:image/jpeg;base64,` + artwork_image} alt='artwork' />
+        </ArtworkContainer>
+      )}
       <div>
         <RequestInfoContainer>
           <UserBar user={artwork_creator} />
