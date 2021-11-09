@@ -26,13 +26,13 @@ const UsersDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
   creators: [],
-  creators_loading: false,
+  creators_loading: true,
   clients: [],
-  clients_loading: false,
+  clients_loading: true,
   user: {},
-  user_loading: false,
+  user_loading: true,
   userArtworks: [],
-  userArtworks_loading: false,
+  userArtworks_loading: true,
 }
 
 export const UsersProvider = ({ children }: any) => {

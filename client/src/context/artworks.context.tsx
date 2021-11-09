@@ -23,7 +23,7 @@ const ArtworksDispatchContext = React.createContext<any | null>({})
 const initialState = {
   artwork: {},
   artwork_creator: {},
-  artwork_loading: false,
+  artwork_loading: true,
   artworks: [],
   artworks_loading: true,
   all_artworks: [],
@@ -57,7 +57,6 @@ export const ArtworksProvider = ({ children }: any) => {
   }
 
   const loadMoreArtworks = async (page: any) => {
-    console.log(page)
     await artworksService
       .fetchArtworks(page, 'new_date')
       .then((artworks) => {
