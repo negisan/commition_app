@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Form, Field } from 'react-final-form'
 import { CardElement } from '@stripe/react-stripe-js'
+import { confirmAlert } from 'react-confirm-alert'
 
 import {
   useOrderDispatchContext,
@@ -19,7 +20,49 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
       creatorId: creator.id,
       clientId: client.id,
     }
-    orderWithCheckout(orderData)
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <ConfirmContainer>
+            <h2>以下の内容でリクエストを作成します</h2>
+            <div className='confirm-section'>
+              <h3>金額</h3>
+              <div
+                className='divider'
+                style={{ marginTop: 0, color: 'var(--clr-grey-4)' }}
+              ></div>
+              <p>
+                <span>￥</span>
+                {orderData.order_price}
+              </p>
+            </div>
+            <div className='confirm-section'>
+              <h3>リクエストの内容</h3>
+              <div
+                className='divider'
+                style={{ marginTop: 0, color: 'var(--clr-grey-4)' }}
+              ></div>
+              <p>{orderData.order_content}</p>
+            </div>
+            <div className='confirm-button_container'>
+              <button
+                onClick={() => {
+                  orderWithCheckout(orderData)
+                  onClose()
+                }}
+                className='confirm-send'
+              >
+                送信
+              </button>
+              <button onClick={onClose}>戻る</button>
+            </div>
+          </ConfirmContainer>
+        )
+      },
+      closeOnEscape: false,
+      closeOnClickOutside: false,
+    })
   }
 
   const handleValidate = (values: any) => {
@@ -44,7 +87,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
   }
 
   return (
-    <div className="section-wrapper">
+    <div className='section-wrapper'>
       <SectionTitle>
         <h1>新規リクエスト</h1>
         <div className='divider'></div>
@@ -53,7 +96,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
         onSubmit={onSubmit}
         validate={(values) => handleValidate(values)}
         initialValues={formData}
-        render={({ handleSubmit, submitting, pristine }) => (
+        render={({ handleSubmit, submitting }) => (
           <FormWrapper onSubmit={handleSubmit}>
             <FieldContainer>
               <span className='required'>必須</span>
@@ -132,10 +175,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
               </div>
             </CardElementContainer>
             <ButtonWrapper>
-              <button
-                type='submit'
-                disabled={submitting || pristine || isProcessing}
-              >
+              <button type='submit' disabled={submitting || isProcessing}>
                 発注する
               </button>
             </ButtonWrapper>
@@ -145,6 +185,54 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
     </div>
   )
 }
+
+const ConfirmContainer = styled.div`
+  box-shadow: var(--dark-shadow);
+  dispaly: flex;
+  justify-content: center;
+  background: var(--clr-grey-10);
+  border: none;
+  border-radius: var(--radius);
+  padding: 2rem;
+  color: var(--clr-grey-5);
+  .confirm-section {
+    margin-top: 3rem;
+    font-weight: 600;
+    h3 {
+      color: var(--clr-grey-5);
+    }
+    p {
+      font-size: 1.25rem;
+    }
+  }
+  .confirm-button_container {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 10rem;
+    button {
+      padding: 0.75rem 1.25rem;
+      background: var(--clr-white);
+      font-size: 1.5rem;
+      color: var(--clr-grey-5);
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: var(--light-shadow);
+      transition: var(--transition);
+      :hover {
+        opacity: 0.6;
+      }
+    }
+    .confirm-send {
+      background: var(--clr-primary-5);
+      color: var(--clr-white);
+    }
+  }
+`
+
+// ======================================================================================
 
 const CardElementContainer = styled.div`
   margin-top: 3rem;
