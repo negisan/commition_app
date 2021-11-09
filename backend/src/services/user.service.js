@@ -3,7 +3,7 @@ const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const db = require('src/models')
-const config = require('src/config/config.json')
+const secret = Process.env.JWT_SECRET
 
 module.exports = {
   authenticate,
@@ -18,7 +18,7 @@ async function authenticate({ email, password }) {
   if (!user || !(await bcrypt.compare(password, user.hash))) {
     throw 'パスワードが間違っています'
   }
-  const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
+  const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '7d' })
   return { token, name: user.name }
 }
 
@@ -40,7 +40,7 @@ async function create(params) {
     })
 
     const user = await db.User.findOne({ where: { email: params.email } })
-    const token = jwt.sign({ sub: user.id }, config.secret, { expiresIn: '7d' })
+    const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '7d' })
     return { token }
   } catch (err) {
     throw err
