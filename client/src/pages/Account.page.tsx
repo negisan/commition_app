@@ -6,6 +6,7 @@ import {
   UserIconForm,
   SwitchAcceptingOrder,
   EditDefaultOrderPrice,
+  Withdrawal,
 } from '../components/AccountPage'
 
 const Account: React.FC = () => {
@@ -41,6 +42,7 @@ const Account: React.FC = () => {
         <TitleContainer>
           <h3>売上</h3>
         </TitleContainer>
+        <Withdrawal />
       </SectionWrapper>
     </PageLayout>
   )
