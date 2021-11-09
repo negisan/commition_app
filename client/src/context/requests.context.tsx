@@ -7,18 +7,10 @@ import { errorMessage } from '../helper/handleErrorMessage'
 import { useUIContext } from './UI.context'
 import requestsService from '../services/requestsService'
 import {
-  CLIENT_FETCH_CANCEL_REQUESTS,
-  CLIENT_FETCH_DEFAULT_REQUESTS,
-  CLIENT_FETCH_DONE_REQUESTS,
-  CLIENT_FETCH_PROGRESSING_REQUESTS,
-  CLIENT_FETCH_SUBMITTED_REQUESTS,
-  CLIENT_REQUESTS_CLEANUP,
-  CREATOR_FETCH_CANCEL_REQUESTS,
-  CREATOR_FETCH_DEFAULT_REQUESTS,
-  CREATOR_FETCH_DONE_REQUESTS,
-  CREATOR_FETCH_PROGRESSING_REQUESTS,
-  CREATOR_FETCH_SUBMITTED_REQUESTS,
-  CREATOR_REQUESTS_CLEANUP,
+  FETCH_REQUESTS_BEGIN,
+  FETCH_REQUESTS_FAIL,
+  FETCH_REQUESTS_SUCCESS,
+  FETCH_REQUESTS_CLEANUP,
 } from '../constants/requests.constat'
 
 const RequestsStateContext = React.createContext<any | null>({})
@@ -26,6 +18,7 @@ const RequestsDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
   requests: [],
+  requests_loading: true,
 }
 
 type FilterState =
@@ -40,7 +33,7 @@ type Role = 'client' | 'creator'
 export const RequestsProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { toastError, toastSuccess } = useUIContext()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isUpdatingRequest, setIsUpdatingRequest] = useState<boolean>(false)
   const [filterState, setFilterState] = useState<FilterState>('default')
   const [role, setRole] = useState<Role>('client')
 
@@ -48,221 +41,203 @@ export const RequestsProvider = ({ children }: any) => {
 
   // client fetch data ====================================================
   const clientFetchDefaultRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .clientFetchDefaultRequests()
+      .clientFetchRequests('state_default')
       .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_DEFAULT_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const clientFetchProgressingRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .clientFetchProgressingRequests()
+      .clientFetchRequests('progressing')
       .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_PROGRESSING_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const clientFetchSubmittedRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .clientFetchSubmittedRequests()
+      .clientFetchRequests('submitted')
       .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_SUBMITTED_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const clientFetchDoneRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .clientFetchDoneRequests()
+      .clientFetchRequests('done')
       .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_DONE_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const clientFetchCancelRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .clientFetchCancelRequests()
+      .clientFetchRequests('cancel')
       .then((requests) => {
-        dispatch({ type: CLIENT_FETCH_CANCEL_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   // creator fetch data ====================================================
   const creatorFetchDefaultRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .creatorFetchDefaultRequests()
+      .creatorFetchRequests('state_default')
       .then((requests) => {
-        dispatch({ type: CREATOR_FETCH_DEFAULT_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const creatorFetchProgressingRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .creatorFetchProgressingRequests()
+      .creatorFetchRequests('progressing')
       .then((requests) => {
-        dispatch({
-          type: CREATOR_FETCH_PROGRESSING_REQUESTS,
-          payload: requests,
-        })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const creatorFetchSubmittedRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .creatorFetchSubmittedRequests()
+      .creatorFetchRequests('submitted')
       .then((requests) => {
-        dispatch({ type: CREATOR_FETCH_SUBMITTED_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const creatorFetchDoneRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .creatorFetchDoneRequests()
+      .creatorFetchRequests('done')
       .then((requests) => {
-        dispatch({ type: CREATOR_FETCH_DONE_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
   const creatorFetchCancelRequests = async () => {
-    setIsLoading(true)
+    dispatch({ type: FETCH_REQUESTS_BEGIN })
     await sleep(500)
     await requestsService
-      .creatorFetchCancelRequests()
+      .creatorFetchRequests('cancel')
       .then((requests) => {
-        dispatch({ type: CREATOR_FETCH_CANCEL_REQUESTS, payload: requests })
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: requests })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        dispatch({ type: FETCH_REQUESTS_FAIL })
       })
   }
 
-  // =======================================================================
-  // cancelRequest
+  // update request =======================================================================
   const cancelRequest = async (request: any) => {
-    setIsLoading(true)
+    setIsUpdatingRequest(true)
     await requestsService
       .cancelRequest(request)
       .then(() => {
-        toastSuccess('正常にキャンセルされました')
+        setIsUpdatingRequest(false)
         history.push('/')
-        setIsLoading(false)
+        toastSuccess('正常にキャンセルされました')
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
   }
-
-  // acceptRequest
   const acceptRequest = async (request: any) => {
-    setIsLoading(true)
+    setIsUpdatingRequest(true)
     await requestsService
       .acceptRequest(request)
       .then(() => {
         toastSuccess('リクエストを承認しました')
         history.push('/')
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
   }
 
-  // submitRequest
   const submitRequest = async (request: any, artwork: any) => {
-    setIsLoading(true)
+    setIsUpdatingRequest(true)
     await requestsService
       .submitRequest(request, artwork)
       .then(() => {
         toastSuccess('正常に送信されました')
         history.push('/')
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
   }
 
-  // completeRequest
   const completeRequest = async (request: any, comment: string) => {
-    setIsLoading(true)
+    setIsUpdatingRequest(true)
     await requestsService
       .completeRequest(request, comment)
       .then(() => {
         history.push('/')
         toastSuccess('正常に送信されました')
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
+        setIsUpdatingRequest(false)
       })
   }
 
@@ -301,19 +276,13 @@ export const RequestsProvider = ({ children }: any) => {
   }
 
   // =============================================================================
-  const clientPageCleanup = () => {
-    dispatch({ type: CLIENT_REQUESTS_CLEANUP })
-    setIsLoading(true)
-  }
-
-  const creatorPageCleanup = () => {
-    dispatch({ type: CREATOR_REQUESTS_CLEANUP })
-    setIsLoading(true)
+  const fetchRequestsCleanup = () => {
+    dispatch({ type: FETCH_REQUESTS_CLEANUP })
   }
 
   return (
     <RequestsStateContext.Provider
-      value={{ ...state, filterState, role, isLoading }}
+      value={{ ...state, filterState, role, isUpdatingRequest }}
     >
       <RequestsDispatchContext.Provider
         value={{
@@ -339,8 +308,7 @@ export const RequestsProvider = ({ children }: any) => {
           cancelRequest,
           submitRequest,
           completeRequest,
-          creatorPageCleanup,
-          clientPageCleanup,
+          fetchRequestsCleanup,
         }}
       >
         {children}

@@ -15,14 +15,17 @@ const RequestDoneCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.creator.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.creator.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork.content} artworkId={item.Artwork.id} />
-        <ClientCommentContainer clientComment={item.thanks_comment} />
+        <OrderContent order_content={item?.order_content} />
+        <ArtworkContainer
+          imgSource={item?.Artwork?.content}
+          artworkId={item?.Artwork?.id}
+        />
+        <ClientCommentContainer clientComment={item?.thanks_comment} />
       </CardWrapper>
     )
   }
@@ -30,14 +33,17 @@ const RequestDoneCard: React.FC<any> = ({ item }) => {
     return (
       <CardWrapper>
         <CardHeader
-          userName={item.client.name}
-          orderPrice={item.order_price}
-          createdAt={item.createdAt}
+          userName={item?.client.name}
+          orderPrice={item?.order_price}
+          createdAt={item?.createdAt}
           request={item}
         />
-        <OrderContent order_content={item.order_content} />
-        <ArtworkContainer imgSource={item.Artwork.content} artworkId={item.Artwork.id} />
-        <ClientCommentContainer clientComment={item.thanks_comment} />
+        <OrderContent order_content={item?.order_content} />
+        <ArtworkContainer
+          imgSource={item?.Artwork?.content}
+          artworkId={item?.Artwork?.id}
+        />
+        <ClientCommentContainer clientComment={item?.thanks_comment} />
       </CardWrapper>
     )
   }

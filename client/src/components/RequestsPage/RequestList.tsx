@@ -13,9 +13,9 @@ import {
 } from './RequestItemCard'
 
 const RequestList: React.FC = () => {
-  const { requests, filterState, isLoading } = useRequestsStateContext()
+  const { requests, filterState, requests_loading } = useRequestsStateContext()
 
-  if (isLoading) {
+  if (requests_loading) {
     return <CustomLoader/>
   }
 

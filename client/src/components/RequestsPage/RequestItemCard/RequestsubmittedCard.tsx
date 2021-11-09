@@ -12,7 +12,6 @@ import ClientCommentForm from './ClientCommentForm'
 
 const RequestsubmittedCard: React.FC<any> = ({ item }) => {
   const { role } = useRequestsStateContext()
-  console.log(item)
 
   if (role === 'client') {
     return (
@@ -42,7 +41,7 @@ const RequestsubmittedCard: React.FC<any> = ({ item }) => {
         <OrderContent order_content={item?.order_content} />
         <ArtworkContainer imgSource={item?.Artwork?.content} artworkId={item?.Artwork?.id} />
         <MessageContainer>
-          <p>納品済みです。料金は発注者が確認後に残高に加算されます。</p>
+          <p>納品済みです。料金は発注者が確認後に売上に加算されます。</p>
         </MessageContainer>
       </CardWrapper>
     )

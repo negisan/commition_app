@@ -19,7 +19,7 @@ const Requests: React.FC = () => {
     clientFetchDoneRequests,
     clientFetchCancelRequests,
     isClientPage,
-    clientPageCleanup,
+    fetchRequestsCleanup,
   } = useRequestsDispatchContext()
   const { filterState } = useRequestsStateContext()
 
@@ -44,7 +44,7 @@ const Requests: React.FC = () => {
     if (filterState === 'canceled') {
       clientFetchCancelRequests()
     }
-    return () => clientPageCleanup()
+    return () => fetchRequestsCleanup()
     // eslint-disable-next-line
   }, [filterState])
 

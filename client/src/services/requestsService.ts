@@ -25,12 +25,13 @@ const createRequest = async (order_data: OrderData) => {
       return Promise.reject(err)
     })
 }
+// ================================================================================================
+type RequestState = | 'state_default' | 'progressing' | 'submitted' | 'done' | 'cancel'
 
-// client ===================================
-const clientFetchDefaultRequests = async () => {
+const clientFetchRequests = async (state :RequestState) => {
   return await axios({
     method: 'get',
-    url: BASE_API_URL + '/requests/client?state=state_default',
+    url: BASE_API_URL + `/requests/client?state=${state}`,
     headers: authHeader(),
   })
     .then((res) => {
@@ -41,123 +42,10 @@ const clientFetchDefaultRequests = async () => {
     })
 }
 
-const clientFetchProgressingRequests = async () => {
+const creatorFetchRequests = async (state: RequestState) => {
   return await axios({
     method: 'get',
-    url: BASE_API_URL + '/requests/client?state=progressing',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const clientFetchSubmittedRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/client?state=submitted',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const clientFetchDoneRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/client?state=done',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const clientFetchCancelRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/client?state=cancel',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-// creator =============================================================
-const creatorFetchDefaultRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator?state=state_default',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const creatorFetchProgressingRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator?state=progressing',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const creatorFetchSubmittedRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator?state=submitted',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const creatorFetchDoneRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator?state=done',
-    headers: authHeader(),
-  })
-    .then((res) => {
-      return Promise.resolve(res.data)
-    })
-    .catch((err) => {
-      return Promise.reject(err)
-    })
-}
-
-const creatorFetchCancelRequests = async () => {
-  return await axios({
-    method: 'get',
-    url: BASE_API_URL + '/requests/creator?state=cancel',
+    url: BASE_API_URL + `/requests/creator?state=${state}`,
     headers: authHeader(),
   })
     .then((res) => {
@@ -232,16 +120,8 @@ const completeRequest = async (request: any, comment: string) => {
  // eslint-disable-next-line
 export default {
   createRequest,
-  clientFetchDefaultRequests,
-  clientFetchProgressingRequests,
-  clientFetchSubmittedRequests,
-  clientFetchDoneRequests,
-  clientFetchCancelRequests,
-  creatorFetchDefaultRequests,
-  creatorFetchProgressingRequests,
-  creatorFetchSubmittedRequests,
-  creatorFetchDoneRequests,
-  creatorFetchCancelRequests,
+  clientFetchRequests,
+  creatorFetchRequests,
   acceptRequest,
   cancelRequest,
   submitRequest,
