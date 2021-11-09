@@ -23,7 +23,7 @@ const EditDefaultOrderPrice: React.FC = () => {
         }
       >
         <input type='number' ref={inputRef} />
-        <button type='submit'>変更を保存する</button>
+        <button type='submit' className="account_config-submit_btn">変更を保存する</button>
       </DefaultOrderPriceForm>
     </>
   )
@@ -40,18 +40,6 @@ const DefaultOrderPriceForm = styled.form`
     color: var(--clr-grey-5);
     :focus {
       outline: none;
-    }
-  }
-  button {
-    border: none;
-    border-radius: var(--radius);
-    padding: 0.5rem 0.75rem;
-    background: var(--clr-primary-4);
-    color: var(--clr-white);
-    cursor: pointer;
-    transition: var(--transition);
-    :hover {
-      background: var(--clr-primary-5);
     }
   }
 `
