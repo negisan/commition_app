@@ -15,11 +15,16 @@ import {
   FETCH_CLIENTS_BEGIN,
   FETCH_CLIENTS_SUCCESS,
   FETCH_CLIENTS_FAIL,
+  LOAD_USER_PAGE_BEGIN,
+  LOAD_USER_PAGE_SUCCESS,
+  LOAD_USER_PAGE_FAIL,
+  LOAD_USER_PAGE_CLEANUP,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
+import { sleep } from '../helper/sleep'
 
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
@@ -33,6 +38,7 @@ const initialState = {
   user_loading: true,
   userArtworks: [],
   userArtworks_loading: true,
+  user_page_loading: true,
 }
 
 export const UsersProvider = ({ children }: any) => {
@@ -65,6 +71,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const fetchUser = async (user_name: string) => {
     dispatch({ type: FETCH_USER_BEGIN })
+    await sleep(400)
     await UsersService.fetchUser(user_name)
       .then((user) => {
         dispatch({ type: FETCH_USER_SUCCESS, payload: user })
@@ -95,6 +102,27 @@ export const UsersProvider = ({ children }: any) => {
     dispatch({ type: FETCH_USER_ARTWORKS_CLEANUP })
   }
 
+  const loadUserPage = async (user_name: string) => {
+    dispatch({ type: LOAD_USER_PAGE_BEGIN })
+    await sleep(200)
+    await UsersService.fetchUser(user_name)
+      .then(async (user) => {
+        const artworks = await UsersService.fetchUserArtworks(user.id, 1)
+        dispatch({
+          type: LOAD_USER_PAGE_SUCCESS,
+          payload: { user: user, userArtworks: artworks },
+        })
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: LOAD_USER_PAGE_FAIL })
+      })
+  }
+
+  const loadUserPageCleanup = () => {
+    dispatch({ type: LOAD_USER_PAGE_CLEANUP })
+  }
+
   return (
     <UsersStateContext.Provider value={{ ...state }}>
       <UsersDispatchContext.Provider
@@ -105,6 +133,8 @@ export const UsersProvider = ({ children }: any) => {
           fetchUserCleanup,
           fetchUserArtworks,
           fetchUserArtworksCleanup,
+          loadUserPage,
+          loadUserPageCleanup,
         }}
       >
         {children}

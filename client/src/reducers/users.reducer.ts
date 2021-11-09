@@ -13,6 +13,10 @@ import {
   FETCH_USER_CLEANUP,
   FETCH_USER_FAIL,
   FETCH_USER_SUCCESS,
+  LOAD_USER_PAGE_BEGIN,
+  LOAD_USER_PAGE_CLEANUP,
+  LOAD_USER_PAGE_FAIL,
+  LOAD_USER_PAGE_SUCCESS,
 } from '../constants/users.constant'
 
 const users_reducer = (state: any, action: any) => {
@@ -63,7 +67,25 @@ const users_reducer = (state: any, action: any) => {
     return { ...state, userArtworks_loading: false }
   }
   if (action.type === FETCH_USER_ARTWORKS_CLEANUP) {
-    return { ...state, userArtworks: [] }
+    return { ...state, userArtworks: [], userArtworks_loading: true }
+  }
+
+  if (action.type === LOAD_USER_PAGE_BEGIN) {
+    return { ...state, user_page_loading: true }
+  }
+  if (action.type === LOAD_USER_PAGE_SUCCESS) {
+    return {
+      ...state,
+      userArtworks: action.payload.userArtworks,
+      user: action.payload.user,
+      user_page_loading: false,
+    }
+  }
+  if (action.type === LOAD_USER_PAGE_FAIL) {
+    return { ...state, user_page_loading: false }
+  }
+  if (action.type === LOAD_USER_PAGE_CLEANUP) {
+    return { ...state, userArtworks: [], user: {}, user_page_loading: true }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)

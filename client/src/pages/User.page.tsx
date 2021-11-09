@@ -12,30 +12,21 @@ import {
 const User: React.FC = () => {
   const {
     user: ownerUser,
-    user_loading,
-    userArtworks_loading,
+    user_page_loading,
   } = useUsersStateContext()
   const {
-    fetchUser,
-    fetchUserCleanup,
-    fetchUserArtworks,
-    fetchUserArtworksCleanup,
+    loadUserPage,
+    loadUserPageCleanup,
   } = useUsersDispatchContext()
   const { user: params_user_name }: any = useParams()
 
   useEffect(() => {
-    fetchUser(params_user_name)
-    return () => fetchUserCleanup()
+    loadUserPage(params_user_name)
+    return () => loadUserPageCleanup()
     // eslint-disable-next-line
   }, [params_user_name])
 
-  useEffect(() => {
-    fetchUserArtworks(ownerUser.id)
-    return () => fetchUserArtworksCleanup()
-    // eslint-disable-next-line
-  }, [ownerUser])
-
-  if (user_loading || userArtworks_loading) {
+  if (user_page_loading) {
     return null
   }
 
@@ -46,7 +37,7 @@ const User: React.FC = () => {
           <PageHeader user={ownerUser} />
           <SectionWrapper>
             <UserInfoBar user={ownerUser} />
-            {!userArtworks_loading && <UserArtworks />}
+            <UserArtworks />
           </SectionWrapper>
         </>
       ) : (

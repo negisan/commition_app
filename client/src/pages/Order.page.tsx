@@ -36,13 +36,17 @@ const Order: React.FC = () => {
 
   return (
     <>
-      <BlockUi tag='div' blocking={isProcessing}>
-        <PageHeader user={ownerUser} />
-        <SectionWrapper>
-          <UserInfoBar user={ownerUser} />
-          <OrderForm client={myuser} creator={ownerUser} />
-        </SectionWrapper>
-      </BlockUi>
+      {ownerUser ? (
+        <BlockUi tag='div' blocking={isProcessing}>
+          <PageHeader user={ownerUser} />
+          <SectionWrapper>
+            <UserInfoBar user={ownerUser} />
+            <OrderForm client={myuser} creator={ownerUser} />
+          </SectionWrapper>
+        </BlockUi>
+      ) : (
+        ''
+      )}
     </>
   )
 }
