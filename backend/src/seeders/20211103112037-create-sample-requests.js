@@ -12,162 +12,8 @@ module.exports = {
      * }], {});
      */
     const now = new Date()
-    return queryInterface.bulkInsert('Requests', [
-      // === 納品済みで作品が作成されているリクエストサンプルsubmitted
-      {
-        creatorId: 1,
-        clientId: 2,
-        artworkId: 1,
-        state_default: false,
-        progressing: false,
-        submitted: true,
-        done: false,
-        cancel: false,
-        order_price: 1000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: '',
-        createdAt: now,
-        updatedAt: now,
-      },
-      // === 取引が完了しているサンプルdone
-      // creatorはuser1
-      {
-        creatorId: 1,
-        clientId: 2,
-        artworkId: 2,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 1000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'ありがとうございます',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 1,
-        clientId: 3,
-        artworkId: 3,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 1000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 1,
-        clientId: 4,
-        artworkId: 4,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 1000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 1,
-        clientId: 5,
-        artworkId: 5,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 1000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'ありがとうございます',
-        createdAt: now,
-        updatedAt: now,
-      },
-      // creatorはuser2
-      {
-        creatorId: 2,
-        clientId: 1,
-        artworkId: 6,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 5000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 2,
-        clientId: 1,
-        artworkId: 7,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 5000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 2,
-        clientId: 3,
-        artworkId: 8,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 5000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 2,
-        clientId: 4,
-        artworkId: 9,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 5000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-      {
-        creatorId: 2,
-        clientId: 5,
-        artworkId: 10,
-        state_default: false,
-        progressing: false,
-        submitted: false,
-        done: true,
-        cancel: false,
-        order_price: 5000,
-        order_content: '渾身の１枚をお願いします',
-        thanks_comment: 'すばらしいです',
-        createdAt: now,
-        updatedAt: now,
-      },
-
+    const requests = []
+    requests.push(
       // === 納品前のリクエスト
       // user1の全フラグパターンのサンプル
       // 未受注
@@ -218,7 +64,63 @@ module.exports = {
         createdAt: now,
         updatedAt: now,
       },
-    ])
+      // === 納品済みで作品が作成されているリクエストサンプルsubmitted
+      {
+        creatorId: 1,
+        clientId: 2,
+        artworkId: 1,
+        state_default: false,
+        progressing: false,
+        submitted: true,
+        done: false,
+        cancel: false,
+        order_price: 1000,
+        order_content: '渾身の１枚をお願いします',
+        thanks_comment: '',
+        createdAt: now,
+        updatedAt: now,
+      }
+    )
+    // === 取引が完了しているサンプルdone
+    // creatorはuser1
+    // artworkId 2 ~ 5
+    for (let i = 1; i < 5; i++) {
+      requests.push({
+        creatorId: 1,
+        clientId: 2,
+        artworkId: i + 1,
+        state_default: false,
+        progressing: false,
+        submitted: false,
+        done: true,
+        cancel: false,
+        order_price: 6000,
+        order_content: '渾身の１枚をお願いします',
+        thanks_comment: 'ありがとうございます',
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
+    // creatorはuser2
+    // artworkId 6 ~ 21
+    for (let i = 5; i < 21; i++) {
+      requests.push({
+        creatorId: 2,
+        clientId: 1,
+        artworkId: i + 1,
+        state_default: false,
+        progressing: false,
+        submitted: false,
+        done: true,
+        cancel: false,
+        order_price: 3000,
+        order_content: '渾身の１枚をお願いします',
+        thanks_comment: 'ありがとうございます',
+        createdAt: now,
+        updatedAt: now,
+      })
+    }
+    return queryInterface.bulkInsert('Requests', requests)
   },
 
   down: async (queryInterface, Sequelize) => {
