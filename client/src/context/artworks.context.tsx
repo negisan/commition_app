@@ -16,6 +16,7 @@ import {
 import artworksService from '../services/artworks.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
+import { sleep } from '../helper/sleep'
 
 const ArtworksStateContext = React.createContext<any | null>({})
 const ArtworksDispatchContext = React.createContext<any | null>({})
@@ -73,6 +74,7 @@ export const ArtworksProvider = ({ children }: any) => {
 
   const fetchArtwork = async (artworkId: any) => {
     dispatch({ type: FETCH_ARTWORK_BEGIN })
+    await sleep(400)
     await artworksService
       .fetchArtwork(artworkId)
       .then((requestWithArtwork) => {
