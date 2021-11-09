@@ -16,7 +16,7 @@ const UserInfoBar: React.FC<{ user: any }> = ({ user }) => {
 
   return (
     <Wrapper>
-      {user.id === myuser.id ? (
+      {user?.id === myuser?.id ? (
         ''
       ) : (
         <>
