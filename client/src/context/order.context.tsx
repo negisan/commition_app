@@ -67,7 +67,7 @@ export const OrderProvider = ({ children }: any) => {
           .then(() => {
             setIsProcessing(false)
             toastSuccess('リクエストを正常に送信しました')
-            history.push('/requests')
+            history.replace('/requests')
           })
           .catch((err) => {
             return Promise.reject(err)
