@@ -13,7 +13,7 @@ import {
 } from '../context/users.context'
 
 const Home: React.FC = () => {
-  const { artworks_loading } = useArtworksStateContext()
+  const { artworks, artworks_loading } = useArtworksStateContext()
   const { fetchArtworks, fetchArtworksCleanup } = useArtworksDispatchContext()
   const { fetchCreators, fetchClients } = useUsersDispatchContext()
   const { creators_loading, clients_loading } = useUsersStateContext()
@@ -28,6 +28,10 @@ const Home: React.FC = () => {
 
   if (artworks_loading) {
     return <CustomLoader />
+  }
+
+  if (!artworks) {
+    return null
   }
 
   return (

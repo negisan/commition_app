@@ -44,7 +44,7 @@ const artwork_reducer = (state: any, action: any) => {
     return { ...state, artworks_loading: false }
   }
   if (action.type === FETCH_ARTWORKS_CLEANUP) {
-    return { ...state, artworks_loading: true }
+    return { ...state, artworks: [], artworks_loading: true }
   }
 
   if (action.type === FETCH_MORE_ARTWORKS_SUCCESS) {
