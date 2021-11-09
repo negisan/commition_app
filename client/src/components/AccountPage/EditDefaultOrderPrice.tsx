@@ -22,8 +22,13 @@ const EditDefaultOrderPrice: React.FC = () => {
           updateDefaultOrderPrice(myuser.id, inputRef.current.value)
         }
       >
-        <input type='number' ref={inputRef} />
-        <button type='submit' className="account_config-submit_btn">変更を保存する</button>
+        <div>
+          <span　className="currency">￥</span>
+          <input type='number' ref={inputRef} />
+        </div>
+        <button type='submit' className='account_config-submit_btn'>
+          変更を保存する
+        </button>
       </DefaultOrderPriceForm>
     </>
   )
@@ -34,13 +39,19 @@ const DefaultOrderPriceForm = styled.form`
   justify-content: space-between;
   input {
     padding: 0.25rem 0.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     border: none;
     border-bottom: 2px solid var(--clr-grey-9);
-    color: var(--clr-grey-5);
+    color: var(--clr-grey-6);
     :focus {
       outline: none;
     }
+  }
+  .currency {
+    font-size: 1.1rem;
+    color: var(--clr-grey-6);
+    font-weight: 600;
   }
 `
 
