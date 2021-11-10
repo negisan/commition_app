@@ -3,7 +3,7 @@ const fs = require('fs')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const db = require('src/models')
-const secret = Process.env.JWT_SECRET
+const secret = process.env.JWT_SECRET
 
 module.exports = {
   authenticate,
@@ -48,26 +48,43 @@ async function create(params) {
 }
 
 async function show(req) {
-  return await omitHash(req.user)
+  const userAttachedIcon = Object.assign(req.user, {
+    icon: fs.readFileSync(req.user.icon).toString('base64'),
+  })
+  return userAttachedIcon
 }
 
 async function update(user, data, update_type) {
   try {
     if (update_type === 'accepting_order') {
-      const updated_user = await db.sequelize.transaction({}, async () => {
-        await db.User.findOne({ where: { id: user.id } }).then((user) => {
-          user.accepting_order = data.accepting_order
-          user.save()
-        })
+      let updated_user = {}
+      await db.sequelize.transaction({}, async () => {
+        updated_user = await db.User.findOne({ where: { id: user.id } }).then(
+          (user) => {
+            user.accepting_order = data.accepting_order
+            user.save()
+            return user
+          }
+        )
+      })
+      updated_user = Object.assign(updated_user, {
+        icon: fs.readFileSync(updated_user.icon).toString('base64'),
       })
       return updated_user
     }
     if (update_type === 'default_order_price') {
-      const updated_user = await db.sequelize.transaction({}, async () => {
-        await db.User.findOne({ where: { id: user.id } }).then((user) => {
-          user.default_order_price = data.default_order_price
-          user.save()
-        })
+      let updated_user = {}
+      await db.sequelize.transaction({}, async () => {
+        updated_user = await db.User.findOne({ where: { id: user.id } }).then(
+          (user) => {
+            user.default_order_price = data.default_order_price
+            user.save()
+            return user
+          }
+        )
+      })
+      updated_user = Object.assign(updated_user, {
+        icon: fs.readFileSync(updated_user.icon).toString('base64'),
       })
       return updated_user
     }
@@ -83,20 +100,15 @@ async function updateUserIcon(req) {
       throw 'ファイルを選択してください'
     }
     const new_user_icon = {
-      icon: fs
-        .readFileSync(
-          __basedir +
-            '/resources/static/assets/uploads_user_icon/' +
-            req.file.filename
-        )
-        .toString('base64'),
+      icon:
+        __basedir +
+        '/resources/static/assets/uploads_user_icon/' +
+        req.file.filename,
     }
     const updated_data = Object.assign(req.user, new_user_icon)
-
     await db.sequelize.transaction({}, async () => {
       await db.User.update(updated_data, { where: { id: req.user.id } })
     })
-
     return updated_data
   } catch (err) {
     throw err

@@ -1,7 +1,7 @@
 const jwt = require('express-jwt')
 
 const db = require('src/models')
-const { secret } = require('src/config/config.json')
+const secret = process.env.JWT_SECRET
 
 module.exports = authorize
 
