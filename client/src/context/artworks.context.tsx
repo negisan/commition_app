@@ -74,7 +74,7 @@ export const ArtworksProvider = ({ children }: any) => {
 
   const fetchArtwork = async (artworkId: any) => {
     dispatch({ type: FETCH_ARTWORK_BEGIN })
-    await sleep(400)
+    // await sleep(400)
     await artworksService
       .fetchArtwork(artworkId)
       .then((requestWithArtwork) => {

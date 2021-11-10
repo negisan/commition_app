@@ -71,7 +71,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const fetchUser = async (user_name: string) => {
     dispatch({ type: FETCH_USER_BEGIN })
-    await sleep(400)
+    // await sleep(400)
     await UsersService.fetchUser(user_name)
       .then((user) => {
         dispatch({ type: FETCH_USER_SUCCESS, payload: user })
@@ -104,7 +104,7 @@ export const UsersProvider = ({ children }: any) => {
 
   const loadUserPage = async (user_name: string) => {
     dispatch({ type: LOAD_USER_PAGE_BEGIN })
-    await sleep(200)
+    // await sleep(200)
     await UsersService.fetchUser(user_name)
       .then(async (user) => {
         const artworks = await UsersService.fetchUserArtworks(user.id, 1)

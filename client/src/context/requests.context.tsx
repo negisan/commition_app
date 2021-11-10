@@ -42,7 +42,7 @@ export const RequestsProvider = ({ children }: any) => {
   // client fetch data ====================================================
   const clientFetchDefaultRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .clientFetchRequests('state_default')
       .then((requests) => {
@@ -56,7 +56,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchProgressingRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .clientFetchRequests('progressing')
       .then((requests) => {
@@ -70,7 +70,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchSubmittedRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .clientFetchRequests('submitted')
       .then((requests) => {
@@ -84,7 +84,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchDoneRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .clientFetchRequests('done')
       .then((requests) => {
@@ -98,7 +98,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const clientFetchCancelRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .clientFetchRequests('cancel')
       .then((requests) => {
@@ -113,7 +113,7 @@ export const RequestsProvider = ({ children }: any) => {
   // creator fetch data ====================================================
   const creatorFetchDefaultRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .creatorFetchRequests('state_default')
       .then((requests) => {
@@ -127,7 +127,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchProgressingRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .creatorFetchRequests('progressing')
       .then((requests) => {
@@ -141,7 +141,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchSubmittedRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .creatorFetchRequests('submitted')
       .then((requests) => {
@@ -155,7 +155,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchDoneRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .creatorFetchRequests('done')
       .then((requests) => {
@@ -169,7 +169,7 @@ export const RequestsProvider = ({ children }: any) => {
 
   const creatorFetchCancelRequests = async () => {
     dispatch({ type: FETCH_REQUESTS_BEGIN })
-    await sleep(500)
+    // await sleep(500)
     await requestsService
       .creatorFetchRequests('cancel')
       .then((requests) => {
