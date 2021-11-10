@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const db = require('src/models')
 
 module.exports = {
@@ -16,7 +18,11 @@ async function getUsers(user_type, page) {
         limit: perPage,
         order: [['createdAt', 'DESC']],
       })
-      return creators
+      const creatorsAttachedIcon = creators.map((creator) => {
+        creator.icon = fs.readFileSync(creator.icon).toString('base64')
+        return creator
+      })
+      return creatorsAttachedIcon
     }
     if (user_type === 'client') {
       const clients = await db.User.findAll({
@@ -25,7 +31,11 @@ async function getUsers(user_type, page) {
         limit: perPage,
         order: [['createdAt', 'DESC']],
       })
-      return clients
+      const clientsAttachedIcon = clients.map((client) => {
+        client.icon = fs.readFileSync(client.icon).toString('base64')
+        return client
+      })
+      return clientsAttachedIcon
     }
     throw 'getUsers関数はユーザタイプが必要です'
   } catch (err) {
@@ -37,12 +47,13 @@ async function getUser(userName) {
   const user = await db.User.findOne({
     where: { name: userName },
   })
-
   if (!user) {
     throw 'ユーザーが存在しません'
   }
-
-  return user
+  const userAttachedIcon = Object.assign(user, {
+    icon: fs.readFileSync(user.icon).toString('base64'),
+  })
+  return userAttachedIcon
 }
 
 async function getUserArtworks(userId, page) {
@@ -53,7 +64,11 @@ async function getUserArtworks(userId, page) {
       limit: perpage,
       offset: (page - 1) * perpage,
     })
-    return artworks
+    const artworksAttachedImage = artworks.map((artwork) => {
+      artwork.content = fs.readFileSync(artwork.content).toString('base64')
+      return artwork
+    })
+    return artworksAttachedImage
   } catch (err) {
     throw err
   }

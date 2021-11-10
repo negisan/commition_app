@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       icon: {
-        type: DataTypes.STRING(65535),
+        type: DataTypes.STRING,
+        defaultValue: __basedir + '/public/static/defaul_icon.jpg',
       },
       default_order_price: {
         type: DataTypes.INTEGER,
@@ -54,8 +55,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       isClient: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
-      }
+        defaultValue: false,
+      },
     },
     {
       sequelize,

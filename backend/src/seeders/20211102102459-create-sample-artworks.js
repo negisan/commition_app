@@ -17,19 +17,15 @@ module.exports = {
     for (let i = 0; i < 5; i++) {
       artworks.push({
         creatorId: 1,
-        content: fs
-          .readFileSync(__dirname + `/images/wallpaper${i + 1}.jpg`)
-          .toString('base64'),
+        content: __dirname + `/images/wallpaper${i + 1}.jpg`,
         createdAt: now,
         updatedAt: now,
       })
     }
-    for (let i = 5; i < 21; i++) {
+    for (let i = 5; i < 20; i++) {
       artworks.push({
         creatorId: 2,
-        content: fs
-          .readFileSync(__dirname + `/images/wallpaper${i + 1}.jpg`)
-          .toString('base64'),
+        content: __dirname + `/images/wallpaper${i + 1}.jpg`,
         createdAt: now,
         updatedAt: now,
       })

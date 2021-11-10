@@ -18,13 +18,10 @@ async function create(user, file, query) {
     // Artwork作成
     const data = {
       creatorId: user.id,
-      content: fs
-        .readFileSync(
-          __basedir +
-            '/resources/static/assets/uploads_artworks/' +
-            file.filename
-        )
-        .toString('base64'),
+      content:
+        __basedir +
+        '/resources/static/assets/uploads_artworks/' +
+        file.filename,
     }
     await db.sequelize.transaction({}, async () => {
       const artwork = await db.Artwork.create(data)
@@ -56,7 +53,11 @@ async function index(page, sort) {
         limit: perPage,
         order: [['createdAt', 'DESC']],
       })
-      return artworks
+      const artworksAttachedImage = artworks.map((artwork) => {
+        artwork.content = fs.readFileSync(artwork.content).toString('base64')
+        return artwork
+      })
+      return artworksAttachedImage
     }
   } catch (err) {
     throw err
@@ -80,5 +81,18 @@ async function show(artworkId) {
       },
     ],
   })
-  return requestWithArtwork
+  const requestWithArtworkAttachedImages = Object.assign(requestWithArtwork, {
+    Artwork: Object.assign(requestWithArtwork.Artwork, {
+      content: fs
+        .readFileSync(requestWithArtwork.Artwork.content)
+        .toString('base64'),
+    }),
+    client: Object.assign(requestWithArtwork.client, {
+      icon: fs.readFileSync(requestWithArtwork.client.icon).toString('base64'),
+    }),
+    creator: Object.assign(requestWithArtwork.creator, {
+      icon: fs.readFileSync(requestWithArtwork.creator.icon).toString('base64'),
+    }),
+  })
+  return requestWithArtworkAttachedImages
 }

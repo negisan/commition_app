@@ -102,8 +102,8 @@ module.exports = {
       })
     }
     // creatorはuser2
-    // artworkId 6 ~ 21
-    for (let i = 5; i < 21; i++) {
+    // artworkId 6 ~ 20
+    for (let i = 5; i < 20; i++) {
       requests.push({
         creatorId: 2,
         clientId: 1,

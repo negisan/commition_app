@@ -1,3 +1,4 @@
+const fs = require('fs')
 const db = require('src/models')
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
@@ -130,7 +131,16 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedIcon = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedIcon
   }
 
   if (query.state === 'cancel') {
@@ -152,7 +162,16 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedIcon = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedIcon
   }
 
   if (query.state === 'progressing') {
@@ -174,7 +193,16 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedIcon = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedIcon
   }
 
   if (query.state === 'submitted') {
@@ -199,7 +227,19 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      request.Artwork.content = fs
+        .readFileSync(request.Artwork.content)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
   if (query.state === 'done') {
@@ -224,29 +264,24 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      request.Artwork.content = fs
+        .readFileSync(request.Artwork.content)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
-  const requests = await db.Request.findAll({
-    where: {
-      clientId: user.id,
-    },
-    include: [
-      {
-        model: db.User,
-        as: 'client',
-      },
-      {
-        model: db.User,
-        as: 'creator',
-      },
-      {
-        model: db.Artwork,
-      },
-    ],
-  })
-  return requests
+  throw `No match ${query.state} - query state`
 }
+
 // RoleCreatorRequests ================================================================================
 async function getCreatorRequests(user, query) {
   if (query.state === 'state_default') {
@@ -268,7 +303,16 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
   if (query.state === 'cancel') {
@@ -290,7 +334,16 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
   if (query.state === 'progressing') {
@@ -312,7 +365,16 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
   if (query.state === 'submitted') {
@@ -337,7 +399,19 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      request.Artwork.content = fs
+        .readFileSync(request.Artwork.content)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
   if (query.state === 'done') {
@@ -362,26 +436,20 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    return requests
+    const requestsAttachedImages = requests.map((request) => {
+      request.client.icon = fs
+        .readFileSync(request.client.icon)
+        .toString('base64')
+      request.creator.icon = fs
+        .readFileSync(request.creator.icon)
+        .toString('base64')
+      request.Artwork.content = fs
+        .readFileSync(request.Artwork.content)
+        .toString('base64')
+      return request
+    })
+    return requestsAttachedImages
   }
 
-  const requests = await db.Request.findAll({
-    where: {
-      creatorId: user.id,
-    },
-    include: [
-      {
-        model: db.User,
-        as: 'client',
-      },
-      {
-        model: db.User,
-        as: 'creator',
-      },
-      {
-        model: db.Artwork,
-      },
-    ],
-  })
-  return requests
+  throw `No match ${query.state} - query state`
 }
