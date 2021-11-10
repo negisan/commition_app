@@ -33,29 +33,36 @@ const ArtworkDetails: React.FC = () => {
 
   const { artwork_image, order_content, thanks_comment } = artwork
   return (
-    <Wrapper>
-      {artwork_image && (
-        <ArtworkContainer>
-          <img src={`data:image/jpeg;base64,` + artwork_image} alt='artwork' />
-        </ArtworkContainer>
+    <>
+      {artwork && artwork_image ? (
+        <Wrapper>
+          <ArtworkContainer>
+            <img
+              src={`data:image/jpeg;base64,` + artwork_image}
+              alt='artwork'
+            />
+          </ArtworkContainer>
+          <div>
+            <RequestInfoContainer>
+              <UserBar user={artwork_creator} />
+              <div className='divider' />
+              <ContentContainer>
+                <h3>リクエスト</h3>
+                <p>{order_content}</p>
+              </ContentContainer>
+              <div className='divider'></div>
+              <ContentContainer>
+                <h3>クライアントのコメント</h3>
+                <p>{thanks_comment}</p>
+              </ContentContainer>
+            </RequestInfoContainer>
+            <UserInfoBar user={artwork_creator} />
+          </div>
+        </Wrapper>
+      ) : (
+        ''
       )}
-      <div>
-        <RequestInfoContainer>
-          <UserBar user={artwork_creator} />
-          <div className='divider' />
-          <ContentContainer>
-            <h3>リクエスト</h3>
-            <p>{order_content}</p>
-          </ContentContainer>
-          <div className='divider'></div>
-          <ContentContainer>
-            <h3>クライアントのコメント</h3>
-            <p>{thanks_comment}</p>
-          </ContentContainer>
-        </RequestInfoContainer>
-        <UserInfoBar user={artwork_creator} />
-      </div>
-    </Wrapper>
+    </>
   )
 }
 

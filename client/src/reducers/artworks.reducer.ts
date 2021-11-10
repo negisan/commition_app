@@ -31,7 +31,7 @@ const artwork_reducer = (state: any, action: any) => {
     return { ...state, artwork_loading: false }
   }
   if (action.type === FETCH_ARTWORK_CLEANUP) {
-    return { ...state, artwork: {}, artwork_creator: {} }
+    return { ...state, artwork: {}, artwork_creator: {}, artwork_loading: true }
   }
 
   if (action.type === FETCH_ARTWORKS_BEGIN) {
