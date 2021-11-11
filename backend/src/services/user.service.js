@@ -41,7 +41,7 @@ async function create(params) {
 
     const user = await db.User.findOne({ where: { email: params.email } })
     const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '7d' })
-    return { token }
+    return { token, name: user.name }
   } catch (err) {
     throw err
   }
