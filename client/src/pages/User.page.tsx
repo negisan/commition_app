@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import styled from 'styled-components'
 
 import { PageHeader, UserInfoBar } from '../components'
+import { CustomLoader } from '../components/common'
 import { UserArtworks } from '../components/UserPage'
 import {
   useUsersDispatchContext,
@@ -10,14 +11,8 @@ import {
 } from '../context/users.context'
 
 const User: React.FC = () => {
-  const {
-    user: ownerUser,
-    user_page_loading,
-  } = useUsersStateContext()
-  const {
-    loadUserPage,
-    loadUserPageCleanup,
-  } = useUsersDispatchContext()
+  const { user: ownerUser, user_page_loading } = useUsersStateContext()
+  const { loadUserPage, loadUserPageCleanup } = useUsersDispatchContext()
   const { user: params_user_name }: any = useParams()
 
   useEffect(() => {
@@ -27,7 +22,7 @@ const User: React.FC = () => {
   }, [params_user_name])
 
   if (user_page_loading) {
-    return null
+    return <CustomLoader />
   }
 
   return (

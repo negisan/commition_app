@@ -6,7 +6,7 @@ import {
   useArtworksDispatchContext,
   useArtworksStateContext,
 } from '../context/artworks.context'
-import { UserBar } from '../components/common'
+import { CustomLoader, UserBar } from '../components/common'
 
 const ArtworkDetails: React.FC = () => {
   const {
@@ -24,7 +24,7 @@ const ArtworkDetails: React.FC = () => {
   }, [id])
 
   if (isLoading) {
-    return null
+    return <CustomLoader />
   }
 
   if (!artwork) {

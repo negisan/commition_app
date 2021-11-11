@@ -16,7 +16,7 @@ import {
 import artworksService from '../services/artworks.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
-import { sleep } from '../helper/sleep'
+// import { sleep } from '../helper/sleep'
 
 const ArtworksStateContext = React.createContext<any | null>({})
 const ArtworksDispatchContext = React.createContext<any | null>({})

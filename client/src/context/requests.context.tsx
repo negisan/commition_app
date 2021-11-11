@@ -1,7 +1,7 @@
 import React, { useContext, useReducer, useState } from 'react'
 import { useHistory } from 'react-router'
 
-import { sleep } from '../helper/sleep'
+// import { sleep } from '../helper/sleep'
 import reducer from '../reducers/requests.reducer'
 import { errorMessage } from '../helper/handleErrorMessage'
 import { useUIContext } from './UI.context'

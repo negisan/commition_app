@@ -24,7 +24,7 @@ import reducer from '../reducers/users.reducer'
 import UsersService from '../services/users.service'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
-import { sleep } from '../helper/sleep'
+// import { sleep } from '../helper/sleep'
 
 const UsersStateContext = React.createContext<any | null>({})
 const UsersDispatchContext = React.createContext<any | null>({})
