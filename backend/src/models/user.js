@@ -34,8 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       icon: {
-        type: DataTypes.STRING,
-        defaultValue: __basedir + '/public/static/defaul_icon.jpg',
+        type: DataTypes.STRING(10000),
+        defaultValue: null,
       },
       default_order_price: {
         type: DataTypes.INTEGER,

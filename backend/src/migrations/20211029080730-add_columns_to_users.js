@@ -7,13 +7,10 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    const appRoot = require('app-root-path')
-    const icon_path = appRoot + '/public/static/default_icon.jpg'
     return Promise.all([
       queryInterface.addColumn('Users', 'icon', {
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: icon_path,
+        type: Sequelize.STRING(10000),
+        defaultValue: null,
       }),
       queryInterface.addColumn('Users', 'default_order_price', {
         type: Sequelize.INTEGER,

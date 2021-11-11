@@ -131,16 +131,7 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedIcon = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedIcon
+    return requests
   }
 
   if (query.state === 'cancel') {
@@ -162,16 +153,7 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedIcon = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedIcon
+    return requests
   }
 
   if (query.state === 'progressing') {
@@ -193,16 +175,7 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedIcon = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedIcon
+    return requests
   }
 
   if (query.state === 'submitted') {
@@ -227,19 +200,8 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      request.Artwork.content = fs
-        .readFileSync(request.Artwork.content)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+
+    return requests
   }
 
   if (query.state === 'done') {
@@ -264,19 +226,7 @@ async function getClientRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      request.Artwork.content = fs
-        .readFileSync(request.Artwork.content)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   throw `No match ${query.state} - query state`
@@ -303,16 +253,7 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   if (query.state === 'cancel') {
@@ -334,16 +275,7 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   if (query.state === 'progressing') {
@@ -365,16 +297,7 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   if (query.state === 'submitted') {
@@ -399,19 +322,7 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      request.Artwork.content = fs
-        .readFileSync(request.Artwork.content)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   if (query.state === 'done') {
@@ -436,19 +347,7 @@ async function getCreatorRequests(user, query) {
         },
       ],
     })
-    const requestsAttachedImages = requests.map((request) => {
-      request.client.icon = fs
-        .readFileSync(request.client.icon)
-        .toString('base64')
-      request.creator.icon = fs
-        .readFileSync(request.creator.icon)
-        .toString('base64')
-      request.Artwork.content = fs
-        .readFileSync(request.Artwork.content)
-        .toString('base64')
-      return request
-    })
-    return requestsAttachedImages
+    return requests
   }
 
   throw `No match ${query.state} - query state`
