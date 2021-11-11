@@ -17,7 +17,7 @@ const Navbar = () => {
     <Wrapper>
       <Logo>
         <SiCheckio size={24} />
-        <Link to={'/'}>Commition</Link>
+        <Link to={'/'}>Commission</Link>
       </Logo>
       <NavItemsRight>
         {isLoggedin() ? (
