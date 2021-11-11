@@ -10,7 +10,7 @@ const imageFilter = (req, file, cb) => {
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, __basedir + '/resources/static/assets/uploads_artworks/')
+    cb(null, __basedir + '/tmp/')
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-art_works-${file.originalname}`)

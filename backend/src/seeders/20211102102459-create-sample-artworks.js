@@ -17,7 +17,9 @@ module.exports = {
     for (let i = 0; i < 5; i++) {
       artworks.push({
         creatorId: 1,
-        content: __dirname + `/images/wallpaper${i + 1}.jpg`,
+        content: fs
+          .readFileSync(__dirname + `/images/wallpaper${i + 1}.jpg`)
+          .toString('base64'),
         createdAt: now,
         updatedAt: now,
       })
@@ -25,7 +27,9 @@ module.exports = {
     for (let i = 5; i < 20; i++) {
       artworks.push({
         creatorId: 2,
-        content: __dirname + `/images/wallpaper${i + 1}.jpg`,
+        content: fs
+          .readFileSync(__dirname + `/images/wallpaper${i + 1}.jpg`)
+          .toString('base64'),
         createdAt: now,
         updatedAt: now,
       })

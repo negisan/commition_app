@@ -48,10 +48,7 @@ async function create(params) {
 }
 
 async function show(req) {
-  const userAttachedIcon = Object.assign(req.user, {
-    icon: fs.readFileSync(req.user.icon).toString('base64'),
-  })
-  return userAttachedIcon
+  return req.user
 }
 
 async function update(user, data, update_type) {
@@ -67,9 +64,6 @@ async function update(user, data, update_type) {
           }
         )
       })
-      updated_user = Object.assign(updated_user, {
-        icon: fs.readFileSync(updated_user.icon).toString('base64'),
-      })
       return updated_user
     }
     if (update_type === 'default_order_price') {
@@ -82,9 +76,6 @@ async function update(user, data, update_type) {
             return user
           }
         )
-      })
-      updated_user = Object.assign(updated_user, {
-        icon: fs.readFileSync(updated_user.icon).toString('base64'),
       })
       return updated_user
     }
@@ -100,10 +91,9 @@ async function updateUserIcon(req) {
       throw 'ファイルを選択してください'
     }
     const new_user_icon = {
-      icon:
-        __basedir +
-        '/resources/static/assets/uploads_user_icon/' +
-        req.file.filename,
+      icon: fs
+        .readFileSync(__basedir + '/tmp/' + req.file.filename)
+        .toString('base64'),
     }
     const updated_data = Object.assign(req.user, new_user_icon)
     await db.sequelize.transaction({}, async () => {
