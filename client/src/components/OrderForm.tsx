@@ -187,6 +187,7 @@ const OrderForm: React.FC<any> = ({ client, creator }) => {
 }
 
 const ConfirmContainer = styled.div`
+  max-width: var(--max-width);
   box-shadow: var(--dark-shadow);
   dispaly: flex;
   justify-content: center;
