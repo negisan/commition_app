@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       icon: {
         type: DataTypes.STRING,
-        defaultValue: __basedir + '/public/static/defaul_icon.jpg',
+        defaultValue: __basedir + '/public/static/default_icon.jpg',
       },
       default_order_price: {
         type: DataTypes.INTEGER,
