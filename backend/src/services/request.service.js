@@ -120,6 +120,7 @@ async function getClientRequests(user, query) {
           state_default: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -151,6 +152,7 @@ async function getClientRequests(user, query) {
           cancel: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -182,6 +184,7 @@ async function getClientRequests(user, query) {
           progressing: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -213,6 +216,7 @@ async function getClientRequests(user, query) {
           submitted: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -250,6 +254,7 @@ async function getClientRequests(user, query) {
           done: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -282,7 +287,6 @@ async function getClientRequests(user, query) {
   throw `No match ${query.state} - query state`
 }
 
-// RoleCreatorRequests ================================================================================
 async function getCreatorRequests(user, query) {
   if (query.state === 'state_default') {
     const requests = await db.Request.findAll({
@@ -292,6 +296,7 @@ async function getCreatorRequests(user, query) {
           state_default: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -323,6 +328,7 @@ async function getCreatorRequests(user, query) {
           cancel: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -354,6 +360,7 @@ async function getCreatorRequests(user, query) {
           progressing: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -385,6 +392,7 @@ async function getCreatorRequests(user, query) {
           submitted: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
@@ -422,6 +430,7 @@ async function getCreatorRequests(user, query) {
           done: true,
         },
       },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: db.User,
