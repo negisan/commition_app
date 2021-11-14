@@ -29,20 +29,17 @@ password: 'string'<br/>
 # ローカルで動かすには
 
 <br/>
-<br/>
 
 ## バックエンドのセットアップ
 
+<br/>
 
 ### .envファイルを作成し環境変数の設定
 
 JWT_SECRET='任意の英数字'<br/>
 STRIPE_SECRET_KEY='stripeのシークレットキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
 
-<br/>
-
 ### DBの準備
-
 
 #### OSにDBがインストールされているか確認
 
@@ -62,11 +59,8 @@ $ sudo /etc/init.d/mysql start
 $ mysql -u root
 ```
 
-
 #### このアプリケーションでDBを扱えるよう設定
 backend/config/config.js の development の username と password が 自分の環境の MySql のユーザー名、パスワードと一致するように設定してください。
-
-<br/>
 
 #### ライブラリのインストール
 
@@ -74,7 +68,6 @@ backend/config/config.js の development の username と password が 自分の
 $ cd backend/
 $ yarn install
 ```
-
 
 #### sequelize-cliで各種操作
 
@@ -103,14 +96,14 @@ $ yarn run start
 
 ## フロントのセットアップ
 
+<br/>
+
 バックエンドを起動しているのとは別の新しいターミナルを開く
 
 ### 定数を変更
 
 STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
 BASE_API_URL='http://localhost:4000' &nbsp; ＊backend/server.jsで指定したポート<br/>
-
-<br/>
 
 ### ライブラリのインストール
 
