@@ -15,7 +15,6 @@ password: 'string'<br/>
 その他のサンプルユーザー：[こちら](https://github.com/waynejsk/commition_app/blob/main/backend/src/seeders/20211031233803-test-users.js)
 
 <br/>
-<br/>
 
 ## 目次
 
