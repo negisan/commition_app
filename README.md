@@ -11,6 +11,7 @@ password: 'string'<br/>
 <br/>
 
 
+新規ユーザー登録時はユーザー名とメールアドレスにUnique制限があります。<br/>
 その他のサンプルユーザー：[こちら](https://github.com/waynejsk/commition_app/blob/main/backend/src/seeders/20211031233803-test-users.js)
 
 <br/>
