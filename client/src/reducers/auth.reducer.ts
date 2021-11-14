@@ -1,5 +1,9 @@
 import {
-  FETCH_USER_SUCCESS,
+  FETCH_MYUSER_SUCCESS,
+  LOAD_MYUSER_BEGIN,
+  LOAD_MYUSER_CLEANUP,
+  LOAD_MYUSER_FAIL,
+  LOAD_MYUSER_SUCCESS,
   LOGOUT,
   UPDATE_ACCEPTING_ORDER_BEGIN,
   UPDATE_ACCEPTING_ORDER_FAIL,
@@ -16,8 +20,21 @@ const auth_reducer = (state: any, action: any) => {
   if (action.type === LOGOUT) {
     return {}
   }
-  if (action.type === FETCH_USER_SUCCESS) {
+  if (action.type === FETCH_MYUSER_SUCCESS) {
     return { ...state, myuser: action.payload }
+  }
+
+  if (action.type === LOAD_MYUSER_BEGIN) {
+    return { ...state, myuser_loading: true }
+  }
+  if (action.type === LOAD_MYUSER_SUCCESS) {
+    return { ...state, myuser: action.payload, myuser_loading: false }
+  }
+  if (action.type === LOAD_MYUSER_FAIL) {
+    return { ...state, myuser_loading: false }
+  }
+  if (action.type === LOAD_MYUSER_CLEANUP) {
+    return { ...state, myuser_loading: true }
   }
 
   if (action.type === UPDATE_USER_ICON_BEGIN) {

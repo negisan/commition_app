@@ -1,12 +1,11 @@
-import React, { useContext, useState, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import { useHistory } from 'react-router'
 
 import reducer from '../reducers/auth.reducer'
 import AuthService from '../services/auth.service'
 import {
   LOGOUT,
-  FETCH_USER_SUCCESS,
-  UPDATE_USER_ICON_BEGIN,
+  FETCH_MYUSER_SUCCESS,
   UPDATE_USER_ICON_SUCCESS,
   UPDATE_USER_ICON_FAIL,
   UPDATE_ACCEPTING_ORDER_BEGIN,
@@ -15,21 +14,26 @@ import {
   UPDATE_DEFAULT_ORDER_PRICE_BEGIN,
   UPDATE_DEFAULT_ORDER_PRICE_SUCCESS,
   UPDATE_DEFAULT_ORDER_PRICE_FAIL,
+  LOAD_MYUSER_FAIL,
+  LOAD_MYUSER_SUCCESS,
+  LOAD_MYUSER_BEGIN,
+  LOAD_MYUSER_CLEANUP,
 } from '../constants/auth.constant'
 import { useUIContext } from './UI.context'
 import { errorMessage } from '../helper/handleErrorMessage'
+import { sleep } from '../helper/sleep'
 
 const AuthStateContext = React.createContext<any | null>({})
 const AuthDispatchContext = React.createContext<any | null>({})
 
 const initialState = {
   myuser: {},
+  myuser_loading: true,
   update_user_loading: false,
 }
 
 export const AuthProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [isLoading, setIsLoading] = useState<Boolean>(true)
   const { toastSuccess, toastError } = useUIContext()
   const history = useHistory()
 
@@ -40,24 +44,20 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   const register = async (credentials: RegisterCredentials) => {
-    setIsLoading(true)
     await AuthService.register(credentials)
       .then(() => {
         AuthService.fetchUser()
           .then((user_info) => {
-            dispatch({ type: FETCH_USER_SUCCESS, payload: user_info })
+            dispatch({ type: FETCH_MYUSER_SUCCESS, payload: user_info })
             toastSuccess('ようこそ ' + user_info.name + ' さん')
             history.push('/')
-            setIsLoading(false)
           })
           .catch((err) => {
             toastError(errorMessage(err))
-            setIsLoading(false)
           })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
       })
   }
 
@@ -67,24 +67,20 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   const login = async (Credentials: LoginCredentials) => {
-    setIsLoading(true)
     await AuthService.login(Credentials)
       .then(() => {
         AuthService.fetchUser()
           .then((user_info) => {
-            dispatch({ type: FETCH_USER_SUCCESS, payload: user_info })
+            dispatch({ type: FETCH_MYUSER_SUCCESS, payload: user_info })
             toastSuccess('ログインしました')
             history.push('/')
-            setIsLoading(false)
           })
           .catch((err) => {
             toastError(errorMessage(err))
-            setIsLoading(false)
           })
       })
       .catch((err) => {
         toastError(errorMessage(err))
-        setIsLoading(false)
       })
   }
 
@@ -98,30 +94,41 @@ export const AuthProvider = ({ children }: any) => {
     return localStorage.getItem('user') ? true : false
   }
 
+  const loadMyUser = async () => {
+    dispatch({ type: LOAD_MYUSER_BEGIN })
+    await sleep(200)
+    AuthService.fetchUser()
+      .then((user_info) => {
+        dispatch({ type: LOAD_MYUSER_SUCCESS, payload: user_info })
+      })
+      .catch((err) => {
+        toastError(errorMessage(err))
+        dispatch({ type: LOAD_MYUSER_FAIL })
+      })
+  }
+
+  const loadMyUserCleanup = () => {
+    dispatch({ type: LOAD_MYUSER_CLEANUP })
+  }
+
   useEffect(() => {
     if (localStorage.getItem('user')) {
-      setIsLoading(true)
-      AuthService.fetchUser().then(
-        (user_info) => {
-          dispatch({ type: FETCH_USER_SUCCESS, payload: user_info })
-          setIsLoading(false)
-          return Promise.resolve()
-        },
-        (err) => {
+      AuthService.fetchUser()
+        .then((user_info) => {
+          dispatch({ type: FETCH_MYUSER_SUCCESS, payload: user_info })
+        })
+        .catch((err) => {
           toastError(errorMessage(err))
-          setIsLoading(false)
-          return Promise.reject()
-        }
-      )
+        })
+    } else {
+      logout()
     }
-    setIsLoading(false)
     // eslint-disable-next-line
-  }, [])
+  }, [localStorage.getItem('user')])
 
   // update user =======================================================================
 
   const submitNewUserIcon = async (user_id: number, newUserIcon: File) => {
-    dispatch({ type: UPDATE_USER_ICON_BEGIN })
     await AuthService.updateUserIcon(user_id, newUserIcon)
       .then((user) => {
         dispatch({ type: UPDATE_USER_ICON_SUCCESS, payload: user })
@@ -135,10 +142,10 @@ export const AuthProvider = ({ children }: any) => {
 
   const setAcceptingOrderToFalse = async (user_id: number) => {
     dispatch({ type: UPDATE_ACCEPTING_ORDER_BEGIN })
+    await sleep(200)
     await AuthService.setAcceptingOrderToFalse(user_id)
       .then((user) => {
         dispatch({ type: UPDATE_ACCEPTING_ORDER_SUCCESS, payload: user })
-        history.go(0)
       })
       .catch((err) => {
         toastError(errorMessage(err))
@@ -148,10 +155,10 @@ export const AuthProvider = ({ children }: any) => {
 
   const setAcceptingOrderToTrue = async (user_id: number) => {
     dispatch({ type: UPDATE_ACCEPTING_ORDER_BEGIN })
+    await sleep(200)
     await AuthService.setAcceptingOrderToTrue(user_id)
       .then((user) => {
         dispatch({ type: UPDATE_ACCEPTING_ORDER_SUCCESS, payload: user })
-        history.go(0)
       })
       .catch((err) => {
         toastError(errorMessage(err))
@@ -161,10 +168,10 @@ export const AuthProvider = ({ children }: any) => {
 
   const updateDefaultOrderPrice = async (user_id: number, price: number) => {
     dispatch({ type: UPDATE_DEFAULT_ORDER_PRICE_BEGIN })
+    await sleep(200)
     await AuthService.updateDefaultOrderPrice(user_id, price)
       .then((user) => {
         dispatch({ type: UPDATE_DEFAULT_ORDER_PRICE_SUCCESS, payload: user })
-        history.go(0)
       })
       .catch((err) => {
         toastError(errorMessage(err))
@@ -173,12 +180,14 @@ export const AuthProvider = ({ children }: any) => {
   }
 
   return (
-    <AuthStateContext.Provider value={{ ...state, isLoading, isLoggedin }}>
+    <AuthStateContext.Provider value={{ ...state, isLoggedin }}>
       <AuthDispatchContext.Provider
         value={{
           register,
           login,
           logout,
+          loadMyUser,
+          loadMyUserCleanup,
           submitNewUserIcon,
           setAcceptingOrderToTrue,
           setAcceptingOrderToFalse,

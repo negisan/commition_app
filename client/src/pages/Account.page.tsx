@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
-import { useAuthDispatchContext } from '../context/auth.context'
+import {
+  useAuthDispatchContext,
+  useAuthStateContext,
+} from '../context/auth.context'
 import {
   UserIconForm,
   SwitchAcceptingOrder,
@@ -10,7 +13,14 @@ import {
 } from '../components/AccountPage'
 
 const Account: React.FC = () => {
-  const { logout } = useAuthDispatchContext()
+  const { logout, loadMyUser, loadMyUserCleanup } = useAuthDispatchContext()
+  const { myuser_loading, update_user_loading } = useAuthStateContext()
+
+  useEffect(() => {
+    loadMyUser()
+    return () => loadMyUserCleanup()
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <PageLayout>
@@ -24,25 +34,35 @@ const Account: React.FC = () => {
           </div>
         </HeaderContainer>
         <div className='divider' />
-        <TitleContainer>
-          <h3>リクエスト受付</h3>
-        </TitleContainer>
-        <SwitchAcceptingOrder />
-        <div className='divider' />
-        <TitleContainer>
-          <h3>おまかせ金額の編集</h3>
-        </TitleContainer>
-        <EditDefaultOrderPrice />
-        <div className='divider' />
-        <TitleContainer>
-          <h3>ユーザーアイコンの編集</h3>
-        </TitleContainer>
-        <UserIconForm />
-        <div className='divider' />
-        <TitleContainer>
-          <h3>売上</h3>
-        </TitleContainer>
-        <Withdrawal />
+        {!myuser_loading && (
+          <>
+            {update_user_loading ? (
+              <></>
+            ) : (
+              <>
+                <TitleContainer>
+                  <h3>リクエスト受付</h3>
+                </TitleContainer>
+                <SwitchAcceptingOrder />
+                <div className='divider' />
+                <TitleContainer>
+                  <h3>おまかせ金額の編集</h3>
+                </TitleContainer>
+                <EditDefaultOrderPrice />
+                <div className='divider' />
+                <TitleContainer>
+                  <h3>ユーザーアイコンの編集</h3>
+                </TitleContainer>
+                <UserIconForm />
+                <div className='divider' />
+                <TitleContainer>
+                  <h3>売上</h3>
+                </TitleContainer>
+                <Withdrawal />
+              </>
+            )}
+          </>
+        )}
       </SectionWrapper>
     </PageLayout>
   )

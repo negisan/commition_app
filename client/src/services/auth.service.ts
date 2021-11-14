@@ -24,7 +24,6 @@ const register = async (credentials: RegisterCredenntials) => {
 }
 
 const fetchUser = async () => {
-  // @ts-ignore
   return await axios({
     method: 'get',
     url: BASE_API_URL + '/users',
