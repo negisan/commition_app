@@ -94,6 +94,8 @@ $ npx sequelize db:seed:all
 ### サーバーの起動
 
 ```
+// server.jsがあるディレクトリに戻る
+$ cd ..
 $ yarn run start
 ```
 
