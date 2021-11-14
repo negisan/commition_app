@@ -16,9 +16,8 @@ const PageHeader: React.FC<any> = ({ user }) => {
         />
       </UserIcon>
       <InfoBar>
-        <Link to={`/user/${user.name}`}>
-          <h3 className='user_name'>{user?.name}</h3>
-        </Link>
+        <Link to={`/user/${user.name}`}>{user?.name}</Link>
+        {/* <p>自己紹介実装したらここに表示</p> */}
       </InfoBar>
     </>
   )
@@ -56,18 +55,28 @@ const UserIcon = styled.div`
 `
 const InfoBar = styled.div`
   width: 100vw;
-  height: 5rem;
+  min-height: 5rem;
+  max-height: 12rem;
   background: var(--clr-white);
   padding: 2rem;
-  h3 {
-    text-align: center;
-    color: var(--clr-grey-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  a {
+    color: var(--clr-grey-5);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1rem;
+    color: var(--clr-grey-6);
   }
   @media (min-width: 768px) {
     padding-left: 17rem;
-    h3 {
-      text-align: left;
-    }
+    align-items: start;
+    justify-content: start;
   }
 `
 
