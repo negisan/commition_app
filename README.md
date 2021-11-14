@@ -2,14 +2,19 @@
 
 > 稼働中のアプリケーションを確認する：[こちら](https://commission-app.netlify.app)
 
-サンプルユーザー：
+<br/>
 
-  email: 'string@email.com'
+サンプルユーザー：<br/>
+email: 'string@email.com'<br/>
+password: 'string'<br/>
 
-  password: 'string'
+<br/>
+
 
 その他のサンプルユーザー：[こちら](https://github.com/waynejsk/commition_app/blob/main/backend/src/seeders/20211031233803-test-users.js)
 
+<br/>
+<br/>
 
 ## 目次
 
@@ -18,18 +23,23 @@
     - [フロントのセットアップ](#フロントのセットアップ)
 
 
+<br/>
+<br/>
+
 # ローカルで動かすには
 
+<br/>
+<br/>
 
 ## バックエンドのセットアップ
 
 
 ### .envファイルを作成し環境変数の設定
 
-JWT_SECRET='任意の英数字'
+JWT_SECRET='任意の英数字'<br/>
+STRIPE_SECRET_KEY='stripeのシークレットキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
 
-STRIPE_SECRET_KEY='stripeのシークレットキー'[https://dashboard.stripe.com/test/dashboard](https://dashboard.stripe.com/test/dashboard)
-
+<br/>
 
 ### DBの準備
 
@@ -56,7 +66,7 @@ $ mysql -u root
 #### このアプリケーションでDBを扱えるよう設定
 backend/config/config.js の development の username と password が 自分の環境の MySql のユーザー名、パスワードと一致するように設定してください。
 
-
+<br/>
 
 #### ライブラリのインストール
 
@@ -88,6 +98,8 @@ $ npx sequelize db:seed:all
 $ yarn run start
 ```
 
+<br/>
+<br/>
 
 ## フロントのセットアップ
 
@@ -95,8 +107,10 @@ $ yarn run start
 
 ### 定数を変更
 
-STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー'[https://dashboard.stripe.com/test/dashboard](https://dashboard.stripe.com/test/dashboard)
-BASE_API_URL='http://localhost:4000' ＊backend/server.jsで指定したポート
+STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
+BASE_API_URL='http://localhost:4000' &nbsp; ＊backend/server.jsで指定したポート<br/>
+
+<br/>
 
 ### ライブラリのインストール
 
