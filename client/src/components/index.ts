@@ -5,7 +5,9 @@ import UserInfoBar from './UserInfoBar'
 import OrderForm from './OrderForm'
 import NotFound from './NotFound'
 import Footer from './Footer'
+import SearchBar from './SearchBar'
 export {
+  SearchBar,
   Footer,
   NotFound,
   OrderForm,

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useAuthStateContext } from '../context/auth.context'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -7,6 +6,10 @@ import { SiCheckio } from 'react-icons/si'
 import { HiPaperAirplane } from 'react-icons/hi'
 import { GrConfigure } from 'react-icons/gr'
 import { FiUser } from 'react-icons/fi'
+
+import { useAuthStateContext } from '../context/auth.context'
+
+import { SearchBar } from '.'
 
 const Navbar = () => {
   const { myuser, isLoggedin } = useAuthStateContext()
@@ -19,6 +22,7 @@ const Navbar = () => {
         <SiCheckio size={24} />
         <Link to={'/'}>Commission</Link>
       </Logo>
+      <SearchBar />
       <NavItemsRight>
         {isLoggedin() ? (
           <>

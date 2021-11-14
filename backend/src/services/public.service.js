@@ -1,11 +1,14 @@
 const fs = require('fs')
 
 const db = require('src/models')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 module.exports = {
   getUser,
   getUsers,
   getUserArtworks,
+  searchUser,
 }
 
 async function getUsers(user_type, page) {
@@ -69,6 +72,26 @@ async function getUserArtworks(userId, page) {
       return artwork
     })
     return artworksAttachedImage
+  } catch (err) {
+    throw err
+  }
+}
+
+async function searchUser(userName) {
+  try {
+    const users = await db.User.findAll({
+      where: {
+        name: { [Op.like]: `${userName}%` },
+      },
+      limit: 10,
+    })
+    const data = users.map((user) => {
+      // リクエストが短時間で連続してくる恐れがあるのでアイコンはいったん送らない方針で
+      // user.icon = fs.readFileSync(user.icon).toString('base64')
+      user.icon = ''
+      return user
+    })
+    return data
   } catch (err) {
     throw err
   }

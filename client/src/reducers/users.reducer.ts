@@ -17,6 +17,8 @@ import {
   LOAD_USER_PAGE_CLEANUP,
   LOAD_USER_PAGE_FAIL,
   LOAD_USER_PAGE_SUCCESS,
+  SEARCH_USER_CLEANUP,
+  SEARCH_USER_SUCCESS,
 } from '../constants/users.constant'
 
 const users_reducer = (state: any, action: any) => {
@@ -86,6 +88,13 @@ const users_reducer = (state: any, action: any) => {
   }
   if (action.type === LOAD_USER_PAGE_CLEANUP) {
     return { ...state, userArtworks: [], user: {}, user_page_loading: true }
+  }
+
+  if (action.type === SEARCH_USER_SUCCESS) {
+    return { ...state, search_results: action.payload }
+  }
+  if (action.type === SEARCH_USER_CLEANUP) {
+    return { ...state, search_results: [] }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)

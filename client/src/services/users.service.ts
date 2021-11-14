@@ -42,8 +42,22 @@ const fetchUserArtworks = async (user_id: number, page: number) => {
     })
 }
 
+const searchUser = async (userName: string) => {
+  return await axios({
+    method: 'get',
+    url: BASE_API_URL + `/public/search/user?name=${userName}`,
+  })
+    .then((res) => {
+      return Promise.resolve(res.data)
+    })
+    .catch((err) => {
+      return Promise.reject(err)
+    })
+}
+
 // eslint-disable-next-line
 export default {
+  searchUser,
   fetchUsers,
   fetchUser,
   fetchUserArtworks,

@@ -19,6 +19,8 @@ import {
   LOAD_USER_PAGE_SUCCESS,
   LOAD_USER_PAGE_FAIL,
   LOAD_USER_PAGE_CLEANUP,
+  SEARCH_USER_SUCCESS,
+  SEARCH_USER_CLEANUP,
 } from '../constants/users.constant'
 import reducer from '../reducers/users.reducer'
 import UsersService from '../services/users.service'
@@ -39,6 +41,7 @@ const initialState = {
   userArtworks: [],
   userArtworks_loading: true,
   user_page_loading: true,
+  search_results: [],
 }
 
 export const UsersProvider = ({ children }: any) => {
@@ -123,6 +126,20 @@ export const UsersProvider = ({ children }: any) => {
     dispatch({ type: LOAD_USER_PAGE_CLEANUP })
   }
 
+  const searchUser = async (userName: string) => {
+    if (userName === '') return
+    await UsersService.searchUser(userName)
+      .then((users) => {
+        dispatch({ type: SEARCH_USER_SUCCESS, payload: users })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  const searchUserCleanup = () => {
+    dispatch({ type: SEARCH_USER_CLEANUP })
+  }
+
   return (
     <UsersStateContext.Provider value={{ ...state }}>
       <UsersDispatchContext.Provider
@@ -135,6 +152,8 @@ export const UsersProvider = ({ children }: any) => {
           fetchUserArtworksCleanup,
           loadUserPage,
           loadUserPageCleanup,
+          searchUser,
+          searchUserCleanup,
         }}
       >
         {children}

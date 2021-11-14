@@ -6,6 +6,7 @@ const publicService = require('src/services/public.service')
 router.get('/user/artworks', getUserArtworks)
 router.get('/users', getUsers)
 router.get('/users/:name', getUser)
+router.get('/search/user', searchUser)
 
 module.exports = router
 
@@ -28,6 +29,15 @@ function getUserArtworks(req, res, next) {
     .getUserArtworks(req.query.user, req.query.page)
     .then((artworks) => {
       res.json(artworks)
+    })
+    .catch(next)
+}
+
+function searchUser(req, res, next) {
+  publicService
+    .searchUser(req.query.name)
+    .then((users) => {
+      res.json(users)
     })
     .catch(next)
 }
