@@ -52,7 +52,7 @@ Mysqlの動作確認 ＊ubuntu の cli での一例です。パス等は環境�
 $ mysql --version
 
 // MySqlの状態を確認
-$ sudo /etc/init.d/mysql start
+$ sudo /etc/init.d/mysql status
 
 // MySqlが起動してなければ起動する
 $ sudo /etc/init.d/mysql start
