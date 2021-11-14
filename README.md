@@ -38,8 +38,12 @@ password: 'string'<br/>
 
 ### .envファイルを作成し環境変数の設定
 
-JWT_SECRET='任意の英数字'<br/>
-STRIPE_SECRET_KEY='stripeのシークレットキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
+```
+JWT_SECRET='任意の英数字'
+STRIPE_SECRET_KEY='stripeのシークレットキー'
+```
+
+stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)
 
 ### DBの準備
 
@@ -104,9 +108,15 @@ $ yarn run start
 
 ### 定数を変更
 
-**/client/src/helper/constants.ts**を開く<br/>
-STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
-BASE_API_URL='http://localhost:4000' &nbsp; ＊backend/server.jsで指定したポート<br/>
+**/client/src/helper/constants.ts**を開く
+
+```
+STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー'
+// backend/server.jsで指定したポート
+BASE_API_URL='http://localhost:4000'
+```
+stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
+
 
 ### ライブラリのインストール
 
