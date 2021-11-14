@@ -2,11 +2,11 @@
 
 <br/>
 
-> 稼働中のアプリケーションを確認する：[こちら](https://commission-app.netlify.app)
+***稼働中のアプリケーションを確認する：*** [こちら](https://commission-app.netlify.app)
 
 <br/>
 
-サンプルユーザー：<br/>
+**サンプルユーザー：**<br/>
 email: 'string@email.com'<br/>
 password: 'string'<br/>
 
@@ -104,6 +104,7 @@ $ yarn run start
 
 ### 定数を変更
 
+**/client/src/helper/constants.ts**を開く<br/>
 STRIPE_PUBLISHABLE_KEY='stripeのパブリックキー' &nbsp; stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
 BASE_API_URL='http://localhost:4000' &nbsp; ＊backend/server.jsで指定したポート<br/>
 
