@@ -1,5 +1,5 @@
 /node_modules
-/resources/*
+/resources/static/assets/uploads_artworks/*
+/resources/static/assets/uploads_user_icon/*
 
 .env
-.env.*
