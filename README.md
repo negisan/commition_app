@@ -20,13 +20,82 @@ password: 'string'<br/>
 
 ## 目次
 
+ - [コア機能](#コア機能)
+    - [デモ](#デモ)
+    - [概要](#概要)
+ - [その他](#その他)
  - [ローカルで動かすには](#ローカルで動かすには)
     - [バックエンドのセットアップ](#バックエンドのセットアップ)
     - [フロントのセットアップ](#フロントのセットアップ)
 
 
+
 <br/>
 <br/>
+
+## コア機能
+
+#### デモ
+
+![demo](https://github.com/waynejsk/commition_app/blob/image/commission-app-demo.gif)
+
+<br/>
+
+#### 概要
+
+skebの習作です。<br/>
+このアプリケーションのコアは個人間の金銭のやり取りをプラットフォームが仲介することによる、信用の担保の部分にあります。<br/>
+クリエイター側から見ると納品さえすればクライアント側は先払いしているのでお金が支払われない心配をしないで済みます。<br/>
+またクライアント側は納品され確認するまではプラットフォームがお金を預かっているのでお金だけ吸われるという心配をしないで済みます。
+<br/>
+
+<details>
+  <summary>画像を開く</summary>
+  <img src="https://github.com/waynejsk/commition_app/blob/image/%E3%82%B3%E3%82%A2%E6%A9%9F%E8%83%BD%E6%A6%82%E8%A6%81.jpg" name="ExplainCoreFunction">
+</details>
+<br/>
+
+
+
+<br/>
+<br/>
+
+## その他
+
+#### レスポンシブ対応
+
+<details>
+ <summary>画像を開く</summary>
+ <img src="https://github.com/waynejsk/commition_app/blob/image/resposive1.jpg" name="responsive1">
+ <img src="https://github.com/waynejsk/commition_app/blob/image/resposive2.jpg" name="responsive2">
+ <img src="https://github.com/waynejsk/commition_app/blob/image/resposive3.jpg" name="responsive3">
+</details>
+
+<br/>
+
+#### インフラ構成
+
+<details>
+ <summary>画像を開く</summary>
+ <img src="https://github.com/waynejsk/commition_app/blob/image/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E6%A7%8B%E6%88%90%E5%9B%B3.jpg" name=" Infrastructure Architect" >
+ </details>
+
+<br/>
+
+#### テーブルER図
+
+<details>
+ <summary>画像を開く</summary>
+ <img src="https://github.com/waynejsk/commition_app/blob/image/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E8%A8%AD%E8%A8%88er%E5%9B%B3.jpg" name="table er" >
+ </details>
+
+<br/>
+
+
+
+<br/>
+<br/>
+
 
 # ローカルで動かすには
 
