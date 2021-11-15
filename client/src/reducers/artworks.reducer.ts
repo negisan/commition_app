@@ -20,7 +20,7 @@ const artwork_reducer = (state: any, action: any) => {
       ...state,
       artwork: {
         thanks_comment: action.payload.thanks_comment,
-        order_comment: action.payload.order_comment,
+        order_content: action.payload.order_content,
         artwork_image: action.payload.Artwork.content,
       },
       artwork_creator: action.payload.creator,
