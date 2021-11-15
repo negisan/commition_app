@@ -20,9 +20,24 @@ password: 'string'<br/>
 
 ## 目次
 
+ - [コア機能](#コア機能)
+    - [デモ](#デモ)
  - [ローカルで動かすには](#ローカルで動かすには)
     - [バックエンドのセットアップ](#バックエンドのセットアップ)
     - [フロントのセットアップ](#フロントのセットアップ)
+
+
+<br/>
+
+## コア機能
+
+<br/>
+
+## デモ
+
+<br/>
+
+![demo](https://github.com/waynejsk/commition_app/blob/image/commission-app-demo.gif)
 
 
 <br/>
