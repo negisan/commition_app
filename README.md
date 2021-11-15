@@ -36,7 +36,7 @@ password: 'string'<br/>
 
 <br/>
 
-### .envファイルを作成し環境変数の設定
+#### .envファイルを作成し環境変数の設定
 
 ```
 JWT_SECRET='任意の英数字'
@@ -45,7 +45,7 @@ STRIPE_SECRET_KEY='stripeのシークレットキー'
 
 stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)
 
-### DBの準備
+#### DBの準備
 
 #### OSにDBがインストールされているか確認
 
@@ -91,7 +91,7 @@ $ npx sequelize db:migrate
 $ npx sequelize db:seed:all
 ```
 
-### サーバーの起動
+#### サーバーの起動
 
 ```
 // server.jsがあるディレクトリに戻る
@@ -108,7 +108,7 @@ $ yarn run start
 
 バックエンドを起動しているのとは別の新しいターミナルを開く
 
-### 定数を変更
+#### 定数を変更
 
 **/client/src/helper/constants.ts**を開く
 
@@ -120,14 +120,14 @@ BASE_API_URL='http://localhost:4000'
 stripeDoc：[https://stripe.com/docs/keys](https://stripe.com/docs/keys)<br/>
 
 
-### ライブラリのインストール
+#### ライブラリのインストール
 
 ```
 $ cd client/
 $ yarn install
 ```
 
-### アプリケーションの起動
+#### アプリケーションの起動
 
 ```
 $ yarn run start
