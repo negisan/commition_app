@@ -48,7 +48,7 @@ const Signup: React.FC = () => {
     <Wrapper>
       <FormCard>
         <img
-          src='https://picsum.photos/500'
+          src='https://picsum.photos/1024'
           alt='picsum'
           className='side-img'
         />
@@ -241,11 +241,11 @@ const FormCard = styled.div`
 `
 
 const Wrapper = styled.div`
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 80vh;
 `
 
 export default Signup
