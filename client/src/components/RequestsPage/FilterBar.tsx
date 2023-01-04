@@ -81,6 +81,11 @@ const Wrapper = styled.div`
   .selected {
     background: var(--clr-grey-10);
   }
+  @media (max-width: 500px) {
+    div {
+      writing-mode: vertical-rl;
+    }
+  }
 `
 
 export default FilterBar

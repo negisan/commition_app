@@ -57,6 +57,10 @@ const Links = styled.div`
   .selected {
     background: var(--clr-grey-10);
   }
+  @media (max-width: 500px) {
+    justify-content: center;
+    font-size: 10px;
+  }
 
 `
 
