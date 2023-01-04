@@ -40,6 +40,13 @@ const UserIconForm: React.FC = () => {
 const Wrapper = styled.form`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    gap: 1rem;
+    flex-direction: column;
+    .account_config-usericon_submit {
+      margin-left: auto;
+    }
+  }
 `
 
 export default UserIconForm

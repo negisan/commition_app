@@ -53,6 +53,10 @@ const DefaultOrderPriceForm = styled.form`
     color: var(--clr-grey-6);
     font-weight: 600;
   }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `
 
 export default EditDefaultOrderPrice

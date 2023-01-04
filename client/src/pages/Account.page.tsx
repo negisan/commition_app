@@ -104,6 +104,13 @@ const HeaderContainer = styled.div`
       opacity: 0.7;
     }
   }
+  @media (max-width: 500px) {
+    flex-direction: column;
+    .account_config-signout_btn {
+      justify-content: end;
+      margin-top: 1.5rem;
+    }
+  }
 `
 
 const SectionWrapper = styled.div`
