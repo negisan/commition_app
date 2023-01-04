@@ -259,6 +259,10 @@ const CardElementContainer = styled.div`
         border-radius: var(--radius);
       }
     }
+    @media (max-width: 500px) {
+      writing-mode: vertical-lr;
+      margin-left: auto;
+    }
   }
 `
 
