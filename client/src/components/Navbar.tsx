@@ -102,6 +102,11 @@ const LinkContainer = styled.div`
       align-self: center;
       margin-right: 0.25rem;
     }
+    @media (max-width: 500px) {
+      small {
+        display: none;
+      }
+    }
   }
 `
 
