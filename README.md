@@ -23,6 +23,7 @@ password: 'string'<br/>
  - [コア機能](#コア機能)
     - [デモ](#デモ)
     - [概要](#概要)
+    - [技術スタック](#技術スタック)
     - [使い方](#使い方)
  - [その他](#その他)
  - [ローカルで動かすには](#ローカルで動かすには)
@@ -37,16 +38,22 @@ password: 'string'<br/>
 ## コア機能
 
 #### デモ
-
-![demo](https://github.com/waynejsk/commition_app/blob/image/commission-app-demo.gif)
-
-<br/>
+<a href="https://www.youtube.com/watch?v=lECa6--BVzA">
+ <img src="https://github.com/negisan/commition_app/blob/image/commission-app-demomp4%20-%E5%86%8D%E7%94%9F%E3%82%B5%E3%83%A0%E3%83%8D.png" name="demo">
+</a>
+ <br/>
 
 #### 概要
 
 skebの習作です。<br/>
 個人間の仕事の受注や発注の際に発生する金銭の未払い等の不安を、<br/>
 プラットフォームが仲介役となることにより解決する。という機能がコアとなっています。<br/>
+
+
+#### 技術スタック
+1. SPA(REACT)+RESTAPI(nodejs)の構成
+2. DBはMySQL、ORMはsequelizeを使用
+3. Reactの状態管理にはReactHooksとContnextを利用
 
 
 #### 使い方
@@ -75,7 +82,7 @@ skebの習作です。<br/>
 
 #### レスポンシブ対応
 
-<details>
+<details open>
  <summary>画像を開く</summary>
  <img src="https://github.com/waynejsk/commition_app/blob/image/resposive1.jpg" name="responsive1">
  <img src="https://github.com/waynejsk/commition_app/blob/image/resposive2.jpg" name="responsive2">
@@ -86,7 +93,7 @@ skebの習作です。<br/>
 
 #### インフラ構成
 
-<details>
+<details open>
  <summary>画像を開く</summary>
  <img src="https://github.com/waynejsk/commition_app/blob/image/%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E6%A7%8B%E6%88%90%E5%9B%B3.jpg" name=" Infrastructure Architect" >
  </details>
@@ -95,7 +102,7 @@ skebの習作です。<br/>
 
 #### テーブルER図
 
-<details>
+<details open>
  <summary>画像を開く</summary>
  <img src="https://github.com/waynejsk/commition_app/blob/image/%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E8%A8%AD%E8%A8%88er%E5%9B%B3.jpg" name="table er" >
  </details>
